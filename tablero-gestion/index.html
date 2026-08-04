@@ -161,12 +161,12 @@ tr:last-child td{border-bottom:none;}
     <div class="kpi-grid" id="kpi-embudo"></div>
     <div class="charts-grid cg-2b" style="margin-top:4px">
       <div class="card">
-        <div class="card-title"><span><span class="dot"></span>Contactos / Tasaciones / Captaciones / Ventas por mes</span></div>
-        <canvas id="chart-embudo-mes" height="180"></canvas>
+        <div class="card-title"><span><span class="dot"></span>Estado cartera activa</span></div>
+        <canvas id="chart-estado" height="220"></canvas>
       </div>
       <div class="card">
-        <div class="card-title"><span><span class="dot"></span>Estado cartera activa</span></div>
-        <canvas id="chart-estado" height="180"></canvas>
+        <div class="card-title"><span><span class="dot"></span>Tu bolsillo acumulado</span></div>
+        <canvas id="chart-bolsillo-acum" height="220"></canvas>
       </div>
     </div>
   </div>
@@ -270,8 +270,20 @@ tr:last-child td{border-bottom:none;}
   <!-- PROSPECCIÓN -->
   <div class="tab-content" id="tab-prospeccion">
     <div style="display:flex;gap:8px;margin-bottom:16px;margin-top:4px">
-      <button class="btn" id="btn-prosp-total" onclick="setFiltroProsp('total')">Todos los contactos</button>
-      <button class="btn sec" id="btn-prosp-propia" onclick="setFiltroProsp('propia')">Solo prospección propia</button>
+      <button class="btn" id="btn-prosp-total" onclick="setFiltroProsp('total')">🌐 Todos los contactos</button>
+      <button class="btn sec" id="btn-prosp-propia" onclick="setFiltroProsp('propia')">⭐ Solo prospección propia</button>
+    </div>
+    <p class="section-title">Embudo</p>
+    <div class="kpi-grid" id="kpi-embudo-prosp"></div>
+    <div class="charts-grid cg-2b" style="margin-bottom:18px">
+      <div class="card">
+        <div class="card-title"><span><span class="dot"></span>Contactos / Tasaciones / Captaciones / Ventas por mes</span></div>
+        <canvas id="chart-embudo-mes" height="180"></canvas>
+      </div>
+      <div class="card">
+        <div class="card-title"><span><span class="dot"></span>% Captación y Conversión histórico</span></div>
+        <canvas id="chart-conv-mes" height="180"></canvas>
+      </div>
     </div>
     <div class="charts-grid cg-3">
       <div class="card"><div class="card-title"><span class="dot"></span>Prospección 1</div><canvas id="chart-p1" height="200"></canvas></div>
@@ -304,7 +316,7 @@ const C={
   credito:29,dias_venta:30,pct_neg:31,usd_colega:34,
   pct_vend_teo:38,pct_comp_teo:39,
   usd_vend_real:40,usd_comp_real:41,
-  comis_bruta:42,tbol_total:56,dashboard:57
+  comis_bruta:42,tbol_total:54,dashboard:55
 };
 const TUTE='Matias Leiblich';
 const G=['#2D6A4F','#40916C','#52B788','#74C69D','#95D5B2','#B7E4C7'];
@@ -470,7 +482,7 @@ function renderKPIs(k){
 
   document.getElementById('kpi-bolsillo').innerHTML=`
     <div class="kpi hl"><div class="kpi-label">Bolsillo — vendidos</div><div class="kpi-value green">USD ${fmt(k.bolVendido)}</div><div class="kpi-sub">${k.vendidos} operaciones</div></div>
-    <div class="kpi ora"><div class="kpi-label">+ Reservados (casi seguro)</div><div class="kpi-value orange">USD ${fmt(k.bolReservado)}</div><div class="kpi-sub">${k.reservados} propiedades</div></div>
+    <div class="kpi ora"><div class="kpi-label">+ Reservados</div><div class="kpi-value orange">USD ${fmt(k.bolReservado)}</div><div class="kpi-sub">${k.reservados} propiedades</div></div>
     <div class="kpi"><div class="kpi-label">Total acumulado</div><div class="kpi-value green">USD ${fmt(k.bolVendido+k.bolReservado)}</div><div class="kpi-sub">vendido + reservado</div></div>`;
 
   document.getElementById('dash-progress').innerHTML=`
@@ -570,15 +582,59 @@ function buildAllCharts(k){
   const sz=document.getElementById('sel-zona');
   if(sz)sz.innerHTML='<option value="">Todas</option>'+zv.map(z=>`<option value="${z}">${z}</option>`).join('');
 
-  renderP2();renderBarrio();
+  renderP2();renderBarrio();renderEmbudoProsp();
+
+  // Bolsillo acumulado por mes
+  const mesesVend=[...new Set(k.vendidosData.map(r=>{const d=pd(r.f_escritura);return d?mkey(d):null;}).filter(Boolean))].sort();
+  let acumBol=0;
+  const acumData=mesesVend.map(m=>{
+    const ops=k.vendidosData.filter(r=>{const d=pd(r.f_escritura);return d&&mkey(d)===m;});
+    acumBol+=ops.reduce((s,r)=>s+(r.tbol_total||0),0);
+    return acumBol;
+  });
+  const ctxBA=document.getElementById('chart-bolsillo-acum');
+  if(ctxBA){
+    if(charts.bolAcum){charts.bolAcum.destroy();delete charts.bolAcum;}
+    charts.bolAcum=new Chart(ctxBA,{type:'line',data:{
+      labels:mesesVend.map(m=>{const[y,mo]=m.split('-');return MES[+mo-1].slice(0,3)+' '+y.slice(2);}),
+      datasets:[{label:'Bolsillo acumulado',data:acumData,borderColor:G[2],backgroundColor:'rgba(82,183,136,0.1)',fill:true,tension:0.3,pointRadius:3}]
+    },options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:false}},
+      scales:{x:{grid:{display:false},ticks:{font:{size:9}}},y:{grid:{color:'#21262d'}}}}});
+  }
+
+  // Gráfico conversión por mes
+  const ctxConv=document.getElementById('chart-conv-mes');
+  if(ctxConv){
+    if(charts.conv){charts.conv.destroy();delete charts.conv;}
+    const allMC=[...new Set([...Object.keys(k.byMes.cont),...Object.keys(k.byMes.tas),...Object.keys(k.byMes.capt),...Object.keys(k.byMes.vend)])].sort().slice(-18);
+    charts.conv=new Chart(ctxConv,{type:'bar',data:{
+      labels:allMC.map(m=>{const[y,mo]=m.split('-');return MES[+mo-1].slice(0,3)+' '+y.slice(2);}),
+      datasets:[
+        {label:'Contactos',data:allMC.map(m=>k.byMes.cont[m]||0),backgroundColor:B[0],borderRadius:3},
+        {label:'Tasaciones',data:allMC.map(m=>k.byMes.tas[m]||0),backgroundColor:G[2],borderRadius:3},
+        {label:'Captaciones',data:allMC.map(m=>k.byMes.capt[m]||0),backgroundColor:O[0],borderRadius:3},
+        {label:'Ventas',data:allMC.map(m=>k.byMes.vend[m]||0),backgroundColor:'#f85149',borderRadius:3},
+      ]
+    },options:{responsive:true,maintainAspectRatio:true,
+      plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:10}}}},
+      scales:{x:{grid:{display:false},ticks:{font:{size:9}}},y:{grid:{color:'#21262d'},ticks:{precision:0}}}}});
+  }
 }
 
 let filtroProsp='total';
 function setFiltroProsp(v){
   filtroProsp=v;
-  document.getElementById('btn-prosp-total').className=v==='total'?'btn':'btn sec';
-  document.getElementById('btn-prosp-propia').className=v==='propia'?'btn':'btn sec';
+  const btnT=document.getElementById('btn-prosp-total');
+  const btnP=document.getElementById('btn-prosp-propia');
+  if(v==='total'){
+    btnT.style.background='var(--blue)';btnT.style.borderColor='var(--blue)';
+    btnP.style.background='var(--surface2)';btnP.style.borderColor='var(--border)';btnP.style.color='var(--text)';
+  } else {
+    btnP.style.background='var(--green)';btnP.style.borderColor='var(--green)';btnP.style.color='white';
+    btnT.style.background='var(--surface2)';btnT.style.borderColor='var(--border)';btnT.style.color='var(--text)';
+  }
   renderP2();renderBarrio();renderProspCharts();
+  renderEmbudoProsp();
 }
 
 function getRowsProsp(){
@@ -586,6 +642,27 @@ function getRowsProsp(){
   let rows=kpis.filteredRows;
   if(filtroProsp==='propia')rows=rows.filter(r=>r.prospectador===TUTE);
   return rows;
+}
+
+function renderEmbudoProsp(){
+  if(!kpis)return;
+  const rows=getRowsProsp();
+  const VEND=['Vendido','Busqueda GANADA'];
+  const CAPT=['En Venta','Vendido','Busqueda GANADA','Reservado'];
+  const TAS=['En Venta','Vendido','Busqueda GANADA','Reservado','No captado','Tasado','CANCELADO'];
+  const total=rows.length;
+  const tasados=rows.filter(r=>r.f_tasacion).length;
+  const captados=rows.filter(r=>CAPT.includes(r.estado)).length;
+  const vendidos=rows.filter(r=>VEND.includes(r.estado)).length;
+  const pctCapt=tasados?(captados/tasados*100):0;
+  const pctConv=captados?(vendidos/captados*100):0;
+  const el=document.getElementById('kpi-embudo-prosp');
+  if(!el)return;
+  el.innerHTML=`
+    <div class="kpi"><div class="kpi-label">Contactos</div><div class="kpi-value">${total}</div></div>
+    <div class="kpi"><div class="kpi-label">Tasados</div><div class="kpi-value">${tasados}</div></div>
+    <div class="kpi"><div class="kpi-label">Captados</div><div class="kpi-value">${captados}</div><div class="kpi-badge">% capt: ${fmt(pctCapt,1)}%</div></div>
+    <div class="kpi"><div class="kpi-label">Vendidos</div><div class="kpi-value green">${vendidos}</div><div class="kpi-badge">% conv: ${fmt(pctConv,1)}%</div></div>`;
 }
 
 function renderProspCharts(){
@@ -736,7 +813,7 @@ function aplicar(){
   filtroAños=getMS('ms-años').map(Number);
   filtroMeses=getMS('ms-meses').map(Number);
   kpis=compute(allRows);
-  renderKPIs(kpis);buildAllCharts(kpis);renderCartera();renderVentas();
+  renderKPIs(kpis);buildAllCharts(kpis);renderCartera();renderVentas();renderEmbudoProsp();
 }
 
 async function init(){
@@ -749,15 +826,18 @@ async function init(){
     const años=[...new Set(allRows.map(r=>{const d=pd(r.f_escritura)||pd(r.f_reserva)||pd(r.f_contacto);return d?d.getFullYear():null;}).filter(Boolean))].sort();
     buildMS('ms-años',años,[],String);
     buildMS('ms-meses',[1,2,3,4,5,6,7,8,9,10,11,12],[],m=>MES[m-1]);
-    renderKPIs(kpis);buildAllCharts(kpis);renderCartera();renderVentas();
+    renderKPIs(kpis);buildAllCharts(kpis);renderCartera();renderVentas();renderEmbudoProsp();
     document.getElementById('last-update').textContent='Act: '+new Date().toLocaleTimeString('es-AR');
+    // Inicializar color botón prospección
+    const btnT=document.getElementById('btn-prosp-total');
+    if(btnT){btnT.style.background='var(--blue)';btnT.style.borderColor='var(--blue)';}
   }catch(e){
     document.getElementById('loading').innerHTML=`<div style="color:var(--danger);padding:20px">Error: ${e.message}</div>`;
   }
 }
 
 init();
-setInterval(()=>fetchData().then(d=>{if(d.length){allRows=d;kpis=compute(d);renderKPIs(kpis);buildAllCharts(kpis);renderCartera();renderVentas();document.getElementById('last-update').textContent='Act: '+new Date().toLocaleTimeString('es-AR');}}).catch(()=>{}),5*60*1000);
+setInterval(()=>fetchData().then(d=>{if(d.length){allRows=d;kpis=compute(d);renderKPIs(kpis);buildAllCharts(kpis);renderCartera();renderVentas();renderEmbudoProsp();document.getElementById('last-update').textContent='Act: '+new Date().toLocaleTimeString('es-AR');}}).catch(()=>{}),5*60*1000);
 </script>
 </body>
 </html>
