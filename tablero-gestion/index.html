@@ -269,6 +269,10 @@ tr:last-child td{border-bottom:none;}
 
   <!-- PROSPECCIÓN -->
   <div class="tab-content" id="tab-prospeccion">
+    <div style="display:flex;gap:8px;margin-bottom:16px;margin-top:4px">
+      <button class="btn" id="btn-prosp-total" onclick="setFiltroProsp('total')">Todos los contactos</button>
+      <button class="btn sec" id="btn-prosp-propia" onclick="setFiltroProsp('propia')">Solo prospección propia</button>
+    </div>
     <div class="charts-grid cg-3">
       <div class="card"><div class="card-title"><span class="dot"></span>Prospección 1</div><canvas id="chart-p1" height="200"></canvas></div>
       <div class="card">
@@ -293,7 +297,7 @@ tr:last-child td{border-bottom:none;}
 const CSV='https://docs.google.com/spreadsheets/d/e/2PACX-1vQNkVL_2PEPtVfpNhiUw4LHxw0tOVymJAt-Uj9bBxqIHEbLXMp2fMxQ5NYpuVtjOQ/pub?gid=1670165147&single=true&output=csv';
 // Índices columna (0-based), fila de datos empieza en slice(3)
 const C={
-  nombre:1,dir:4,barrio:5,zona:6,prosp1:9,prosp2:10,referidor:11,prospectador:12,
+  nombre:1,dir:4,barrio:5,zona:6,tipo:7,prosp1:9,prosp2:10,referidor:11,prospectador:12,
   f_contacto:13,f_tasacion:15,estado:16,val_p1:17,
   val_pub_ini:23,val_pub_ult:24,captador:21,f_pub:22,
   f_reserva:25,precio_cierre:26,vendedor:27,f_escritura:28,
@@ -569,9 +573,42 @@ function buildAllCharts(k){
   renderP2();renderBarrio();
 }
 
+let filtroProsp='total';
+function setFiltroProsp(v){
+  filtroProsp=v;
+  document.getElementById('btn-prosp-total').className=v==='total'?'btn':'btn sec';
+  document.getElementById('btn-prosp-propia').className=v==='propia'?'btn':'btn sec';
+  renderP2();renderBarrio();renderProspCharts();
+}
+
+function getRowsProsp(){
+  if(!kpis)return[];
+  let rows=kpis.filteredRows;
+  if(filtroProsp==='propia')rows=rows.filter(r=>r.prospectador===TUTE);
+  return rows;
+}
+
+function renderProspCharts(){
+  if(!kpis)return;
+  const rows=getRowsProsp();
+  const byP1={},byZona={};
+  rows.forEach(r=>{
+    byP1[r.prosp1||'Sin dato']=(byP1[r.prosp1||'Sin dato']||0)+1;
+    byZona[r.zona||'Sin zona']=(byZona[r.zona||'Sin zona']||0)+1;
+  });
+  if(charts.p1){charts.p1.destroy();delete charts.p1;}
+  const p1e=sorted(byP1);
+  const ctxP1=document.getElementById('chart-p1');
+  if(ctxP1)charts.p1=new Chart(ctxP1,{type:'doughnut',data:{labels:p1e.map(e=>e[0]),datasets:[{data:p1e.map(e=>e[1]),backgroundColor:G,borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'65%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
+  if(charts.zona){charts.zona.destroy();delete charts.zona;}
+  const ze=sorted(byZona);
+  const ctxZ=document.getElementById('chart-zona');
+  if(ctxZ)charts.zona=new Chart(ctxZ,{type:'doughnut',data:{labels:ze.map(e=>e[0]),datasets:[{data:ze.map(e=>e[1]),backgroundColor:[...B,...O],borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'65%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
+}
+
 function renderP2(){
   const fp=document.getElementById('sel-p1')?.value||'';
-  let rows=kpis?.filteredRows||[];
+  let rows=getRowsProsp();
   if(fp)rows=rows.filter(r=>r.prosp1===fp);
   const by={};rows.forEach(r=>{const p=r.prosp2||'Sin dato';by[p]=(by[p]||0)+1;});
   if(charts.p2){charts.p2.destroy();delete charts.p2;}
@@ -582,7 +619,7 @@ function renderP2(){
 
 function renderBarrio(){
   const fz=document.getElementById('sel-zona')?.value||'';
-  let rows=kpis?.filteredRows||[];
+  let rows=getRowsProsp();
   if(fz)rows=rows.filter(r=>r.zona===fz);
   const by={};rows.forEach(r=>{const b=r.barrio||'Sin barrio';by[b]=(by[b]||0)+1;});
   if(charts.barrio){charts.barrio.destroy();delete charts.barrio;}
@@ -609,8 +646,8 @@ function renderCartera(){
       <td>${r.zona||'—'}</td>
       <td style="color:var(--muted)">${fU(p)}</td>
       <td><input type="number" value="${simP||''}" placeholder="precio" onchange="sP('${esc(r.dir)}',+this.value)" oninput="sP('${esc(r.dir)}',+this.value)"></td>
-      <td><input type="number" value="${Math.round((st.pctV||0.03)*100)}" min="0" max="10" step="0.5" onchange="sPV('${esc(r.dir)}',+this.value/100)" oninput="sPV('${esc(r.dir)}',+this.value/100)" style="width:60px">%</td>
-      <td><input type="number" value="${Math.round((st.pctC||0.03)*100)}" min="0" max="10" step="0.5" onchange="sPC('${esc(r.dir)}',+this.value/100)" oninput="sPC('${esc(r.dir)}',+this.value/100)" style="width:60px">%</td>
+      <td><input type="number" value="${((st.pctV||r.pct_vend_teo||0.03)*100).toFixed(1)}" min="0" max="10" step="0.5" onchange="sPV('${esc(r.dir)}',+this.value/100)" oninput="sPV('${esc(r.dir)}',+this.value/100)" style="width:60px">%</td>
+      <td><input type="number" value="${((st.pctC||r.pct_comp_teo||0.03)*100).toFixed(1)}" min="0" max="10" step="0.5" onchange="sPC('${esc(r.dir)}',+this.value/100)" oninput="sPC('${esc(r.dir)}',+this.value/100)" style="width:60px">%</td>
       <td>${fU(bruto)}</td>
       <td style="color:var(--green-glow)">${fU(bol)}</td>
     </tr>`;
