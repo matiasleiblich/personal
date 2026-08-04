@@ -11,13 +11,11 @@
   --bg:#0d1117;--surface:#161b22;--surface2:#21262d;--border:#30363d;
   --green:#2D6A4F;--green-mid:#40916C;--green-lt:#74C69D;--green-glow:#52B788;
   --text:#e6edf3;--muted:#7d8590;--accent:#3fb68a;--danger:#f85149;
-  --warning:#d29922;--blue:#388bfd;--orange:#d29922;
+  --warn:#d29922;--blue:#388bfd;--purple:#a855f7;
   --font:'Inter',sans-serif;--mono:'DM Mono',monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);color:var(--text);font-family:var(--font);}
-
-/* HEADER */
 .header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;}
 .logo{width:36px;height:36px;background:linear-gradient(135deg,var(--green),var(--green-lt));border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:white;}
 .header-left{display:flex;align-items:center;gap:12px;}
@@ -26,22 +24,16 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);}
 .pill{border:1px solid var(--accent);border-radius:20px;padding:4px 12px;font-size:11px;color:var(--accent);}
 .pill::before{content:'● ';}
 #last-update{font-size:11px;color:var(--muted);}
-
-/* TABS */
 .tabs-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28px;display:flex;gap:4px;overflow-x:auto;}
-.tab{padding:12px 18px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color 0.15s,border-color 0.15s;}
+.tab{padding:12px 18px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s;}
 .tab:hover{color:var(--text);}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent);}
-
-/* MAIN */
 .main{padding:20px 28px;max-width:1600px;margin:0 auto;}
 .tab-content{display:none;}
 .tab-content.active{display:block;}
-
-/* FILTROS */
 .filters-bar{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:20px;display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;}
 .filter-group{display:flex;flex-direction:column;gap:6px;}
-.filter-label{font-size:11px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:0.5px;}
+.filter-label{font-size:11px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.5px;}
 .multi-select{position:relative;min-width:140px;}
 .ms-trigger{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:7px 12px;font-size:12px;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:8px;}
 .ms-trigger:hover{border-color:var(--accent);}
@@ -51,74 +43,73 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);}
 .ms-option:hover{background:var(--surface2);}
 .ms-all{padding:8px 14px;font-size:11px;color:var(--muted);cursor:pointer;border-bottom:1px solid var(--border);}
 .ms-all:hover{background:var(--surface2);}
-.btn{background:var(--green);border:none;border-radius:6px;padding:8px 18px;color:white;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font);transition:background .15s;}
+.btn{background:var(--green);border:none;border-radius:6px;padding:8px 18px;color:white;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font);}
 .btn:hover{background:var(--green-mid);}
-.btn.sec{background:var(--surface2);border:1px solid var(--border);color:var(--text);}
-.btn.sec:hover{border-color:var(--accent);}
-
-/* KPIs */
 .section-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:10px;margin-top:16px;}
-.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:10px;margin-bottom:18px;}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:16px;}
 .kpi{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;transition:border-color .2s,transform .15s;}
 .kpi:hover{border-color:var(--accent);transform:translateY(-1px);}
 .kpi.hl{border-color:var(--green-mid);background:linear-gradient(135deg,var(--surface) 60%,rgba(45,106,79,.12));}
 .kpi.hl::before{content:'';display:block;height:2px;background:linear-gradient(90deg,var(--green),var(--green-lt));margin:-14px -16px 12px;border-radius:10px 10px 0 0;}
-.kpi.orange{border-color:var(--orange);background:linear-gradient(135deg,var(--surface) 60%,rgba(210,153,34,.08));}
-.kpi.orange::before{content:'';display:block;height:2px;background:var(--orange);margin:-14px -16px 12px;border-radius:10px 10px 0 0;}
+.kpi.ora{border-color:var(--warn);background:linear-gradient(135deg,var(--surface) 60%,rgba(210,153,34,.08));}
+.kpi.ora::before{content:'';display:block;height:2px;background:var(--warn);margin:-14px -16px 12px;border-radius:10px 10px 0 0;}
+.kpi.pur{border-color:var(--purple);background:linear-gradient(135deg,var(--surface) 60%,rgba(168,85,247,.08));}
+.kpi.pur::before{content:'';display:block;height:2px;background:var(--purple);margin:-14px -16px 12px;border-radius:10px 10px 0 0;}
 .kpi-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;font-weight:500;}
-.kpi-value{font-size:26px;font-weight:700;line-height:1;font-family:var(--mono);}
+.kpi-value{font-size:24px;font-weight:700;line-height:1;font-family:var(--mono);}
 .kpi-value.green{color:var(--green-glow);}
 .kpi-value.blue{color:var(--blue);}
-.kpi-value.warn{color:var(--warning);}
-.kpi-value.orange{color:var(--orange);}
+.kpi-value.warn{color:var(--warn);}
+.kpi-value.orange{color:var(--warn);}
+.kpi-value.purple{color:var(--purple);}
 .kpi-sub{font-size:10px;color:var(--muted);margin-top:3px;}
 .kpi-badge{display:inline-block;background:rgba(63,182,138,.12);color:var(--accent);border-radius:4px;padding:1px 6px;font-size:10px;font-weight:600;margin-top:4px;}
-.progress-wrap{margin-top:8px;}
-.progress-bar{height:5px;background:var(--border);border-radius:3px;overflow:hidden;position:relative;}
-.progress-fill{height:100%;border-radius:3px;transition:width 1s ease;}
-.progress-fill.green{background:linear-gradient(90deg,var(--green),var(--green-lt));}
-.progress-fill.orange{background:linear-gradient(90deg,var(--orange),#f0c94b);}
-.progress-labels{display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-top:2px;}
 
-/* CHARTS */
+/* PROGRESS BARS APILADAS */
+.prog-wrap{margin-top:10px;}
+.prog-label{font-size:10px;color:var(--muted);margin-bottom:4px;}
+.prog-track{height:8px;background:var(--border);border-radius:4px;overflow:hidden;display:flex;}
+.prog-seg{height:100%;border-radius:0;transition:width .8s ease;}
+.prog-seg.green{background:var(--green-glow);}
+.prog-seg.orange{background:var(--warn);}
+.prog-seg.purple{background:var(--purple);}
+.prog-feet{display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-top:2px;}
+.prog-legend{display:flex;gap:12px;margin-top:4px;flex-wrap:wrap;}
+.prog-legend-item{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted);}
+.prog-dot{width:8px;height:8px;border-radius:2px;}
+
 .charts-grid{display:grid;gap:14px;margin-bottom:18px;}
 .cg-3{grid-template-columns:1fr 1fr 1fr;}
 .cg-2{grid-template-columns:2fr 1fr;}
 .cg-2b{grid-template-columns:1fr 1fr;}
 @media(max-width:1100px){.cg-3,.cg-2,.cg-2b{grid-template-columns:1fr 1fr;}}
 @media(max-width:700px){.cg-3,.cg-2,.cg-2b{grid-template-columns:1fr;}}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:0;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px;}
 .card-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
 .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block;margin-right:4px;}
 .card-select{background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 8px;font-size:11px;color:var(--text);font-family:var(--font);cursor:pointer;}
-
-/* TABLES */
 .table-wrap{overflow-x:auto;}
 table{width:100%;border-collapse:collapse;}
 th{text-align:left;padding:8px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:1px solid var(--border);cursor:pointer;user-select:none;white-space:nowrap;}
 th:hover{color:var(--accent);}
-td{padding:9px 10px;border-bottom:1px solid rgba(48,54,61,.4);color:var(--text);font-family:var(--mono);font-size:11px;}
+td{padding:9px 10px;border-bottom:1px solid rgba(48,54,61,.4);color:var(--text);font-family:var(--mono);font-size:11px;vertical-align:middle;}
 tr:hover td{background:var(--surface2);}
 tr:last-child td{border-bottom:none;}
 .badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:600;font-family:var(--font);}
 .badge.v{background:rgba(63,182,138,.12);color:var(--accent);}
-.badge.r{background:rgba(210,153,34,.12);color:var(--warning);}
+.badge.r{background:rgba(210,153,34,.12);color:var(--warn);}
 .badge.e{background:rgba(56,139,253,.12);color:var(--blue);}
 .table-controls{display:flex;gap:10px;margin-bottom:10px;align-items:center;flex-wrap:wrap;}
 .search-input{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:7px 12px;font-size:12px;color:var(--text);font-family:var(--font);width:220px;}
 .search-input:focus{outline:none;border-color:var(--accent);}
 .table-count{font-size:11px;color:var(--muted);}
-
-/* SIMULADOR */
 .sim-table input[type=checkbox]{accent-color:var(--accent);width:16px;height:16px;cursor:pointer;}
-.sim-table input[type=number]{background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:5px 8px;color:var(--text);font-family:var(--mono);font-size:11px;width:120px;}
+.sim-table input[type=number]{background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:5px 8px;color:var(--text);font-family:var(--mono);font-size:11px;width:110px;}
 .sim-table input[type=number]:focus{outline:none;border-color:var(--accent);}
-.sim-result{background:var(--surface);border:1px solid var(--green-mid);border-radius:10px;padding:18px;margin-bottom:18px;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;}
-.sim-kpi{text-align:center;}
+.sim-box{background:var(--surface);border:1px solid var(--green-mid);border-radius:10px;padding:16px;margin-bottom:16px;}
+.sim-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;}
 .sim-kpi-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
-.sim-kpi-value{font-size:22px;font-weight:700;font-family:var(--mono);}
-
-/* LOADING */
+.sim-kpi-value{font-size:20px;font-weight:700;font-family:var(--mono);}
 .loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:14px;}
 .spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
@@ -137,88 +128,97 @@ tr:last-child td{border-bottom:none;}
     <span id="last-update"></span>
   </div>
 </header>
-
-<!-- TABS -->
 <nav class="tabs-bar">
   <div class="tab active" onclick="showTab('resumen')">📊 Resumen</div>
   <div class="tab" onclick="showTab('cartera')">🏠 Cartera</div>
   <div class="tab" onclick="showTab('ventas')">✅ Ventas</div>
-  <div class="tab" onclick="showTab('tasaciones')">📋 Tasaciones</div>
   <div class="tab" onclick="showTab('referidores')">👥 Referidores</div>
   <div class="tab" onclick="showTab('prospeccion')">📈 Prospección</div>
 </nav>
-
 <div class="main">
-  <div class="loading" id="loading"><div class="spinner"></div><div class="loading-text">Conectando con Google Sheets...</div></div>
-
-  <!-- FILTROS GLOBALES -->
+  <div class="loading" id="loading"><div class="spinner"></div><div class="loading-text">Conectando...</div></div>
   <div id="filtros-globales" style="display:none">
     <div class="filters-bar">
       <div class="filter-group"><div class="filter-label">Año</div>
         <div class="multi-select" id="ms-años"><div class="ms-trigger"><span>Todos</span>▾</div>
-        <div class="ms-dropdown"><div class="ms-all" onclick="selectAll('ms-años')">Todos/Ninguno</div><div class="opts"></div></div></div></div>
+        <div class="ms-dropdown"><div class="ms-all" onclick="selAll('ms-años')">Todos/Ninguno</div><div class="opts"></div></div></div></div>
       <div class="filter-group"><div class="filter-label">Mes</div>
         <div class="multi-select" id="ms-meses"><div class="ms-trigger"><span>Todos</span>▾</div>
-        <div class="ms-dropdown"><div class="ms-all" onclick="selectAll('ms-meses')">Todos/Ninguno</div><div class="opts"></div></div></div></div>
+        <div class="ms-dropdown"><div class="ms-all" onclick="selAll('ms-meses')">Todos/Ninguno</div><div class="opts"></div></div></div></div>
       <div class="filter-group"><div class="filter-label" style="opacity:0">.</div>
         <button class="btn" onclick="aplicar()">Aplicar</button></div>
     </div>
   </div>
 
-  <!-- TAB RESUMEN -->
+  <!-- RESUMEN -->
   <div class="tab-content active" id="tab-resumen">
+    <p class="section-title">Tu bolsillo</p>
+    <div class="kpi-grid" id="kpi-bolsillo"></div>
+    <div id="dash-progress" style="margin-bottom:18px"></div>
     <p class="section-title">Financiero</p>
     <div class="kpi-grid" id="kpi-financiero"></div>
-    <p class="section-title">Bolsillo acumulado</p>
-    <div class="kpi-grid" id="kpi-bolsillo"></div>
     <p class="section-title">Embudo</p>
     <div class="kpi-grid" id="kpi-embudo"></div>
     <div class="charts-grid cg-2b" style="margin-top:4px">
-      <div class="card"><div class="card-title"><span><span class="dot"></span>Contactos por mes</span></div><canvas id="chart-mes" height="200"></canvas></div>
-      <div class="card"><div class="card-title"><span><span class="dot"></span>Estado cartera activa</span></div><canvas id="chart-estado" height="200"></canvas></div>
+      <div class="card">
+        <div class="card-title"><span><span class="dot"></span>Contactos / Tasaciones / Captaciones / Ventas por mes</span></div>
+        <canvas id="chart-embudo-mes" height="180"></canvas>
+      </div>
+      <div class="card">
+        <div class="card-title"><span><span class="dot"></span>Estado cartera activa</span></div>
+        <canvas id="chart-estado" height="180"></canvas>
+      </div>
     </div>
   </div>
 
-  <!-- TAB CARTERA -->
+  <!-- CARTERA -->
   <div class="tab-content" id="tab-cartera">
-    <p class="section-title">Propiedades en venta</p>
-    <div class="card" style="margin-bottom:16px">
+    <p class="section-title">Propiedades en venta — simulador</p>
+    <div class="sim-box">
+      <div class="sim-grid" id="sim-kpis">
+        <div><div class="sim-kpi-label">Seleccionadas</div><div class="sim-kpi-value" id="sim-count" style="color:var(--blue)">0</div></div>
+        <div><div class="sim-kpi-label">Comisión bruta sim.</div><div class="sim-kpi-value" id="sim-comis" style="color:var(--accent)">—</div></div>
+        <div><div class="sim-kpi-label">Tu bolsillo sim.</div><div class="sim-kpi-value" id="sim-bol" style="color:var(--green-glow)">—</div></div>
+        <div><div class="sim-kpi-label">Aporte dashboard sim.</div><div class="sim-kpi-value" id="sim-dash" style="color:var(--green-lt)">—</div></div>
+      </div>
+      <div style="margin-top:14px">
+        <div style="font-size:10px;color:var(--muted);margin-bottom:6px" id="sim-prog-label">Dashboard acumulado</div>
+        <div class="prog-track" id="sim-prog-track">
+          <div class="prog-seg green" id="sim-seg-vend" style="width:0%"></div>
+          <div class="prog-seg orange" id="sim-seg-res" style="width:0%"></div>
+          <div class="prog-seg purple" id="sim-seg-sim" style="width:0%"></div>
+        </div>
+        <div class="prog-feet"><span>$0</span><span>$80k</span></div>
+        <div class="prog-legend">
+          <div class="prog-legend-item"><div class="prog-dot" style="background:var(--green-glow)"></div>Vendido</div>
+          <div class="prog-legend-item"><div class="prog-dot" style="background:var(--warn)"></div>Reservado</div>
+          <div class="prog-legend-item"><div class="prog-dot" style="background:var(--purple)"></div>Simulado</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
       <div class="table-controls">
         <input class="search-input" placeholder="Buscar..." oninput="busqC=this.value;renderCartera()">
         <span class="table-count" id="cnt-cartera"></span>
       </div>
       <div class="table-wrap"><table class="sim-table">
         <thead><tr>
-          <th>Vender?</th>
+          <th style="width:36px">Vender?</th>
           <th onclick="srtC('dir')">Propiedad ↕</th>
           <th onclick="srtC('zona')">Zona ↕</th>
           <th onclick="srtC('val_pub_ult')">Último precio ↕</th>
           <th>Precio simulado</th>
-          <th>Comisión potencial</th>
+          <th>% Vend.</th>
+          <th>% Comp.</th>
+          <th>Comisión pot.</th>
           <th>Tu bolsillo pot.</th>
         </tr></thead>
         <tbody id="tb-cartera"></tbody>
       </table></div>
     </div>
-    <p class="section-title">Simulador — si vendieras estas propiedades...</p>
-    <div class="sim-result" id="sim-result">
-      <div class="sim-kpi"><div class="sim-kpi-label">Propiedades seleccionadas</div><div class="sim-kpi-value" id="sim-count" style="color:var(--blue)">0</div></div>
-      <div class="sim-kpi"><div class="sim-kpi-label">Comisión bruta total</div><div class="sim-kpi-value" id="sim-comis" style="color:var(--accent)">USD 0</div></div>
-      <div class="sim-kpi"><div class="sim-kpi-label">Tu bolsillo</div><div class="sim-kpi-value" id="sim-bolsillo" style="color:var(--green-glow)">USD 0</div></div>
-      <div class="sim-kpi"><div class="sim-kpi-label">Aporte dashboard</div><div class="sim-kpi-value" id="sim-dash" style="color:var(--green-lt)">USD 0</div></div>
-      <div class="sim-kpi"><div class="sim-kpi-label">Dashboard acum. + sim</div><div class="sim-kpi-value" id="sim-dash-total" style="color:var(--warning)">USD 0</div></div>
-    </div>
-    <div style="margin-top:4px" id="sim-progress-wrap">
-      <div style="font-size:11px;color:var(--muted);margin-bottom:4px" id="sim-progress-label"></div>
-      <div class="progress-bar">
-        <div class="progress-fill green" id="sim-bar-actual" style="width:0%;position:absolute;top:0;left:0;height:100%"></div>
-        <div class="progress-fill orange" id="sim-bar-sim" style="width:0%"></div>
-      </div>
-      <div class="progress-labels"><span>$0</span><span>$80k (umbral DI)</span></div>
-    </div>
   </div>
 
-  <!-- TAB VENTAS -->
+  <!-- VENTAS -->
   <div class="tab-content" id="tab-ventas">
     <p class="section-title">Operaciones cerradas</p>
     <div class="card">
@@ -243,30 +243,13 @@ tr:last-child td{border-bottom:none;}
     </div>
   </div>
 
-  <!-- TAB TASACIONES -->
-  <div class="tab-content" id="tab-tasaciones">
-    <p class="section-title">Embudo semanal — contactos / tasaciones / captaciones / reservas</p>
-    <div class="card" style="margin-bottom:16px">
-      <div class="card-title"><span><span class="dot"></span>Por semana</span>
-        <span style="font-size:11px;color:var(--muted)">— — — objetivo: 3 tasaciones/semana</span>
-      </div>
-      <canvas id="chart-tas" height="220"></canvas>
-    </div>
-    <p class="section-title">Comparativa precios</p>
-    <div class="card">
-      <div class="card-title"><span class="dot"></span>Tasación vs publicación vs cierre (propiedades vendidas)</div>
-      <canvas id="chart-precios" height="220"></canvas>
-    </div>
-  </div>
-
-  <!-- TAB REFERIDORES -->
+  <!-- REFERIDORES -->
   <div class="tab-content" id="tab-referidores">
-    <p class="section-title">Contactos referidos por persona</p>
+    <p class="section-title">Actividad por referidor</p>
     <div class="charts-grid cg-2b">
-      <div class="card"><div class="card-title"><span class="dot"></span>Contactos por referidor</div><canvas id="chart-ref-contactos" height="220"></canvas></div>
-      <div class="card"><div class="card-title"><span class="dot"></span>En venta por referidor</div><canvas id="chart-ref-venta" height="220"></canvas></div>
+      <div class="card"><div class="card-title"><span class="dot"></span>Contactos / Captados / Vendidos</div><canvas id="chart-ref-c" height="220"></canvas></div>
+      <div class="card"><div class="card-title"><span class="dot"></span>En venta por referidor</div><canvas id="chart-ref-v" height="220"></canvas></div>
     </div>
-    <p class="section-title">Detalle por referidor</p>
     <div class="card">
       <div class="table-wrap"><table>
         <thead><tr>
@@ -284,15 +267,13 @@ tr:last-child td{border-bottom:none;}
     </div>
   </div>
 
-  <!-- TAB PROSPECCIÓN -->
+  <!-- PROSPECCIÓN -->
   <div class="tab-content" id="tab-prospeccion">
     <div class="charts-grid cg-3">
       <div class="card"><div class="card-title"><span class="dot"></span>Prospección 1</div><canvas id="chart-p1" height="200"></canvas></div>
       <div class="card">
         <div class="card-title"><span><span class="dot"></span>Prospección 2</span>
-          <select id="sel-p1" class="card-select" onchange="renderP2()">
-            <option value="">Todos</option>
-          </select>
+          <select id="sel-p1" class="card-select" onchange="renderP2()"><option value="">Todos</option></select>
         </div><canvas id="chart-p2" height="200"></canvas>
       </div>
       <div class="card"><div class="card-title"><span class="dot"></span>Por zona</div><canvas id="chart-zona" height="200"></canvas></div>
@@ -300,9 +281,7 @@ tr:last-child td{border-bottom:none;}
     <div class="charts-grid cg-2b">
       <div class="card">
         <div class="card-title"><span><span class="dot"></span>Por barrio (top 10)</span>
-          <select id="sel-zona" class="card-select" onchange="renderBarrio()">
-            <option value="">Todas</option>
-          </select>
+          <select id="sel-zona" class="card-select" onchange="renderBarrio()"><option value="">Todas</option></select>
         </div><canvas id="chart-barrio" height="220"></canvas>
       </div>
       <div class="card"><div class="card-title"><span class="dot"></span>Crédito (vendidos + reservados)</div><canvas id="chart-credito" height="220"></canvas></div>
@@ -312,51 +291,48 @@ tr:last-child td{border-bottom:none;}
 
 <script>
 const CSV='https://docs.google.com/spreadsheets/d/e/2PACX-1vQNkVL_2PEPtVfpNhiUw4LHxw0tOVymJAt-Uj9bBxqIHEbLXMp2fMxQ5NYpuVtjOQ/pub?gid=1670165147&single=true&output=csv';
-const C={nombre:1,dir:4,barrio:5,zona:6,prosp1:9,prosp2:10,referidor:11,prospectador:12,
-  f_contacto:13,f_tasacion:15,estado:16,val_p1:17,val_pub_ini:23,val_pub_ult:24,
-  captador:21,f_pub:22,f_reserva:25,precio_cierre:26,vendedor:27,f_escritura:28,
-  credito:29,dias_venta:30,pct_neg:31,usd_colega:34,usd_ref:37,
-  pct_vend_teo:38,pct_comp_teo:39,usd_vend_real:40,usd_comp_real:41,
-  comis_bruta:42,neto_di:44,tbol_total:56,dashboard:57};
-
+// Índices columna (0-based), fila de datos empieza en slice(3)
+const C={
+  nombre:1,dir:4,barrio:5,zona:6,prosp1:9,prosp2:10,referidor:11,prospectador:12,
+  f_contacto:13,f_tasacion:15,estado:16,val_p1:17,
+  val_pub_ini:23,val_pub_ult:24,captador:21,f_pub:22,
+  f_reserva:25,precio_cierre:26,vendedor:27,f_escritura:28,
+  credito:29,dias_venta:30,pct_neg:31,usd_colega:34,
+  pct_vend_teo:38,pct_comp_teo:39,
+  usd_vend_real:40,usd_comp_real:41,
+  comis_bruta:42,tbol_total:56,dashboard:57
+};
+const TUTE='Matias Leiblich';
 const G=['#2D6A4F','#40916C','#52B788','#74C69D','#95D5B2','#B7E4C7'];
-const B=['#388bfd','#58a6ff','#79c0ff','#a5d6ff'];
-const O=['#d29922','#e3b341','#f0c94b','#ffd166'];
-const MX=[...G,...O,...B,'#f85149','#bc8a5f','#e879f9','#67e8f9'];
-const MESES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-
+const B=['#388bfd','#58a6ff','#79c0ff'];
+const O=['#d29922','#e3b341','#f0c94b'];
+const MX=[...G,...O,...B,'#f85149','#a855f7','#e879f9'];
+const MES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 Chart.defaults.color='#7d8590';Chart.defaults.borderColor='#30363d';
 Chart.defaults.font.family="'Inter',sans-serif";
 
-function parseCSV(t){
-  return t.split('\n').map(l=>{const c=[];let cur='',q=false;
-    for(let i=0;i<l.length;i++){if(l[i]==='"'){q=!q;}else if(l[i]===','&&!q){c.push(cur.trim());cur='';}else cur+=l[i];}
-    c.push(cur.trim());return c;});
-}
+function pcsv(t){return t.split('\n').map(l=>{const c=[];let cur='',q=false;for(let i=0;i<l.length;i++){if(l[i]==='"'){q=!q;}else if(l[i]===','&&!q){c.push(cur.trim());cur='';}else cur+=l[i];}c.push(cur.trim());return c;});}
 function pn(v){const n=parseFloat(String(v||'').replace(/[^\d.-]/g,''));return isNaN(n)?null:n;}
 function pd(s){if(!s)return null;const p=String(s).split('/');if(p.length===3)return new Date(+p[2],+p[1]-1,+p[0]);return null;}
 function fmt(n,d=0){if(n===null||n===undefined||isNaN(n))return'—';return n.toLocaleString('es-AR',{minimumFractionDigits:d,maximumFractionDigits:d});}
-function fmtU(n){if(!n&&n!==0)return'—';return'USD '+fmt(n);}
-function wk(d){const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));const day=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-day);const y=t.getUTCFullYear();const w=Math.ceil(((t-new Date(Date.UTC(y,0,1)))/86400000+1)/7);return`${y}-W${String(w).padStart(2,'0')}`;}
+function fU(n){if(!n&&n!==0)return'—';return'USD '+fmt(n);}
+function mkey(d){return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;}
 
 let allRows=[],filtroAños=[],filtroMeses=[];
-let sortColV='',sortDirV=1,sortColC='',sortDirC=1;
-let busqV='',busqC='';
-let charts={};
-let kpis=null;
-let simState={};
+let sortCV='',sdV=1,sortCC='',sdC=1,busqV='',busqC='';
+let charts={},kpis=null,simState={};
 
 async function fetchData(){
-  const res=await fetch(CSV);if(!res.ok)throw new Error('CSV no accesible');
-  const text=await res.text();
-  return parseCSV(text).slice(3).filter(r=>r[C.nombre]||r[C.dir]).map(r=>({
+  const r=await fetch(CSV);if(!r.ok)throw new Error('CSV no accesible');
+  const t=await r.text();
+  return pcsv(t).slice(3).filter(r=>r[C.nombre]||r[C.dir]).map(r=>({
     nombre:r[C.nombre]||'',dir:r[C.dir]||'',barrio:r[C.barrio]||'',zona:r[C.zona]||'',
     prosp1:r[C.prosp1]||'',prosp2:r[C.prosp2]||'',referidor:r[C.referidor]||'',
-    prospectador:r[C.prospectador]||'',f_contacto:r[C.f_contacto]||'',
-    f_tasacion:r[C.f_tasacion]||'',estado:r[C.estado]||'',
-    val_p1:pn(r[C.val_p1]),val_pub_ini:pn(r[C.val_pub_ini]),val_pub_ult:pn(r[C.val_pub_ult]),
-    captador:r[C.captador]||'',vendedor:r[C.vendedor]||'',
+    prospectador:r[C.prospectador]||'',captador:r[C.captador]||'',vendedor:r[C.vendedor]||'',
+    f_contacto:r[C.f_contacto]||'',f_tasacion:r[C.f_tasacion]||'',
     f_pub:r[C.f_pub]||'',f_reserva:r[C.f_reserva]||'',f_escritura:r[C.f_escritura]||'',
+    estado:r[C.estado]||'',
+    val_p1:pn(r[C.val_p1]),val_pub_ini:pn(r[C.val_pub_ini]),val_pub_ult:pn(r[C.val_pub_ult]),
     precio_cierre:pn(r[C.precio_cierre]),credito:r[C.credito]||'',
     dias_venta:pn(r[C.dias_venta]),pct_neg:pn(r[C.pct_neg]),
     pct_vend_teo:pn(r[C.pct_vend_teo]),pct_comp_teo:pn(r[C.pct_comp_teo]),
@@ -373,86 +349,77 @@ function rowIn(r){
         (filtroMeses.length===0||filtroMeses.includes(d.getMonth()+1));
 }
 
-function bolsilloRow(r,precio){
-  const pv=r.pct_vend_teo||0.03,pc=r.pct_comp_teo||0.03;
-  const bruto=precio*(pv+pc);
-  const ref=0; // sin referidor en potencial
-  const neto=bruto-ref;
-  const tp=r.prospectador==='Matias Leiblich'?0.2:0;
-  const tc=r.captador==='Matias Leiblich'?0.15:0;
-  const tv=r.vendedor==='Matias Leiblich'?0.15:0;
+// Calcula bolsillo potencial para una propiedad dado un precio de venta
+function calcBolsillo(r,precio,pctV,pctC){
+  const bruto=precio*(pctV+pctC);
+  const neto=bruto; // sin referidor en simulación
+  const tp=r.prospectador===TUTE?0.2:0;
+  const tc=r.captador===TUTE?0.15:0;
+  const tv=r.vendedor===TUTE?0.15:0;
   const bol=neto*(tp+tc+tv);
-  const dash=r.prospectador==='Matias Leiblich'?neto:0;
-  return{bruto,neto,bol,dash};
+  const dash=r.prospectador===TUTE?neto:0;
+  return{bruto,bol,dash};
 }
 
 function compute(rows){
   const f=rows.filter(rowIn);
   const VEND=['Vendido','Busqueda GANADA'];
+  const RES=['Reservado'];
   const CAPT=['En Venta','Vendido','Busqueda GANADA','Reservado'];
-  const TAS=['En Venta','Vendido','Busqueda GANADA','Reservado','No captado','Tasado','CANCELADO'];
+  const TAS_EST=['En Venta','Vendido','Busqueda GANADA','Reservado','No captado','Tasado','CANCELADO','No Vendido'];
 
   const vendidos=f.filter(r=>VEND.includes(r.estado));
-  const reservados=f.filter(r=>r.estado==='Reservado');
+  const reservados=f.filter(r=>RES.includes(r.estado));
   const captados=f.filter(r=>CAPT.includes(r.estado));
-  const tasados=f.filter(r=>TAS.includes(r.estado));
   const enVenta=rows.filter(r=>r.estado==='En Venta');
 
-  const bolsillo=vendidos.reduce((s,r)=>s+(r.tbol_total||0),0);
-  const bolReservado=reservados.reduce((s,r)=>{
-    const p=r.precio_cierre||r.val_pub_ult||r.val_pub_ini||0;
-    return s+bolsilloRow(r,p).bol;
-  },0);
-  const comBruta=vendidos.reduce((s,r)=>s+(r.comis_bruta||0),0);
-  const fees=rows.reduce((s,r)=>s+(0),0);
+  // Bolsillo: solo sumar si prospectador = Tute
+  const bolVendido=vendidos.filter(r=>r.prospectador===TUTE).reduce((s,r)=>s+(r.tbol_total||0),0);
+  const bolReservado=reservados.filter(r=>r.prospectador===TUTE).reduce((s,r)=>s+(r.tbol_total||0),0);
+
+  // Dashboard año actual
+  const añoAct=new Date().getFullYear();
+  const dashVend=vendidos.filter(r=>{const d=pd(r.f_escritura);return d&&d.getFullYear()===añoAct;})
+    .reduce((s,r)=>s+(r.dashboard||0),0);
+  const dashRes=reservados.reduce((s,r)=>s+(r.dashboard||0),0);
+
+  // Comisión bruta: solo donde prospectador = Tute
+  const comBruta=vendidos.filter(r=>r.prospectador===TUTE).reduce((s,r)=>s+(r.comis_bruta||0),0);
   const usdColega=vendidos.reduce((s,r)=>s+(r.usd_colega||0),0);
 
-  const añoActual=new Date().getFullYear();
-  const dashAño=rows.filter(r=>{const d=pd(r.f_escritura);return d&&d.getFullYear()===añoActual;})
-    .reduce((s,r)=>s+(r.dashboard||0),0);
-  const dashReserv=reservados.reduce((s,r)=>{
-    const p=r.precio_cierre||r.val_pub_ult||0;
-    return s+bolsilloRow(r,p).dash;
-  },0);
-
-  const conPrecio=vendidos.filter(r=>r.precio_cierre);
-  const ticketProm=conPrecio.length?conPrecio.reduce((s,r)=>s+r.precio_cierre,0)/conPrecio.length:0;
-  const conDias=vendidos.filter(r=>r.dias_venta&&r.dias_venta>0);
-  const diasProm=conDias.length?conDias.reduce((s,r)=>s+r.dias_venta,0)/conDias.length:0;
-
-  const pctCapt=tasados.length?(captados.length/tasados.length*100):0;
-  const pctConv=captados.length?(vendidos.length/captados.length*100):0;
+  const conP=vendidos.filter(r=>r.precio_cierre);
+  const ticketProm=conP.length?conP.reduce((s,r)=>s+r.precio_cierre,0)/conP.length:0;
+  const conD=vendidos.filter(r=>r.dias_venta>0);
+  const diasProm=conD.length?conD.reduce((s,r)=>s+r.dias_venta,0)/conD.length:0;
   const maxComis=vendidos.length?Math.max(...vendidos.map(r=>r.comis_bruta||0)):0;
 
-  const valorCartera=enVenta.reduce((s,r)=>s+(r.val_pub_ult||r.val_pub_ini||0),0);
-
-  // Por semana (tasaciones)
-  const byWk={contactos:{},tasaciones:{},captaciones:{},reservas:{}};
+  // Embudo: contar por fecha correspondiente al estado
+  // Contactos=f_contacto, Tasados=f_tasacion, Captados=f_pub, Vendidos=f_escritura
+  const byMes={cont:{},tas:{},capt:{},vend:{}};
   rows.forEach(r=>{
-    const dc=pd(r.f_contacto);if(dc){const k=wk(dc);byWk.contactos[k]=(byWk.contactos[k]||0)+1;}
-    const dt=pd(r.f_tasacion);if(dt){const k=wk(dt);byWk.tasaciones[k]=(byWk.tasaciones[k]||0)+1;}
-    const dp=pd(r.f_pub);if(dp){const k=wk(dp);byWk.captaciones[k]=(byWk.captaciones[k]||0)+1;}
-    const dr=pd(r.f_reserva);if(dr){const k=wk(dr);byWk.reservas[k]=(byWk.reservas[k]||0)+1;}
+    const dc=pd(r.f_contacto);if(dc){const k=mkey(dc);byMes.cont[k]=(byMes.cont[k]||0)+1;}
+    const dt=pd(r.f_tasacion);if(dt){const k=mkey(dt);byMes.tas[k]=(byMes.tas[k]||0)+1;}
+    const dp=pd(r.f_pub);if(dp){const k=mkey(dp);byMes.capt[k]=(byMes.capt[k]||0)+1;}
+    const de=pd(r.f_escritura);if(de){const k=mkey(de);byMes.vend[k]=(byMes.vend[k]||0)+1;}
   });
 
-  // Por mes (para resumen)
-  const byMes={};
-  f.forEach(r=>{const d=pd(r.f_contacto);if(!d)return;
-    const k=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
-    byMes[k]=(byMes[k]||0)+1;});
+  // Embudo totales (sin filtro de fecha, por estado actual)
+  const tasados=rows.filter(r=>r.f_tasacion).length;
+  const totalContactos=rows.length;
 
-  // Referidores
+  // Referidores — conteo por f_tasacion para "tasados"
   const refMap={};
   rows.forEach(r=>{
     if(!r.referidor)return;
-    if(!refMap[r.referidor])refMap[r.referidor]={contactos:0,captados:0,vendidos:0,enVenta:0,comision:0};
+    if(!refMap[r.referidor])refMap[r.referidor]={contactos:0,tasados:0,captados:0,enVenta:0,vendidos:0,comision:0};
     refMap[r.referidor].contactos++;
-    if(CAPT.includes(r.estado))refMap[r.referidor].captados++;
+    if(r.f_tasacion) refMap[r.referidor].tasados++;
+    if(CAPT.includes(r.estado)) refMap[r.referidor].captados++;
+    if(r.estado==='En Venta') refMap[r.referidor].enVenta++;
     if(VEND.includes(r.estado)){refMap[r.referidor].vendidos++;refMap[r.referidor].comision+=(r.comis_bruta||0);}
-    if(r.estado==='En Venta')refMap[r.referidor].enVenta++;
   });
 
-  // P1, P2, zona, barrio
+  // P1, P2, zona, barrio (usando filtro)
   const byP1={},byP2={},byZona={},byBarrio={};
   f.forEach(r=>{
     byP1[r.prosp1||'Sin dato']=(byP1[r.prosp1||'Sin dato']||0)+1;
@@ -461,32 +428,27 @@ function compute(rows){
     byBarrio[r.barrio||'Sin barrio']=(byBarrio[r.barrio||'Sin barrio']||0)+1;
   });
 
-  // Crédito
   const credMap={};
   [...vendidos,...reservados].forEach(r=>{
     const c=r.credito&&r.credito!=='No'&&r.credito!==''?r.credito:'Sin crédito';
     credMap[c]=(credMap[c]||0)+1;
   });
 
-  // Precios comparativa
-  const precioComp=vendidos.filter(r=>r.val_p1&&r.precio_cierre).map(r=>({
-    label:(r.dir||r.nombre).slice(0,18),p1:r.val_p1,pub:r.val_pub_ini||r.val_p1,cierre:r.precio_cierre
-  }));
+  const pctCapt=tasados?(captados.length/tasados*100):0;
+  const pctConv=captados.length?(vendidos.length/captados.length*100):0;
 
-  return{total:f.length,vendidos:vendidos.length,captados:captados.length,
-    tasados:tasados.length,enVenta:enVenta.length,reservados:reservados.length,
-    bolsillo,bolReservado,comBruta,dashAño,dashReserv,usdColega,
-    ticketProm,diasProm,pctCapt,pctConv,maxComis,valorCartera,
-    byWk,byMes,refMap,byP1,byP2,byZona,byBarrio,credMap,precioComp,
+  return{
+    total:totalContactos,vendidos:vendidos.length,reservados:reservados.length,
+    captados:captados.length,tasados,enVenta:enVenta.length,
+    bolVendido,bolReservado,comBruta,usdColega,
+    dashVend,dashRes,ticketProm,diasProm,maxComis,
+    pctCapt,pctConv,
+    byMes,refMap,byP1,byP2,byZona,byBarrio,credMap,
     estadoCartera:{'En Venta':enVenta.length,'Reservado':reservados.length},
     vendidosData:vendidos,enVentaData:enVenta,filteredRows:f,
   };
 }
 
-function destroyCharts(){Object.values(charts).forEach(c=>{try{c.destroy();}catch(e){}});charts={};}
-function sorted(o){return Object.entries(o).sort((a,b)=>b[1]-a[1]);}
-
-// ── TAB SWITCH ────────────────────────────────────────────────────────────────
 function showTab(id){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
@@ -494,29 +456,41 @@ function showTab(id){
   document.getElementById('tab-'+id).classList.add('active');
 }
 
-// ── RENDER KPIs ───────────────────────────────────────────────────────────────
-function renderKPIs(k){
-  const dash80k=Math.min(k.dashAño/80000*100,100);
-  const dashCon=Math.min((k.dashAño+k.dashReserv)/80000*100,100);
+function destroyCharts(){Object.values(charts).forEach(c=>{try{c.destroy();}catch(e){}});charts={};}
+function sorted(o){return Object.entries(o).sort((a,b)=>b[1]-a[1]);}
 
-  document.getElementById('kpi-financiero').innerHTML=`
-    <div class="kpi hl"><div class="kpi-label">Tu bolsillo — vendidos</div><div class="kpi-value green">USD ${fmt(k.bolsillo)}</div><div class="kpi-sub">${k.vendidos} operaciones cerradas</div></div>
-    <div class="kpi orange"><div class="kpi-label">+ Reservados (casi seguro)</div><div class="kpi-value orange">USD ${fmt(k.bolReservado)}</div><div class="kpi-sub">${k.reservados} propiedades reservadas</div></div>
-    <div class="kpi"><div class="kpi-label">Comisión bruta cobrada</div><div class="kpi-value blue">USD ${fmt(k.comBruta)}</div></div>
-    <div class="kpi"><div class="kpi-label">Mayor comisión</div><div class="kpi-value">USD ${fmt(k.maxComis)}</div></div>
-    <div class="kpi"><div class="kpi-label">Ticket promedio</div><div class="kpi-value">USD ${fmt(k.ticketProm)}</div></div>
-    <div class="kpi"><div class="kpi-label">Días prom. en venta</div><div class="kpi-value">${fmt(k.diasProm)}</div></div>`;
+function renderKPIs(k){
+  const d80=80000;
+  const pctV=Math.min(k.dashVend/d80*100,100);
+  const pctR=Math.min((k.dashVend+k.dashRes)/d80*100,100)-pctV;
 
   document.getElementById('kpi-bolsillo').innerHTML=`
-    <div class="kpi hl"><div class="kpi-label">Dashboard ${new Date().getFullYear()} — cobrado</div>
-      <div class="kpi-value green">USD ${fmt(k.dashAño)}</div>
-      <div class="progress-wrap"><div class="progress-bar"><div class="progress-fill green" style="width:${dash80k}%"></div></div>
-      <div class="progress-labels"><span>$0</span><span>${fmt(dash80k,1)}% de $80k</span><span>$80k</span></div></div></div>
-    <div class="kpi orange"><div class="kpi-label">Dashboard + reservados</div>
-      <div class="kpi-value orange">USD ${fmt(k.dashAño+k.dashReserv)}</div>
-      <div class="progress-wrap"><div class="progress-bar"><div class="progress-fill orange" style="width:${dashCon}%"></div></div>
-      <div class="progress-labels"><span>$0</span><span>${fmt(dashCon,1)}% de $80k</span><span>$80k</span></div></div></div>
-    <div class="kpi"><div class="kpi-label">Cedido a colegas</div><div class="kpi-value warn">USD ${fmt(k.usdColega)}</div><div class="kpi-sub">informativo</div></div>`;
+    <div class="kpi hl"><div class="kpi-label">Bolsillo — vendidos</div><div class="kpi-value green">USD ${fmt(k.bolVendido)}</div><div class="kpi-sub">${k.vendidos} operaciones</div></div>
+    <div class="kpi ora"><div class="kpi-label">+ Reservados (casi seguro)</div><div class="kpi-value orange">USD ${fmt(k.bolReservado)}</div><div class="kpi-sub">${k.reservados} propiedades</div></div>
+    <div class="kpi"><div class="kpi-label">Total acumulado</div><div class="kpi-value green">USD ${fmt(k.bolVendido+k.bolReservado)}</div><div class="kpi-sub">vendido + reservado</div></div>`;
+
+  document.getElementById('dash-progress').innerHTML=`
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;">
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:12px;">📈 Carrera al Dashboard — ${new Date().getFullYear()}</div>
+      <div class="prog-track" style="height:12px;border-radius:6px;">
+        <div class="prog-seg green" style="width:${pctV}%"></div>
+        <div class="prog-seg orange" style="width:${pctR}%"></div>
+        <div class="prog-seg purple" id="dash-seg-sim" style="width:0%"></div>
+      </div>
+      <div class="prog-feet" style="margin-top:4px"><span>$0</span><span id="dash-pct-label">${fmt(pctV+pctR,1)}% de $80k — USD ${fmt(k.dashVend+k.dashRes)}</span><span>$80k</span></div>
+      <div class="prog-legend" style="margin-top:8px">
+        <div class="prog-legend-item"><div class="prog-dot" style="background:var(--green-glow)"></div>Vendido: USD ${fmt(k.dashVend)}</div>
+        <div class="prog-legend-item"><div class="prog-dot" style="background:var(--warn)"></div>Reservado: USD ${fmt(k.dashRes)}</div>
+        <div class="prog-legend-item"><div class="prog-dot" style="background:var(--purple)"></div>Simulado: <span id="dash-sim-label">USD 0</span></div>
+      </div>
+    </div>`;
+
+  document.getElementById('kpi-financiero').innerHTML=`
+    <div class="kpi"><div class="kpi-label">Comisión bruta cobrada</div><div class="kpi-value blue">USD ${fmt(k.comBruta)}</div><div class="kpi-sub">donde Tute prospectó</div></div>
+    <div class="kpi"><div class="kpi-label">Mayor comisión</div><div class="kpi-value">USD ${fmt(k.maxComis)}</div></div>
+    <div class="kpi"><div class="kpi-label">Ticket promedio</div><div class="kpi-value">USD ${fmt(k.ticketProm)}</div><div class="kpi-sub">precio escritura</div></div>
+    <div class="kpi"><div class="kpi-label">Días prom. en venta</div><div class="kpi-value">${fmt(k.diasProm)}</div><div class="kpi-sub">pub. → reserva</div></div>
+    <div class="kpi"><div class="kpi-label">Cedido a colegas</div><div class="kpi-value warn">USD ${fmt(k.usdColega)}</div></div>`;
 
   document.getElementById('kpi-embudo').innerHTML=`
     <div class="kpi"><div class="kpi-label">Contactos</div><div class="kpi-value">${k.total}</div></div>
@@ -524,81 +498,50 @@ function renderKPIs(k){
     <div class="kpi"><div class="kpi-label">Captados</div><div class="kpi-value">${k.captados}</div><div class="kpi-badge">% capt: ${fmt(k.pctCapt,1)}%</div></div>
     <div class="kpi"><div class="kpi-label">Vendidos</div><div class="kpi-value green">${k.vendidos}</div><div class="kpi-badge">% conv: ${fmt(k.pctConv,1)}%</div></div>
     <div class="kpi"><div class="kpi-label">En venta hoy</div><div class="kpi-value blue">${k.enVenta}</div></div>
-    <div class="kpi"><div class="kpi-label">Reservados</div><div class="kpi-value warn">${k.reservados}</div></div>
-    <div class="kpi"><div class="kpi-label">Cartera activa</div><div class="kpi-value blue">USD ${fmt(k.valorCartera)}</div><div class="kpi-sub">último precio publicado</div></div>`;
+    <div class="kpi"><div class="kpi-label">Reservados</div><div class="kpi-value orange">${k.reservados}</div></div>`;
 }
 
-// ── RENDER CHARTS ─────────────────────────────────────────────────────────────
 function buildAllCharts(k){
   destroyCharts();
 
-  // Mes
-  const meses=Object.keys(k.byMes).sort().slice(-18);
-  const ctxM=document.getElementById('chart-mes');
-  if(ctxM)charts.mes=new Chart(ctxM,{type:'bar',data:{
-    labels:meses.map(m=>{const[y,mo]=m.split('-');return MESES[+mo-1].slice(0,3)+' '+y.slice(2);}),
-    datasets:[{label:'Contactos',data:meses.map(m=>k.byMes[m]||0),backgroundColor:G[2],borderRadius:4}]
-  },options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'#21262d'},ticks:{precision:0}}}}});
+  // Embudo por mes (últimos 18 meses)
+  const allM=[...new Set([...Object.keys(k.byMes.cont),...Object.keys(k.byMes.tas),...Object.keys(k.byMes.capt),...Object.keys(k.byMes.vend)])].sort().slice(-18);
+  const ctxEM=document.getElementById('chart-embudo-mes');
+  if(ctxEM)charts.embudoMes=new Chart(ctxEM,{type:'bar',data:{
+    labels:allM.map(m=>{const[y,mo]=m.split('-');return MES[+mo-1].slice(0,3)+' '+y.slice(2);}),
+    datasets:[
+      {label:'Contactos',data:allM.map(m=>k.byMes.cont[m]||0),backgroundColor:B[0],borderRadius:3},
+      {label:'Tasaciones',data:allM.map(m=>k.byMes.tas[m]||0),backgroundColor:G[2],borderRadius:3},
+      {label:'Captaciones',data:allM.map(m=>k.byMes.capt[m]||0),backgroundColor:O[0],borderRadius:3},
+      {label:'Ventas',data:allM.map(m=>k.byMes.vend[m]||0),backgroundColor:'#f85149',borderRadius:3},
+    ]
+  },options:{responsive:true,maintainAspectRatio:true,
+    plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:10}}}},
+    scales:{x:{grid:{display:false},ticks:{font:{size:9}}},y:{grid:{color:'#21262d'},ticks:{precision:0}}}}});
 
   // Estado
   const ee=Object.entries(k.estadoCartera).filter(e=>e[1]>0);
   const ctxE=document.getElementById('chart-estado');
   if(ctxE)charts.estado=new Chart(ctxE,{type:'doughnut',data:{labels:ee.map(e=>e[0]),datasets:[{data:ee.map(e=>e[1]),backgroundColor:[G[2],O[0]],borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'60%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
 
-  // Tasaciones por semana
-  const allWks=[...new Set([...Object.keys(k.byWk.contactos),...Object.keys(k.byWk.tasaciones),...Object.keys(k.byWk.captaciones),...Object.keys(k.byWk.reservas)])].sort().slice(-24);
-  const ctxT=document.getElementById('chart-tas');
-  if(ctxT)charts.tas=new Chart(ctxT,{type:'bar',data:{
-    labels:allWks,
-    datasets:[
-      {label:'Contactos',data:allWks.map(w=>k.byWk.contactos[w]||0),backgroundColor:B[0],borderRadius:3},
-      {label:'Tasaciones',data:allWks.map(w=>k.byWk.tasaciones[w]||0),backgroundColor:G[2],borderRadius:3},
-      {label:'Captaciones',data:allWks.map(w=>k.byWk.captaciones[w]||0),backgroundColor:O[0],borderRadius:3},
-      {label:'Reservas',data:allWks.map(w=>k.byWk.reservas[w]||0),backgroundColor:'#f85149',borderRadius:3},
-    ]
-  },options:{responsive:true,maintainAspectRatio:true,
-    plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:11}}},
-      annotation:{annotations:{obj:{type:'line',yMin:3,yMax:3,borderColor:'white',borderWidth:1,borderDash:[6,4],label:{content:'Objetivo 3',display:true,position:'end',color:'white',font:{size:10}}}}}},
-    scales:{x:{grid:{display:false},ticks:{font:{size:9}}},y:{grid:{color:'#21262d'},ticks:{precision:0}}}}});
-
-  // Comparativa precios
-  const pc=k.precioComp.slice(0,15);
-  const ctxPr=document.getElementById('chart-precios');
-  if(ctxPr)charts.precios=new Chart(ctxPr,{type:'bar',data:{
-    labels:pc.map(r=>r.label),
-    datasets:[
-      {label:'Tasación P1',data:pc.map(r=>r.p1),backgroundColor:G[1],borderRadius:3},
-      {label:'Pub. inicial',data:pc.map(r=>r.pub),backgroundColor:B[0],borderRadius:3},
-      {label:'Cierre real',data:pc.map(r=>r.cierre),backgroundColor:O[0],borderRadius:3},
-    ]
-  },options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:11}}}},scales:{x:{grid:{display:false},ticks:{font:{size:9}}},y:{grid:{color:'#21262d'}}}}});
-
   // Referidores
   const refs=Object.entries(k.refMap).sort((a,b)=>b[1].contactos-a[1].contactos);
-  const refLabels=refs.map(r=>r[0]);
-  const ctxRC=document.getElementById('chart-ref-contactos');
-  if(ctxRC)charts.refC=new Chart(ctxRC,{type:'bar',data:{
-    labels:refLabels,
-    datasets:[
-      {label:'Contactos',data:refs.map(r=>r[1].contactos),backgroundColor:G[2],borderRadius:4},
-      {label:'Captados',data:refs.map(r=>r[1].captados),backgroundColor:B[0],borderRadius:4},
-      {label:'Vendidos',data:refs.map(r=>r[1].vendidos),backgroundColor:O[0],borderRadius:4},
-    ]
-  },options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:11}}}},scales:{x:{grid:{display:false}},y:{grid:{color:'#21262d'},ticks:{precision:0}}}}});
+  const rl=refs.map(r=>r[0]);
+  const ctxRC=document.getElementById('chart-ref-c');
+  if(ctxRC)charts.refC=new Chart(ctxRC,{type:'bar',data:{labels:rl,datasets:[
+    {label:'Contactos',data:refs.map(r=>r[1].contactos),backgroundColor:G[2],borderRadius:4},
+    {label:'Captados',data:refs.map(r=>r[1].captados),backgroundColor:B[0],borderRadius:4},
+    {label:'Vendidos',data:refs.map(r=>r[1].vendidos),backgroundColor:O[0],borderRadius:4},
+  ]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:10}}}},scales:{x:{grid:{display:false}},y:{grid:{color:'#21262d'},ticks:{precision:0}}}}});
 
-  const ctxRV=document.getElementById('chart-ref-venta');
-  if(ctxRV)charts.refV=new Chart(ctxRV,{type:'bar',data:{
-    labels:refLabels,
-    datasets:[{label:'En venta',data:refs.map(r=>r[1].enVenta),backgroundColor:B[0],borderRadius:4}]
-  },options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'#21262d'},ticks:{precision:0}}}}});
+  const ctxRV=document.getElementById('chart-ref-v');
+  if(ctxRV)charts.refV=new Chart(ctxRV,{type:'bar',data:{labels:rl,datasets:[{label:'En venta',data:refs.map(r=>r[1].enVenta),backgroundColor:B[0],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'#21262d'},ticks:{precision:0}}}}});
 
-  // Tabla referidores
-  document.getElementById('tb-ref').innerHTML=refs.map(([nombre,d])=>`<tr>
-    <td>${nombre}</td><td>${d.contactos}</td><td>—</td><td>${d.captados}</td>
+  document.getElementById('tb-ref').innerHTML=refs.map(([n,d])=>`<tr>
+    <td>${n}</td><td>${d.contactos}</td><td>${d.tasados}</td><td>${d.captados}</td>
     <td>${d.enVenta}</td><td>${d.vendidos}</td>
     <td>${d.contactos?fmt(d.vendidos/d.contactos*100,1)+'%':'—'}</td>
-    <td>${fmtU(d.comision)}</td>
-  </tr>`).join('');
+    <td>${fU(d.comision)}</td></tr>`).join('');
 
   // P1
   const p1e=sorted(k.byP1);
@@ -615,131 +558,127 @@ function buildAllCharts(k){
   const ctxCr=document.getElementById('chart-credito');
   if(ctxCr)charts.credito=new Chart(ctxCr,{type:'doughnut',data:{labels:ce.map(e=>e[0]),datasets:[{data:ce.map(e=>e[1]),backgroundColor:MX,borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'60%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
 
-  // Llenar selects
-  const p1vals=[...new Set(allRows.map(r=>r.prosp1).filter(Boolean))].sort();
-  const sel1=document.getElementById('sel-p1');
-  if(sel1){sel1.innerHTML='<option value="">Todos</option>'+p1vals.map(v=>`<option value="${v}">${v}</option>`).join('');}
-  const zonas=[...new Set(allRows.map(r=>r.zona).filter(Boolean))].sort();
-  const selZ=document.getElementById('sel-zona');
-  if(selZ){selZ.innerHTML='<option value="">Todas</option>'+zonas.map(z=>`<option value="${z}">${z}</option>`).join('');}
+  // Selects
+  const p1v=[...new Set(allRows.map(r=>r.prosp1).filter(Boolean))].sort();
+  const s1=document.getElementById('sel-p1');
+  if(s1)s1.innerHTML='<option value="">Todos</option>'+p1v.map(v=>`<option value="${v}">${v}</option>`).join('');
+  const zv=[...new Set(allRows.map(r=>r.zona).filter(Boolean))].sort();
+  const sz=document.getElementById('sel-zona');
+  if(sz)sz.innerHTML='<option value="">Todas</option>'+zv.map(z=>`<option value="${z}">${z}</option>`).join('');
 
-  renderP2(k);
-  renderBarrio(k);
+  renderP2();renderBarrio();
 }
 
-function renderP2(k2){
-  const k=k2||kpis;if(!k)return;
-  const sel=document.getElementById('sel-p1');
-  const fp=sel?sel.value:'';
-  let rows=k.filteredRows;if(fp)rows=rows.filter(r=>r.prosp1===fp);
+function renderP2(){
+  const fp=document.getElementById('sel-p1')?.value||'';
+  let rows=kpis?.filteredRows||[];
+  if(fp)rows=rows.filter(r=>r.prosp1===fp);
   const by={};rows.forEach(r=>{const p=r.prosp2||'Sin dato';by[p]=(by[p]||0)+1;});
-  const e=sorted(by);
   if(charts.p2){charts.p2.destroy();delete charts.p2;}
   const ctx=document.getElementById('chart-p2');if(!ctx)return;
+  const e=sorted(by);
   charts.p2=new Chart(ctx,{type:'doughnut',data:{labels:e.map(x=>x[0]),datasets:[{data:e.map(x=>x[1]),backgroundColor:O,borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'65%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
 }
 
-function renderBarrio(k2){
-  const k=k2||kpis;if(!k)return;
-  const sel=document.getElementById('sel-zona');
-  const fz=sel?sel.value:'';
-  let rows=k.filteredRows;if(fz)rows=rows.filter(r=>r.zona===fz);
+function renderBarrio(){
+  const fz=document.getElementById('sel-zona')?.value||'';
+  let rows=kpis?.filteredRows||[];
+  if(fz)rows=rows.filter(r=>r.zona===fz);
   const by={};rows.forEach(r=>{const b=r.barrio||'Sin barrio';by[b]=(by[b]||0)+1;});
-  const e=sorted(by).slice(0,10);
   if(charts.barrio){charts.barrio.destroy();delete charts.barrio;}
   const ctx=document.getElementById('chart-barrio');if(!ctx)return;
+  const e=sorted(by).slice(0,10);
   charts.barrio=new Chart(ctx,{type:'bar',data:{labels:e.map(x=>x[0]),datasets:[{label:'Contactos',data:e.map(x=>x[1]),backgroundColor:B[0],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:true,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:'#21262d'}},y:{grid:{display:false},ticks:{font:{size:10}}}}}});
 }
 
-// ── CARTERA + SIMULADOR ───────────────────────────────────────────────────────
+// CARTERA + SIMULADOR
 function renderCartera(){
   if(!kpis)return;
   let rows=[...kpis.enVentaData];
   if(busqC)rows=rows.filter(r=>(r.dir+r.nombre+r.zona+r.barrio).toLowerCase().includes(busqC.toLowerCase()));
-  if(sortColC)rows.sort((a,b)=>{const va=a[sortColC]||0,vb=b[sortColC]||0;return sortDirC*(typeof va==='number'?va-vb:String(va).localeCompare(String(vb)));});
+  if(sortCC)rows.sort((a,b)=>{const va=a[sortCC]||0,vb=b[sortCC]||0;return sdC*(typeof va==='number'?va-vb:String(va).localeCompare(String(vb)));});
   document.getElementById('cnt-cartera').textContent=rows.length+' prop.';
-  document.getElementById('tb-cartera').innerHTML=rows.map((r,i)=>{
+  document.getElementById('tb-cartera').innerHTML=rows.map(r=>{
     const p=r.val_pub_ult||r.val_pub_ini||0;
-    const pv=r.pct_vend_teo||0.03,pc=r.pct_comp_teo||0.03;
-    const cp=p*(pv+pc);
-    const simP=simState[r.dir]?.precio||p;
-    const simCp=simP*(pv+pc);
-    const tp=r.prospectador==='Matias Leiblich'?0.2:0;
-    const tc=r.captador==='Matias Leiblich'?0.15:0;
-    const tv=r.vendedor==='Matias Leiblich'?0.15:0;
-    const bp=simCp*(tp+tc+tv);
-    const checked=simState[r.dir]?.sel?'checked':'';
+    const st=simState[r.dir]||{sel:false,precio:p,pctV:r.pct_vend_teo||0.03,pctC:r.pct_comp_teo||0.03};
+    const simP=st.precio||p;
+    const {bruto,bol}=calcBolsillo(r,simP,st.pctV,st.pctC);
     return`<tr>
-      <td style="text-align:center"><input type="checkbox" ${checked} onchange="toggleSim('${r.dir.replace(/'/g,"\\'")}',this.checked)"></td>
+      <td style="text-align:center"><input type="checkbox" ${st.sel?'checked':''} onchange="tSim('${esc(r.dir)}',this.checked)"></td>
       <td>${r.dir||'—'}<br><span style="color:var(--muted);font-size:10px">${r.nombre}</span></td>
       <td>${r.zona||'—'}</td>
-      <td style="color:var(--muted)">${fmtU(p)}</td>
-      <td><input type="number" value="${simState[r.dir]?.precio||p||''}" placeholder="precio venta" onchange="setPrecio('${r.dir.replace(/'/g,"\\'")}',+this.value)" oninput="setPrecio('${r.dir.replace(/'/g,"\\'")}',+this.value)"></td>
-      <td>${fmtU(simCp)}</td>
-      <td style="color:var(--green-glow)">${fmtU(bp)}</td>
+      <td style="color:var(--muted)">${fU(p)}</td>
+      <td><input type="number" value="${simP||''}" placeholder="precio" onchange="sP('${esc(r.dir)}',+this.value)" oninput="sP('${esc(r.dir)}',+this.value)"></td>
+      <td><input type="number" value="${Math.round((st.pctV||0.03)*100)}" min="0" max="10" step="0.5" onchange="sPV('${esc(r.dir)}',+this.value/100)" oninput="sPV('${esc(r.dir)}',+this.value/100)" style="width:60px">%</td>
+      <td><input type="number" value="${Math.round((st.pctC||0.03)*100)}" min="0" max="10" step="0.5" onchange="sPC('${esc(r.dir)}',+this.value/100)" oninput="sPC('${esc(r.dir)}',+this.value/100)" style="width:60px">%</td>
+      <td>${fU(bruto)}</td>
+      <td style="color:var(--green-glow)">${fU(bol)}</td>
     </tr>`;
   }).join('');
   updateSim();
 }
 
-function toggleSim(dir,checked){
-  if(!simState[dir])simState[dir]={sel:false,precio:0};
-  simState[dir].sel=checked;updateSim();
-}
-function setPrecio(dir,p){
-  if(!simState[dir])simState[dir]={sel:false,precio:p};
-  simState[dir].precio=p;updateSim();
-}
+function esc(s){return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
+function tSim(dir,v){if(!simState[dir])simState[dir]={sel:false,precio:0,pctV:0.03,pctC:0.03};simState[dir].sel=v;updateSim();}
+function sP(dir,v){if(!simState[dir])simState[dir]={sel:false,precio:v,pctV:0.03,pctC:0.03};simState[dir].precio=v;updateSim();}
+function sPV(dir,v){if(!simState[dir])simState[dir]={sel:false,precio:0,pctV:v,pctC:0.03};simState[dir].pctV=v;updateSim();}
+function sPC(dir,v){if(!simState[dir])simState[dir]={sel:false,precio:0,pctV:0.03,pctC:v};simState[dir].pctC=v;updateSim();}
 
 function updateSim(){
   if(!kpis)return;
-  let count=0,comis=0,bol=0,dash=0;
+  let cnt=0,comis=0,bol=0,dash=0;
   kpis.enVentaData.forEach(r=>{
-    const st=simState[r.dir];
-    if(!st?.sel)return;
-    count++;
+    const st=simState[r.dir];if(!st?.sel)return;
+    cnt++;
     const p=st.precio||r.val_pub_ult||r.val_pub_ini||0;
-    const res=bolsilloRow(r,p);
+    const res=calcBolsillo(r,p,st.pctV||r.pct_vend_teo||0.03,st.pctC||r.pct_comp_teo||0.03);
     comis+=res.bruto;bol+=res.bol;dash+=res.dash;
   });
-  document.getElementById('sim-count').textContent=count;
-  document.getElementById('sim-comis').textContent=fmtU(comis);
-  document.getElementById('sim-bolsillo').textContent=fmtU(bol);
-  document.getElementById('sim-dash').textContent=fmtU(dash);
-  const total=kpis.dashAño+dash;
-  document.getElementById('sim-dash-total').textContent=fmtU(total);
-  const pct=Math.min(total/80000*100,100);
-  const pctActual=Math.min(kpis.dashAño/80000*100,100);
-  document.getElementById('sim-bar-actual').style.width=pctActual+'%';
-  document.getElementById('sim-bar-sim').style.width=Math.min(pct-pctActual,100-pctActual)+'%';
-  document.getElementById('sim-progress-label').textContent=
-    `Dashboard actual: USD ${fmt(kpis.dashAño)} | + simulado: USD ${fmt(total)} (${fmt(pct,1)}% de $80k)`;
+  document.getElementById('sim-count').textContent=cnt;
+  document.getElementById('sim-comis').textContent=fU(comis);
+  document.getElementById('sim-bol').textContent=fU(bol);
+  document.getElementById('sim-dash').textContent=fU(dash);
+
+  // Actualizar barra en cartera
+  const d80=80000;
+  const pV=Math.min(kpis.dashVend/d80*100,100);
+  const pR=Math.min((kpis.dashVend+kpis.dashRes)/d80*100,100)-pV;
+  const pS=Math.min((kpis.dashVend+kpis.dashRes+dash)/d80*100,100)-(pV+pR);
+  document.getElementById('sim-seg-vend').style.width=pV+'%';
+  document.getElementById('sim-seg-res').style.width=pR+'%';
+  document.getElementById('sim-seg-sim').style.width=Math.max(0,pS)+'%';
+  document.getElementById('sim-prog-label').textContent=
+    `Dashboard: vendido USD ${fmt(kpis.dashVend)} | +reservado USD ${fmt(kpis.dashRes)} | +simulado USD ${fmt(dash)} → total USD ${fmt(kpis.dashVend+kpis.dashRes+dash)} (${fmt(Math.min((kpis.dashVend+kpis.dashRes+dash)/d80*100,100),1)}% de $80k)`;
+
+  // Actualizar también en resumen si existe
+  const dSim=document.getElementById('dash-seg-sim');
+  if(dSim)dSim.style.width=Math.max(0,pS)+'%';
+  const dLabel=document.getElementById('dash-sim-label');
+  if(dLabel)dLabel.textContent='USD '+fmt(dash);
 }
 
-// ── VENTAS ────────────────────────────────────────────────────────────────────
 function renderVentas(){
   if(!kpis)return;
   let rows=[...kpis.vendidosData];
   if(busqV)rows=rows.filter(r=>(r.dir+r.nombre+r.zona+r.barrio).toLowerCase().includes(busqV.toLowerCase()));
-  if(sortColV)rows.sort((a,b)=>{const va=a[sortColV]||0,vb=b[sortColV]||0;return sortDirV*(typeof va==='number'?va-vb:String(va).localeCompare(String(vb)));});
+  if(sortCV)rows.sort((a,b)=>{const va=a[sortCV]||0,vb=b[sortCV]||0;return sdV*(typeof va==='number'?va-vb:String(va).localeCompare(String(vb)));});
   document.getElementById('cnt-ventas').textContent=rows.length+' operaciones';
   document.getElementById('tb-ventas').innerHTML=rows.map(r=>`<tr>
     <td>${r.dir||'—'}<br><span style="color:var(--muted);font-size:10px">${r.nombre}</span></td>
     <td>${r.zona||'—'}</td>
     <td><span class="badge v">${r.estado}</span></td>
-    <td>${fmtU(r.precio_cierre)}</td>
-    <td>${fmtU(r.comis_bruta)}</td>
-    <td style="color:var(--green-glow);font-weight:600">${fmtU(r.tbol_total)}</td>
-    <td>${r.dias_venta&&r.dias_venta>0?fmt(r.dias_venta)+' d':'—'}</td>
+    <td>${fU(r.precio_cierre)}</td>
+    <td>${fU(r.comis_bruta)}</td>
+    <td style="color:var(--green-glow);font-weight:600">${fU(r.tbol_total)}</td>
+    <td>${r.dias_venta>0?fmt(r.dias_venta)+' d':'—'}</td>
     <td>${r.pct_neg?fmt(r.pct_neg*100,1)+'%':'—'}</td>
     <td>${r.credito&&r.credito!=='No'&&r.credito!==''?r.credito:'—'}</td>
   </tr>`).join('');
 }
 
-function srtV(col){if(sortColV===col)sortDirV*=-1;else{sortColV=col;sortDirV=-1;}renderVentas();}
-function srtC(col){if(sortColC===col)sortDirC*=-1;else{sortColC=col;sortDirC=-1;}renderCartera();}
+function srtV(col){if(sortCV===col)sdV*=-1;else{sortCV=col;sdV=-1;}renderVentas();}
+function srtC(col){if(sortCC===col)sdC*=-1;else{sortCC=col;sdC=-1;}renderCartera();}
 
-// ── MULTI-SELECT ──────────────────────────────────────────────────────────────
 function buildMS(id,ops,sel,lbl){
   const w=document.getElementById(id);if(!w)return;
   const tr=w.querySelector('.ms-trigger'),dd=w.querySelector('.ms-dropdown'),oo=w.querySelector('.opts');
@@ -754,7 +693,7 @@ function buildMS(id,ops,sel,lbl){
   oo.querySelectorAll('input').forEach(i=>i.onchange=upd);
 }
 function getMS(id){const w=document.getElementById(id);if(!w)return[];return[...w.querySelectorAll('input:checked')].map(i=>i.value);}
-function selectAll(id){const w=document.getElementById(id);const all=w.querySelectorAll('input');const ok=[...all].every(c=>c.checked);all.forEach(c=>c.checked=!ok);}
+function selAll(id){const w=document.getElementById(id);const all=w.querySelectorAll('input');const ok=[...all].every(c=>c.checked);all.forEach(c=>c.checked=!ok);}
 
 function aplicar(){
   filtroAños=getMS('ms-años').map(Number);
@@ -763,7 +702,6 @@ function aplicar(){
   renderKPIs(kpis);buildAllCharts(kpis);renderCartera();renderVentas();
 }
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
 async function init(){
   try{
     const data=await fetchData();
@@ -773,11 +711,11 @@ async function init(){
     document.getElementById('filtros-globales').style.display='block';
     const años=[...new Set(allRows.map(r=>{const d=pd(r.f_escritura)||pd(r.f_reserva)||pd(r.f_contacto);return d?d.getFullYear():null;}).filter(Boolean))].sort();
     buildMS('ms-años',años,[],String);
-    buildMS('ms-meses',[1,2,3,4,5,6,7,8,9,10,11,12],[],m=>MESES[m-1]);
+    buildMS('ms-meses',[1,2,3,4,5,6,7,8,9,10,11,12],[],m=>MES[m-1]);
     renderKPIs(kpis);buildAllCharts(kpis);renderCartera();renderVentas();
     document.getElementById('last-update').textContent='Act: '+new Date().toLocaleTimeString('es-AR');
   }catch(e){
-    document.getElementById('loading').innerHTML=`<div style="color:var(--danger)">Error: ${e.message}</div>`;
+    document.getElementById('loading').innerHTML=`<div style="color:var(--danger);padding:20px">Error: ${e.message}</div>`;
   }
 }
 
