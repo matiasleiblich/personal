@@ -43,8 +43,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);}
 .ms-option:hover{background:var(--surface2);}
 .ms-all{padding:8px 14px;font-size:11px;color:var(--muted);cursor:pointer;border-bottom:1px solid var(--border);}
 .ms-all:hover{background:var(--surface2);}
-.btn{background:var(--green);border:none;border-radius:6px;padding:8px 18px;color:white;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font);}
-.btn:hover{background:var(--green-mid);}
+.btn{background:var(--green);border:none;border-radius:6px;padding:8px 18px;color:white;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font);transition:all .15s;}
+.btn:hover{opacity:.85;}
+.btn.sec{background:var(--surface2);border:1px solid var(--border);color:var(--muted);}
 .section-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:10px;margin-top:16px;}
 .kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:16px;}
 .kpi{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;transition:border-color .2s,transform .15s;}
@@ -64,20 +65,15 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);}
 .kpi-value.purple{color:var(--purple);}
 .kpi-sub{font-size:10px;color:var(--muted);margin-top:3px;}
 .kpi-badge{display:inline-block;background:rgba(63,182,138,.12);color:var(--accent);border-radius:4px;padding:1px 6px;font-size:10px;font-weight:600;margin-top:4px;}
-
-/* PROGRESS BARS APILADAS */
-.prog-wrap{margin-top:10px;}
-.prog-label{font-size:10px;color:var(--muted);margin-bottom:4px;}
-.prog-track{height:8px;background:var(--border);border-radius:4px;overflow:hidden;display:flex;}
-.prog-seg{height:100%;border-radius:0;transition:width .8s ease;}
+.prog-track{height:10px;background:var(--border);border-radius:5px;overflow:hidden;display:flex;}
+.prog-seg{height:100%;transition:width .8s ease;}
 .prog-seg.green{background:var(--green-glow);}
 .prog-seg.orange{background:var(--warn);}
 .prog-seg.purple{background:var(--purple);}
-.prog-feet{display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-top:2px;}
-.prog-legend{display:flex;gap:12px;margin-top:4px;flex-wrap:wrap;}
+.prog-feet{display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-top:3px;}
+.prog-legend{display:flex;gap:12px;margin-top:6px;flex-wrap:wrap;}
 .prog-legend-item{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted);}
 .prog-dot{width:8px;height:8px;border-radius:2px;}
-
 .charts-grid{display:grid;gap:14px;margin-bottom:18px;}
 .cg-3{grid-template-columns:1fr 1fr 1fr;}
 .cg-2{grid-template-columns:2fr 1fr;}
@@ -85,7 +81,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);}
 @media(max-width:1100px){.cg-3,.cg-2,.cg-2b{grid-template-columns:1fr 1fr;}}
 @media(max-width:700px){.cg-3,.cg-2,.cg-2b{grid-template-columns:1fr;}}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px;}
-.card-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.card-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;}
 .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block;margin-right:4px;}
 .card-select{background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 8px;font-size:11px;color:var(--text);font-family:var(--font);cursor:pointer;}
 .table-wrap{overflow-x:auto;}
@@ -98,18 +94,17 @@ tr:last-child td{border-bottom:none;}
 .badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:600;font-family:var(--font);}
 .badge.v{background:rgba(63,182,138,.12);color:var(--accent);}
 .badge.r{background:rgba(210,153,34,.12);color:var(--warn);}
-.badge.e{background:rgba(56,139,253,.12);color:var(--blue);}
 .table-controls{display:flex;gap:10px;margin-bottom:10px;align-items:center;flex-wrap:wrap;}
 .search-input{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:7px 12px;font-size:12px;color:var(--text);font-family:var(--font);width:220px;}
 .search-input:focus{outline:none;border-color:var(--accent);}
 .table-count{font-size:11px;color:var(--muted);}
-.sim-table input[type=checkbox]{accent-color:var(--accent);width:16px;height:16px;cursor:pointer;}
-.sim-table input[type=number]{background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:5px 8px;color:var(--text);font-family:var(--mono);font-size:11px;width:110px;}
-.sim-table input[type=number]:focus{outline:none;border-color:var(--accent);}
+.sim-input{background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:5px 7px;color:var(--text);font-family:var(--mono);font-size:11px;width:90px;}
+.sim-input:focus{outline:none;border-color:var(--accent);}
+.sim-check{accent-color:var(--accent);width:16px;height:16px;cursor:pointer;}
 .sim-box{background:var(--surface);border:1px solid var(--green-mid);border-radius:10px;padding:16px;margin-bottom:16px;}
-.sim-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;}
+.sim-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:14px;}
 .sim-kpi-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
-.sim-kpi-value{font-size:20px;font-weight:700;font-family:var(--mono);}
+.sim-kpi-value{font-size:18px;font-weight:700;font-family:var(--mono);}
 .loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:14px;}
 .spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
@@ -128,16 +123,20 @@ tr:last-child td{border-bottom:none;}
     <span id="last-update"></span>
   </div>
 </header>
+
 <nav class="tabs-bar">
   <div class="tab active" onclick="showTab('resumen')">📊 Resumen</div>
+  <div class="tab" onclick="showTab('prospeccion')">📈 Prospección</div>
   <div class="tab" onclick="showTab('cartera')">🏠 Cartera</div>
   <div class="tab" onclick="showTab('ventas')">✅ Ventas</div>
   <div class="tab" onclick="showTab('referidores')">👥 Referidores</div>
-  <div class="tab" onclick="showTab('prospeccion')">📈 Prospección</div>
 </nav>
+
 <div class="main">
   <div class="loading" id="loading"><div class="spinner"></div><div class="loading-text">Conectando...</div></div>
-  <div id="filtros-globales" style="display:none">
+  <div id="app" style="display:none">
+
+    <!-- FILTROS GLOBALES -->
     <div class="filters-bar">
       <div class="filter-group"><div class="filter-label">Año</div>
         <div class="multi-select" id="ms-años"><div class="ms-trigger"><span>Todos</span>▾</div>
@@ -148,168 +147,176 @@ tr:last-child td{border-bottom:none;}
       <div class="filter-group"><div class="filter-label" style="opacity:0">.</div>
         <button class="btn" onclick="aplicar()">Aplicar</button></div>
     </div>
-  </div>
 
-  <!-- RESUMEN -->
-  <div class="tab-content active" id="tab-resumen">
-    <p class="section-title">Tu bolsillo</p>
-    <div class="kpi-grid" id="kpi-bolsillo"></div>
-    <div id="dash-progress" style="margin-bottom:18px"></div>
-    <p class="section-title">Financiero</p>
-    <div class="kpi-grid" id="kpi-financiero"></div>
-    <p class="section-title">Embudo</p>
-    <div class="kpi-grid" id="kpi-embudo"></div>
-    <div class="charts-grid cg-2b" style="margin-top:4px">
-      <div class="card">
-        <div class="card-title"><span><span class="dot"></span>Estado cartera activa</span></div>
-        <canvas id="chart-estado" height="220"></canvas>
-      </div>
-      <div class="card">
-        <div class="card-title"><span><span class="dot"></span>Tu bolsillo acumulado</span></div>
-        <canvas id="chart-bolsillo-acum" height="220"></canvas>
+    <!-- RESUMEN -->
+    <div class="tab-content active" id="tab-resumen">
+      <p class="section-title">Tu bolsillo</p>
+      <div class="kpi-grid" id="kpi-bolsillo"></div>
+      <div id="dash-progress" style="margin-bottom:18px"></div>
+      <p class="section-title">Financiero</p>
+      <div class="kpi-grid" id="kpi-financiero"></div>
+      <p class="section-title">Embudo</p>
+      <div class="kpi-grid" id="kpi-embudo"></div>
+      <div class="charts-grid cg-2b" style="margin-top:4px">
+        <div class="card"><div class="card-title"><span><span class="dot"></span>Estado cartera activa</span></div><canvas id="chart-estado" height="220"></canvas></div>
+        <div class="card"><div class="card-title"><span><span class="dot"></span>Bolsillo acumulado</span></div><canvas id="chart-bol-acum" height="220"></canvas></div>
       </div>
     </div>
-  </div>
 
-  <!-- CARTERA -->
-  <div class="tab-content" id="tab-cartera">
-    <p class="section-title">Propiedades en venta — simulador</p>
-    <div class="sim-box">
-      <div class="sim-grid" id="sim-kpis">
-        <div><div class="sim-kpi-label">Seleccionadas</div><div class="sim-kpi-value" id="sim-count" style="color:var(--blue)">0</div></div>
-        <div><div class="sim-kpi-label">Comisión bruta sim.</div><div class="sim-kpi-value" id="sim-comis" style="color:var(--accent)">—</div></div>
-        <div><div class="sim-kpi-label">Tu bolsillo sim.</div><div class="sim-kpi-value" id="sim-bol" style="color:var(--green-glow)">—</div></div>
-        <div><div class="sim-kpi-label">Aporte dashboard sim.</div><div class="sim-kpi-value" id="sim-dash" style="color:var(--green-lt)">—</div></div>
+    <!-- PROSPECCIÓN -->
+    <div class="tab-content" id="tab-prospeccion">
+      <div style="display:flex;gap:8px;margin-bottom:16px;margin-top:4px;align-items:center">
+        <button id="btn-tot" onclick="setProsp('total')" style="background:var(--blue);border:none;border-radius:6px;padding:8px 18px;color:white;font-size:12px;font-weight:600;cursor:pointer;">🌐 Todos</button>
+        <button id="btn-prop" onclick="setProsp('propia')" style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 18px;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;">⭐ Prospección propia</button>
       </div>
-      <div style="margin-top:14px">
-        <div style="font-size:10px;color:var(--muted);margin-bottom:6px" id="sim-prog-label">Dashboard acumulado</div>
-        <div class="prog-track" id="sim-prog-track">
-          <div class="prog-seg green" id="sim-seg-vend" style="width:0%"></div>
-          <div class="prog-seg orange" id="sim-seg-res" style="width:0%"></div>
-          <div class="prog-seg purple" id="sim-seg-sim" style="width:0%"></div>
+      <p class="section-title">Embudo</p>
+      <div class="kpi-grid" id="kpi-emb-prosp"></div>
+      <div class="charts-grid cg-2b">
+        <div class="card">
+          <div class="card-title">
+            <span><span class="dot"></span>Por año — elegí año</span>
+            <select id="sel-año-emb" class="card-select" onchange="renderEmbudoAño()">
+              <option value="">Todos</option>
+            </select>
+          </div>
+          <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap" id="btn-metric-wrap">
+            <button onclick="setMetric('all')" id="btn-m-all" style="background:var(--blue);border:none;border-radius:5px;padding:4px 10px;color:white;font-size:11px;cursor:pointer;">Todo</button>
+            <button onclick="setMetric('cont')" id="btn-m-cont" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Contactos</button>
+            <button onclick="setMetric('tas')" id="btn-m-tas" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Tasaciones</button>
+            <button onclick="setMetric('capt')" id="btn-m-capt" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Captaciones</button>
+            <button onclick="setMetric('vend')" id="btn-m-vend" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Ventas</button>
+          </div>
+          <canvas id="chart-emb-año" height="200"></canvas>
         </div>
-        <div class="prog-feet"><span>$0</span><span>$80k</span></div>
-        <div class="prog-legend">
-          <div class="prog-legend-item"><div class="prog-dot" style="background:var(--green-glow)"></div>Vendido</div>
-          <div class="prog-legend-item"><div class="prog-dot" style="background:var(--warn)"></div>Reservado</div>
-          <div class="prog-legend-item"><div class="prog-dot" style="background:var(--purple)"></div>Simulado</div>
+        <div class="card">
+          <div class="card-title"><span><span class="dot"></span>Comparativa año a año</span>
+            <div style="display:flex;gap:6px;flex-wrap:wrap" id="btn-comp-wrap">
+              <button onclick="setMetricComp('cont')" id="btn-c-cont" style="background:var(--blue);border:none;border-radius:5px;padding:4px 10px;color:white;font-size:11px;cursor:pointer;">Contactos</button>
+              <button onclick="setMetricComp('tas')" id="btn-c-tas" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Tasaciones</button>
+              <button onclick="setMetricComp('capt')" id="btn-c-capt" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Captaciones</button>
+              <button onclick="setMetricComp('vend')" id="btn-c-vend" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Ventas</button>
+            </div>
+          </div>
+          <canvas id="chart-comp-año" height="200"></canvas>
         </div>
       </div>
-    </div>
-    <div class="card">
-      <div class="table-controls">
-        <input class="search-input" placeholder="Buscar..." oninput="busqC=this.value;renderCartera()">
-        <span class="table-count" id="cnt-cartera"></span>
+      <div class="charts-grid cg-3">
+        <div class="card"><div class="card-title"><span class="dot"></span>Prospección 1</div><canvas id="chart-p1" height="200"></canvas></div>
+        <div class="card">
+          <div class="card-title"><span><span class="dot"></span>Prospección 2</span>
+            <select id="sel-p1" class="card-select" onchange="renderP2()"><option value="">Todos</option></select>
+          </div><canvas id="chart-p2" height="200"></canvas>
+        </div>
+        <div class="card"><div class="card-title"><span class="dot"></span>Por zona</div><canvas id="chart-zona" height="200"></canvas></div>
       </div>
-      <div class="table-wrap"><table class="sim-table">
-        <thead><tr>
-          <th style="width:36px">Vender?</th>
-          <th onclick="srtC('dir')">Propiedad ↕</th>
-          <th onclick="srtC('zona')">Zona ↕</th>
-          <th onclick="srtC('val_pub_ult')">Último precio ↕</th>
-          <th>Precio simulado</th>
-          <th>% Vend.</th>
-          <th>% Comp.</th>
-          <th>Comisión pot.</th>
-          <th>Tu bolsillo pot.</th>
-        </tr></thead>
-        <tbody id="tb-cartera"></tbody>
-      </table></div>
+      <div class="charts-grid cg-2b">
+        <div class="card">
+          <div class="card-title"><span><span class="dot"></span>Por barrio (top 10)</span>
+            <select id="sel-zona" class="card-select" onchange="renderBarrio()"><option value="">Todas</option></select>
+          </div><canvas id="chart-barrio" height="220"></canvas>
+        </div>
+        <div class="card"><div class="card-title"><span class="dot"></span>Crédito (vendidos + reservados)</div><canvas id="chart-credito" height="220"></canvas></div>
+      </div>
     </div>
-  </div>
 
-  <!-- VENTAS -->
-  <div class="tab-content" id="tab-ventas">
-    <p class="section-title">Operaciones cerradas</p>
-    <div class="card">
-      <div class="table-controls">
-        <input class="search-input" placeholder="Buscar..." oninput="busqV=this.value;renderVentas()">
-        <span class="table-count" id="cnt-ventas"></span>
+    <!-- CARTERA -->
+    <div class="tab-content" id="tab-cartera">
+      <p class="section-title">Simulador de ventas</p>
+      <div class="sim-box">
+        <div class="sim-grid" id="sim-kpis">
+          <div><div class="sim-kpi-label">Seleccionadas</div><div class="sim-kpi-value" id="sim-count" style="color:var(--blue)">0</div></div>
+          <div><div class="sim-kpi-label">Comisión bruta sim.</div><div class="sim-kpi-value" id="sim-comis" style="color:var(--accent)">—</div></div>
+          <div><div class="sim-kpi-label">Tu bolsillo sim.</div><div class="sim-kpi-value" id="sim-bol" style="color:var(--green-glow)">—</div></div>
+          <div><div class="sim-kpi-label">Aporte dashboard sim.</div><div class="sim-kpi-value" id="sim-dash" style="color:var(--green-lt)">—</div></div>
+          <div><div class="sim-kpi-label">DI liberado sim. 🎉</div><div class="sim-kpi-value" id="sim-di" style="color:var(--purple)">—</div></div>
+        </div>
+        <div>
+          <div style="font-size:10px;color:var(--muted);margin-bottom:5px" id="sim-prog-label">Dashboard acumulado</div>
+          <div class="prog-track" id="sim-prog">
+            <div class="prog-seg green" id="sp-vend" style="width:0%"></div>
+            <div class="prog-seg orange" id="sp-res" style="width:0%"></div>
+            <div class="prog-seg purple" id="sp-sim" style="width:0%"></div>
+          </div>
+          <div class="prog-feet"><span>$0</span><span>$80k</span></div>
+          <div class="prog-legend">
+            <div class="prog-legend-item"><div class="prog-dot" style="background:var(--green-glow)"></div><span id="leg-vend">Vendido: —</span></div>
+            <div class="prog-legend-item"><div class="prog-dot" style="background:var(--warn)"></div><span id="leg-res">Reservado: —</span></div>
+            <div class="prog-legend-item"><div class="prog-dot" style="background:var(--purple)"></div><span id="leg-sim">Simulado: USD 0</span></div>
+          </div>
+        </div>
       </div>
-      <div class="table-wrap"><table>
-        <thead><tr>
-          <th onclick="srtV('dir')">Propiedad ↕</th>
-          <th onclick="srtV('zona')">Zona ↕</th>
-          <th>Estado</th>
-          <th onclick="srtV('precio_cierre')">Precio cierre ↕</th>
-          <th onclick="srtV('comis_bruta')">Comisión bruta ↕</th>
-          <th onclick="srtV('tbol_total')">Tu bolsillo ↕</th>
-          <th onclick="srtV('dias_venta')">Días ↕</th>
-          <th>% Neg.</th>
-          <th>Crédito</th>
-        </tr></thead>
-        <tbody id="tb-ventas"></tbody>
-      </table></div>
+      <div class="card">
+        <div class="table-controls">
+          <input class="search-input" placeholder="Buscar..." oninput="busqC=this.value;renderCartera()">
+          <span class="table-count" id="cnt-cartera"></span>
+        </div>
+        <div class="table-wrap"><table>
+          <thead><tr>
+            <th style="width:36px">+</th>
+            <th onclick="srtC('dir')">Propiedad ↕</th>
+            <th onclick="srtC('zona')">Zona ↕</th>
+            <th onclick="srtC('val_pub_ult')">Último precio ↕</th>
+            <th>Precio simulado</th>
+            <th>% Vend.</th>
+            <th>% Comp.</th>
+            <th>Comisión pot.</th>
+            <th>Tu bolsillo pot.</th>
+          </tr></thead>
+          <tbody id="tb-cartera"></tbody>
+        </table></div>
+      </div>
     </div>
-  </div>
 
-  <!-- REFERIDORES -->
-  <div class="tab-content" id="tab-referidores">
-    <p class="section-title">Actividad por referidor</p>
-    <div class="charts-grid cg-2b">
-      <div class="card"><div class="card-title"><span class="dot"></span>Contactos / Captados / Vendidos</div><canvas id="chart-ref-c" height="220"></canvas></div>
-      <div class="card"><div class="card-title"><span class="dot"></span>En venta por referidor</div><canvas id="chart-ref-v" height="220"></canvas></div>
+    <!-- VENTAS -->
+    <div class="tab-content" id="tab-ventas">
+      <p class="section-title">Operaciones cerradas</p>
+      <div class="card">
+        <div class="table-controls">
+          <input class="search-input" placeholder="Buscar..." oninput="busqV=this.value;renderVentas()">
+          <span class="table-count" id="cnt-ventas"></span>
+        </div>
+        <div class="table-wrap"><table>
+          <thead><tr>
+            <th onclick="srtV('dir')">Propiedad ↕</th>
+            <th onclick="srtV('zona')">Zona ↕</th>
+            <th>Estado</th>
+            <th onclick="srtV('precio_cierre')">Precio cierre ↕</th>
+            <th onclick="srtV('comis_bruta')">Comisión bruta ↕</th>
+            <th onclick="srtV('tbol_total')">Tu bolsillo ↕</th>
+            <th onclick="srtV('dias_venta')">Días ↕</th>
+            <th>% Neg.</th>
+            <th>Crédito</th>
+          </tr></thead>
+          <tbody id="tb-ventas"></tbody>
+        </table></div>
+      </div>
     </div>
-    <div class="card">
-      <div class="table-wrap"><table>
-        <thead><tr>
-          <th>Referidor</th>
-          <th>Contactos</th>
-          <th>Tasados</th>
-          <th>Captados</th>
-          <th>En venta</th>
-          <th>Vendidos</th>
-          <th>% Conv.</th>
-          <th>Comisión generada</th>
-        </tr></thead>
-        <tbody id="tb-ref"></tbody>
-      </table></div>
-    </div>
-  </div>
 
-  <!-- PROSPECCIÓN -->
-  <div class="tab-content" id="tab-prospeccion">
-    <div style="display:flex;gap:8px;margin-bottom:16px;margin-top:4px">
-      <button class="btn" id="btn-prosp-total" onclick="setFiltroProsp('total')">🌐 Todos los contactos</button>
-      <button class="btn sec" id="btn-prosp-propia" onclick="setFiltroProsp('propia')">⭐ Solo prospección propia</button>
-    </div>
-    <p class="section-title">Embudo</p>
-    <div class="kpi-grid" id="kpi-embudo-prosp"></div>
-    <div class="charts-grid cg-2b" style="margin-bottom:18px">
-      <div class="card">
-        <div class="card-title"><span><span class="dot"></span>Contactos / Tasaciones / Captaciones / Ventas por mes</span></div>
-        <canvas id="chart-embudo-mes" height="180"></canvas>
+    <!-- REFERIDORES -->
+    <div class="tab-content" id="tab-referidores">
+      <p class="section-title">Actividad por referidor</p>
+      <div class="charts-grid cg-2b">
+        <div class="card"><div class="card-title"><span class="dot"></span>Contactos / Captados / Vendidos</div><canvas id="chart-ref-c" height="220"></canvas></div>
+        <div class="card"><div class="card-title"><span class="dot"></span>En venta por referidor</div><canvas id="chart-ref-v" height="220"></canvas></div>
       </div>
       <div class="card">
-        <div class="card-title"><span><span class="dot"></span>% Captación y Conversión histórico</span></div>
-        <canvas id="chart-conv-mes" height="180"></canvas>
+        <div class="table-wrap"><table>
+          <thead><tr>
+            <th>Referidor</th><th>Contactos</th><th>Tasados</th><th>Captados</th>
+            <th>En venta</th><th>Vendidos</th><th>% Conv.</th><th>Comisión generada</th>
+          </tr></thead>
+          <tbody id="tb-ref"></tbody>
+        </table></div>
       </div>
     </div>
-    <div class="charts-grid cg-3">
-      <div class="card"><div class="card-title"><span class="dot"></span>Prospección 1</div><canvas id="chart-p1" height="200"></canvas></div>
-      <div class="card">
-        <div class="card-title"><span><span class="dot"></span>Prospección 2</span>
-          <select id="sel-p1" class="card-select" onchange="renderP2()"><option value="">Todos</option></select>
-        </div><canvas id="chart-p2" height="200"></canvas>
-      </div>
-      <div class="card"><div class="card-title"><span class="dot"></span>Por zona</div><canvas id="chart-zona" height="200"></canvas></div>
-    </div>
-    <div class="charts-grid cg-2b">
-      <div class="card">
-        <div class="card-title"><span><span class="dot"></span>Por barrio (top 10)</span>
-          <select id="sel-zona" class="card-select" onchange="renderBarrio()"><option value="">Todas</option></select>
-        </div><canvas id="chart-barrio" height="220"></canvas>
-      </div>
-      <div class="card"><div class="card-title"><span class="dot"></span>Crédito (vendidos + reservados)</div><canvas id="chart-credito" height="220"></canvas></div>
-    </div>
-  </div>
+
+  </div><!-- /app -->
 </div>
 
 <script>
 const CSV='https://docs.google.com/spreadsheets/d/e/2PACX-1vQNkVL_2PEPtVfpNhiUw4LHxw0tOVymJAt-Uj9bBxqIHEbLXMp2fMxQ5NYpuVtjOQ/pub?gid=1670165147&single=true&output=csv';
-// Índices columna (0-based), fila de datos empieza en slice(3)
 const C={
-  nombre:1,dir:4,barrio:5,zona:6,tipo:7,prosp1:9,prosp2:10,referidor:11,prospectador:12,
+  nombre:1,dir:4,barrio:5,zona:6,prosp1:9,prosp2:10,referidor:11,prospectador:12,
   f_contacto:13,f_tasacion:15,estado:16,val_p1:17,
   val_pub_ini:23,val_pub_ult:24,captador:21,f_pub:22,
   f_reserva:25,precio_cierre:26,vendedor:27,f_escritura:28,
@@ -324,6 +331,7 @@ const B=['#388bfd','#58a6ff','#79c0ff'];
 const O=['#d29922','#e3b341','#f0c94b'];
 const MX=[...G,...O,...B,'#f85149','#a855f7','#e879f9'];
 const MES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const COLORS_AÑO=['#388bfd','#52B788','#d29922','#f85149','#a855f7','#58a6ff'];
 Chart.defaults.color='#7d8590';Chart.defaults.borderColor='#30363d';
 Chart.defaults.font.family="'Inter',sans-serif";
 
@@ -337,6 +345,7 @@ function mkey(d){return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'
 let allRows=[],filtroAños=[],filtroMeses=[];
 let sortCV='',sdV=1,sortCC='',sdC=1,busqV='',busqC='';
 let charts={},kpis=null,simState={};
+let filtroProsp='total',metricaEmb='all',metricaComp='cont';
 
 async function fetchData(){
   const r=await fetch(CSV);if(!r.ok)throw new Error('CSV no accesible');
@@ -365,43 +374,57 @@ function rowIn(r){
         (filtroMeses.length===0||filtroMeses.includes(d.getMonth()+1));
 }
 
-// Calcula bolsillo potencial para una propiedad dado un precio de venta
-function calcBolsillo(r,precio,pctV,pctC){
+function getRowsProsp(){
+  const f=allRows.filter(rowIn);
+  return filtroProsp==='propia'?f.filter(r=>r.prospectador===TUTE):f;
+}
+
+// Calcula bolsillo simulado para una propiedad dado precio, %s y acumulado previo
+function calcSim(r,precio,pctV,pctC,acumPrev){
   const bruto=precio*(pctV+pctC);
   const neto=bruto; // sin referidor en simulación
+  // DI: 30% sobre el tramo hasta $80k
+  let montoSinDI=0;
+  if(r.prospectador===TUTE){
+    if(acumPrev>=80000) montoSinDI=neto*0.3; // ya pasó: no paga DI, se libera todo
+    else if(acumPrev+neto>80000) montoSinDI=(acumPrev+neto-80000)*0.3;
+    // else: todavía bajo umbral, DI liberado=0
+  }
+  const montoADI=r.prospectador===TUTE?
+    (acumPrev>=80000?0:acumPrev+neto>80000?(80000-acumPrev)*0.3:neto*0.3):neto*0.3;
   const tp=r.prospectador===TUTE?0.2:0;
   const tc=r.captador===TUTE?0.15:0;
   const tv=r.vendedor===TUTE?0.15:0;
-  const bol=neto*(tp+tc+tv);
+  const bol=neto*(tp+tc+tv)+montoSinDI;
   const dash=r.prospectador===TUTE?neto:0;
-  return{bruto,bol,dash};
+  return{bruto,bol,dash,neto};
 }
 
 function compute(rows){
   const f=rows.filter(rowIn);
   const VEND=['Vendido','Busqueda GANADA'];
-  const RES=['Reservado'];
   const CAPT=['En Venta','Vendido','Busqueda GANADA','Reservado'];
-  const TAS_EST=['En Venta','Vendido','Busqueda GANADA','Reservado','No captado','Tasado','CANCELADO','No Vendido'];
 
   const vendidos=f.filter(r=>VEND.includes(r.estado));
-  const reservados=f.filter(r=>RES.includes(r.estado));
+  const reservados=allRows.filter(r=>r.estado==='Reservado'); // siempre todos, sin filtro de año
   const captados=f.filter(r=>CAPT.includes(r.estado));
   const enVenta=rows.filter(r=>r.estado==='En Venta');
+  const tasados=rows.filter(r=>r.f_tasacion).length;
 
-  // Bolsillo: solo sumar si prospectador = Tute
-  const bolVendido=vendidos.filter(r=>r.prospectador===TUTE).reduce((s,r)=>s+(r.tbol_total||0),0);
-  const bolReservado=reservados.filter(r=>r.prospectador===TUTE).reduce((s,r)=>s+(r.tbol_total||0),0);
+  // Bolsillo: todos (sin filtrar por prospectador)
+  const bolVendido=vendidos.reduce((s,r)=>s+(r.tbol_total||0),0);
+  const bolReservado=reservados.reduce((s,r)=>s+(r.tbol_total||0),0);
+
+  // Comisión bruta: solo donde Tute prospectó
+  const comBruta=vendidos.filter(r=>r.prospectador===TUTE).reduce((s,r)=>s+(r.comis_bruta||0),0);
+  const comBrutaRes=reservados.filter(r=>r.prospectador===TUTE).reduce((s,r)=>s+(r.comis_bruta||0),0);
+
+  const usdColega=vendidos.reduce((s,r)=>s+(r.usd_colega||0),0);
 
   // Dashboard año actual
   const añoAct=new Date().getFullYear();
-  const dashVend=vendidos.filter(r=>{const d=pd(r.f_escritura);return d&&d.getFullYear()===añoAct;})
-    .reduce((s,r)=>s+(r.dashboard||0),0);
+  const dashVend=rows.filter(r=>{const d=pd(r.f_escritura);return d&&d.getFullYear()===añoAct&&['Vendido','Busqueda GANADA'].includes(r.estado);}).reduce((s,r)=>s+(r.dashboard||0),0);
   const dashRes=reservados.reduce((s,r)=>s+(r.dashboard||0),0);
-
-  // Comisión bruta: solo donde prospectador = Tute
-  const comBruta=vendidos.filter(r=>r.prospectador===TUTE).reduce((s,r)=>s+(r.comis_bruta||0),0);
-  const usdColega=vendidos.reduce((s,r)=>s+(r.usd_colega||0),0);
 
   const conP=vendidos.filter(r=>r.precio_cierre);
   const ticketProm=conP.length?conP.reduce((s,r)=>s+r.precio_cierre,0)/conP.length:0;
@@ -409,8 +432,10 @@ function compute(rows){
   const diasProm=conD.length?conD.reduce((s,r)=>s+r.dias_venta,0)/conD.length:0;
   const maxComis=vendidos.length?Math.max(...vendidos.map(r=>r.comis_bruta||0)):0;
 
-  // Embudo: contar por fecha correspondiente al estado
-  // Contactos=f_contacto, Tasados=f_tasacion, Captados=f_pub, Vendidos=f_escritura
+  const pctCapt=tasados?(captados.length/tasados*100):0;
+  const pctConv=captados.length?(vendidos.length/captados.length*100):0;
+
+  // Embudo por mes — desde allRows para gráficos históricos
   const byMes={cont:{},tas:{},capt:{},vend:{}};
   rows.forEach(r=>{
     const dc=pd(r.f_contacto);if(dc){const k=mkey(dc);byMes.cont[k]=(byMes.cont[k]||0)+1;}
@@ -419,23 +444,19 @@ function compute(rows){
     const de=pd(r.f_escritura);if(de){const k=mkey(de);byMes.vend[k]=(byMes.vend[k]||0)+1;}
   });
 
-  // Embudo totales (sin filtro de fecha, por estado actual)
-  const tasados=rows.filter(r=>r.f_tasacion).length;
-  const totalContactos=rows.length;
-
-  // Referidores — conteo por f_tasacion para "tasados"
+  // Referidores
   const refMap={};
   rows.forEach(r=>{
     if(!r.referidor)return;
     if(!refMap[r.referidor])refMap[r.referidor]={contactos:0,tasados:0,captados:0,enVenta:0,vendidos:0,comision:0};
     refMap[r.referidor].contactos++;
-    if(r.f_tasacion) refMap[r.referidor].tasados++;
-    if(CAPT.includes(r.estado)) refMap[r.referidor].captados++;
-    if(r.estado==='En Venta') refMap[r.referidor].enVenta++;
+    if(r.f_tasacion)refMap[r.referidor].tasados++;
+    if(CAPT.includes(r.estado))refMap[r.referidor].captados++;
+    if(r.estado==='En Venta')refMap[r.referidor].enVenta++;
     if(VEND.includes(r.estado)){refMap[r.referidor].vendidos++;refMap[r.referidor].comision+=(r.comis_bruta||0);}
   });
 
-  // P1, P2, zona, barrio (usando filtro)
+  // P1, P2, zona, barrio
   const byP1={},byP2={},byZona={},byBarrio={};
   f.forEach(r=>{
     byP1[r.prosp1||'Sin dato']=(byP1[r.prosp1||'Sin dato']||0)+1;
@@ -450,18 +471,24 @@ function compute(rows){
     credMap[c]=(credMap[c]||0)+1;
   });
 
-  const pctCapt=tasados?(captados.length/tasados*100):0;
-  const pctConv=captados.length?(vendidos.length/captados.length*100):0;
+  // Bolsillo acumulado mes a mes
+  const mesesVend=[...new Set(vendidos.map(r=>{const d=pd(r.f_escritura);return d?mkey(d):null;}).filter(Boolean))].sort();
+  let acum=0;
+  const bolAcumData=mesesVend.map(m=>{
+    acum+=vendidos.filter(r=>{const d=pd(r.f_escritura);return d&&mkey(d)===m;}).reduce((s,r)=>s+(r.tbol_total||0),0);
+    return acum;
+  });
 
   return{
-    total:totalContactos,vendidos:vendidos.length,reservados:reservados.length,
+    total:f.length,vendidos:vendidos.length,reservados:reservados.length,
     captados:captados.length,tasados,enVenta:enVenta.length,
-    bolVendido,bolReservado,comBruta,usdColega,
-    dashVend,dashRes,ticketProm,diasProm,maxComis,
-    pctCapt,pctConv,
+    bolVendido,bolReservado,comBruta,comBrutaRes,usdColega,
+    dashVend,dashRes,ticketProm,diasProm,maxComis,pctCapt,pctConv,
     byMes,refMap,byP1,byP2,byZona,byBarrio,credMap,
+    mesesVend,bolAcumData,
     estadoCartera:{'En Venta':enVenta.length,'Reservado':reservados.length},
-    vendidosData:vendidos,enVentaData:enVenta,filteredRows:f,
+    vendidosData:vendidos,enVentaData:enVenta,
+    reservadosData:reservados,filteredRows:f,
   };
 }
 
@@ -472,13 +499,16 @@ function showTab(id){
   document.getElementById('tab-'+id).classList.add('active');
 }
 
-function destroyCharts(){Object.values(charts).forEach(c=>{try{c.destroy();}catch(e){}});charts={};}
+function destroyChart(id){if(charts[id]){charts[id].destroy();delete charts[id];}}
 function sorted(o){return Object.entries(o).sort((a,b)=>b[1]-a[1]);}
 
+// ── RENDER KPIs ────────────────────────────────────────────────────────────
 function renderKPIs(k){
   const d80=80000;
   const pctV=Math.min(k.dashVend/d80*100,100);
   const pctR=Math.min((k.dashVend+k.dashRes)/d80*100,100)-pctV;
+  const pctSimAcum=getSimDash();
+  const pctS=Math.min((k.dashVend+k.dashRes+pctSimAcum)/d80*100,100)-(pctV+pctR);
 
   document.getElementById('kpi-bolsillo').innerHTML=`
     <div class="kpi hl"><div class="kpi-label">Bolsillo — vendidos</div><div class="kpi-value green">USD ${fmt(k.bolVendido)}</div><div class="kpi-sub">${k.vendidos} operaciones</div></div>
@@ -487,22 +517,23 @@ function renderKPIs(k){
 
   document.getElementById('dash-progress').innerHTML=`
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;">
-      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:12px;">📈 Carrera al Dashboard — ${new Date().getFullYear()}</div>
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:10px;">📈 Carrera al Dashboard — ${new Date().getFullYear()}</div>
       <div class="prog-track" style="height:12px;border-radius:6px;">
         <div class="prog-seg green" style="width:${pctV}%"></div>
         <div class="prog-seg orange" style="width:${pctR}%"></div>
-        <div class="prog-seg purple" id="dash-seg-sim" style="width:0%"></div>
+        <div class="prog-seg purple" id="dash-seg-sim" style="width:${Math.max(0,pctS)}%"></div>
       </div>
-      <div class="prog-feet" style="margin-top:4px"><span>$0</span><span id="dash-pct-label">${fmt(pctV+pctR,1)}% de $80k — USD ${fmt(k.dashVend+k.dashRes)}</span><span>$80k</span></div>
+      <div class="prog-feet" style="margin-top:4px"><span>$0</span><span>${fmt(pctV+pctR,1)}% de $80k</span><span>$80k</span></div>
       <div class="prog-legend" style="margin-top:8px">
         <div class="prog-legend-item"><div class="prog-dot" style="background:var(--green-glow)"></div>Vendido: USD ${fmt(k.dashVend)}</div>
         <div class="prog-legend-item"><div class="prog-dot" style="background:var(--warn)"></div>Reservado: USD ${fmt(k.dashRes)}</div>
-        <div class="prog-legend-item"><div class="prog-dot" style="background:var(--purple)"></div>Simulado: <span id="dash-sim-label">USD 0</span></div>
+        <div class="prog-legend-item"><div class="prog-dot" style="background:var(--purple)"></div>Simulado: <span id="dash-sim-label">USD ${fmt(pctSimAcum)}</span></div>
       </div>
     </div>`;
 
   document.getElementById('kpi-financiero').innerHTML=`
     <div class="kpi"><div class="kpi-label">Comisión bruta cobrada</div><div class="kpi-value blue">USD ${fmt(k.comBruta)}</div><div class="kpi-sub">donde Tute prospectó</div></div>
+    <div class="kpi ora"><div class="kpi-label">+ Reservados</div><div class="kpi-value orange">USD ${fmt(k.comBrutaRes)}</div><div class="kpi-sub">donde Tute prospectó</div></div>
     <div class="kpi"><div class="kpi-label">Mayor comisión</div><div class="kpi-value">USD ${fmt(k.maxComis)}</div></div>
     <div class="kpi"><div class="kpi-label">Ticket promedio</div><div class="kpi-value">USD ${fmt(k.ticketProm)}</div><div class="kpi-sub">precio escritura</div></div>
     <div class="kpi"><div class="kpi-label">Días prom. en venta</div><div class="kpi-value">${fmt(k.diasProm)}</div><div class="kpi-sub">pub. → reserva</div></div>
@@ -517,30 +548,187 @@ function renderKPIs(k){
     <div class="kpi"><div class="kpi-label">Reservados</div><div class="kpi-value orange">${k.reservados}</div></div>`;
 }
 
-function buildAllCharts(k){
-  destroyCharts();
-
-  // Embudo por mes (últimos 18 meses)
-  const allM=[...new Set([...Object.keys(k.byMes.cont),...Object.keys(k.byMes.tas),...Object.keys(k.byMes.capt),...Object.keys(k.byMes.vend)])].sort().slice(-18);
-  const ctxEM=document.getElementById('chart-embudo-mes');
-  if(ctxEM)charts.embudoMes=new Chart(ctxEM,{type:'bar',data:{
-    labels:allM.map(m=>{const[y,mo]=m.split('-');return MES[+mo-1].slice(0,3)+' '+y.slice(2);}),
-    datasets:[
-      {label:'Contactos',data:allM.map(m=>k.byMes.cont[m]||0),backgroundColor:B[0],borderRadius:3},
-      {label:'Tasaciones',data:allM.map(m=>k.byMes.tas[m]||0),backgroundColor:G[2],borderRadius:3},
-      {label:'Captaciones',data:allM.map(m=>k.byMes.capt[m]||0),backgroundColor:O[0],borderRadius:3},
-      {label:'Ventas',data:allM.map(m=>k.byMes.vend[m]||0),backgroundColor:'#f85149',borderRadius:3},
-    ]
-  },options:{responsive:true,maintainAspectRatio:true,
-    plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:10}}}},
-    scales:{x:{grid:{display:false},ticks:{font:{size:9}}},y:{grid:{color:'#21262d'},ticks:{precision:0}}}}});
-
-  // Estado
+// ── CHARTS RESUMEN ─────────────────────────────────────────────────────────
+function buildResumenCharts(k){
+  destroyChart('estado');destroyChart('bolAcum');
   const ee=Object.entries(k.estadoCartera).filter(e=>e[1]>0);
   const ctxE=document.getElementById('chart-estado');
   if(ctxE)charts.estado=new Chart(ctxE,{type:'doughnut',data:{labels:ee.map(e=>e[0]),datasets:[{data:ee.map(e=>e[1]),backgroundColor:[G[2],O[0]],borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'60%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
 
-  // Referidores
+  const ctxBA=document.getElementById('chart-bol-acum');
+  if(ctxBA)charts.bolAcum=new Chart(ctxBA,{type:'line',data:{
+    labels:k.mesesVend.map(m=>{const[y,mo]=m.split('-');return MES[+mo-1].slice(0,3)+' '+y.slice(2);}),
+    datasets:[{label:'Bolsillo acumulado',data:k.bolAcumData,borderColor:G[2],backgroundColor:'rgba(82,183,136,0.1)',fill:true,tension:0.3,pointRadius:3}]
+  },options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:9}}},y:{grid:{color:'#21262d'}}}}});
+}
+
+// ── CHARTS PROSPECCIÓN ─────────────────────────────────────────────────────
+function buildProspCharts(k){
+  renderEmbudoProsp();
+  renderEmbudoAño();
+  renderCompAño();
+  renderP1P2Zona(k);
+  renderBarrio();
+  renderCredito(k);
+}
+
+function renderEmbudoProsp(){
+  if(!kpis)return;
+  const rows=getRowsProsp();
+  const VEND=['Vendido','Busqueda GANADA'];
+  const CAPT=['En Venta','Vendido','Busqueda GANADA','Reservado'];
+  const total=rows.length;
+  const tasados=rows.filter(r=>r.f_tasacion).length;
+  const captados=rows.filter(r=>CAPT.includes(r.estado)).length;
+  const vendidos=rows.filter(r=>VEND.includes(r.estado)).length;
+  const pctCapt=tasados?(captados/tasados*100):0;
+  const pctConv=captados?(vendidos/captados*100):0;
+  const el=document.getElementById('kpi-emb-prosp');
+  if(el)el.innerHTML=`
+    <div class="kpi"><div class="kpi-label">Contactos</div><div class="kpi-value">${total}</div></div>
+    <div class="kpi"><div class="kpi-label">Tasados</div><div class="kpi-value">${tasados}</div></div>
+    <div class="kpi"><div class="kpi-label">Captados</div><div class="kpi-value">${captados}</div><div class="kpi-badge">% capt: ${fmt(pctCapt,1)}%</div></div>
+    <div class="kpi"><div class="kpi-label">Vendidos</div><div class="kpi-value green">${vendidos}</div><div class="kpi-badge">% conv: ${fmt(pctConv,1)}%</div></div>`;
+}
+
+let metricaColors={cont:B[0],tas:G[2],capt:O[0],vend:'#f85149'};
+let metricaLabels={cont:'Contactos',tas:'Tasaciones',capt:'Captaciones',vend:'Ventas'};
+
+function renderEmbudoAño(){
+  if(!kpis)return;
+  destroyChart('embAño');
+  const selAño=document.getElementById('sel-año-emb')?.value||'';
+  const rows=getRowsProsp();
+  const byM={cont:{},tas:{},capt:{},vend:{}};
+  rows.forEach(r=>{
+    const dc=pd(r.f_contacto);if(dc&&(!selAño||dc.getFullYear()==selAño)){const k=mkey(dc);byM.cont[k]=(byM.cont[k]||0)+1;}
+    const dt=pd(r.f_tasacion);if(dt&&(!selAño||dt.getFullYear()==selAño)){const k=mkey(dt);byM.tas[k]=(byM.tas[k]||0)+1;}
+    const dp=pd(r.f_pub);if(dp&&(!selAño||dp.getFullYear()==selAño)){const k=mkey(dp);byM.capt[k]=(byM.capt[k]||0)+1;}
+    const de=pd(r.f_escritura);if(de&&(!selAño||de.getFullYear()==selAño)){const k=mkey(de);byM.vend[k]=(byM.vend[k]||0)+1;}
+  });
+  const allM=[...new Set([...Object.keys(byM.cont),...Object.keys(byM.tas),...Object.keys(byM.capt),...Object.keys(byM.vend)])].sort();
+  const mostrar=metricaEmb==='all'?['cont','tas','capt','vend']:[metricaEmb];
+  const datasets=mostrar.map(m=>({label:metricaLabels[m],data:allM.map(k=>byM[m][k]||0),backgroundColor:metricaColors[m],borderRadius:3}));
+  const ctx=document.getElementById('chart-emb-año');
+  if(ctx)charts.embAño=new Chart(ctx,{type:'bar',data:{
+    labels:allM.map(m=>{const[y,mo]=m.split('-');return MES[+mo-1].slice(0,3)+' '+y.slice(2);}),
+    datasets
+  },options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:10}}}},scales:{x:{grid:{display:false},ticks:{font:{size:9}}},y:{grid:{color:'#21262d'},ticks:{precision:0}}}}});
+}
+
+function renderCompAño(){
+  if(!kpis)return;
+  destroyChart('compAño');
+  const rows=getRowsProsp();
+  const años=[...new Set(rows.map(r=>{
+    const m=metricaComp;
+    const campo=m==='cont'?r.f_contacto:m==='tas'?r.f_tasacion:m==='capt'?r.f_pub:r.f_escritura;
+    const d=pd(campo);return d?d.getFullYear():null;
+  }).filter(Boolean))].sort();
+  const meses=Array.from({length:12},(_,i)=>i+1);
+  const datasets=años.map((año,idx)=>{
+    const data=meses.map(mes=>{
+      return rows.filter(r=>{
+        const campo=metricaComp==='cont'?r.f_contacto:metricaComp==='tas'?r.f_tasacion:metricaComp==='capt'?r.f_pub:r.f_escritura;
+        const d=pd(campo);return d&&d.getFullYear()===año&&d.getMonth()+1===mes;
+      }).length;
+    });
+    return{label:String(año),data,backgroundColor:COLORS_AÑO[idx%COLORS_AÑO.length],borderRadius:3};
+  });
+  const ctx=document.getElementById('chart-comp-año');
+  if(ctx)charts.compAño=new Chart(ctx,{type:'bar',data:{
+    labels:MES.map(m=>m.slice(0,3)),
+    datasets
+  },options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:10}}}},scales:{x:{grid:{display:false}},y:{grid:{color:'#21262d'},ticks:{precision:0}}}}});
+}
+
+function setMetric(m){
+  metricaEmb=m;
+  ['all','cont','tas','capt','vend'].forEach(x=>{
+    const btn=document.getElementById('btn-m-'+x);
+    if(btn){btn.style.background=x===m?'var(--blue)':'var(--surface2)';btn.style.border=x===m?'none':'1px solid var(--border)';btn.style.color=x===m?'white':'var(--muted)';}
+  });
+  renderEmbudoAño();
+}
+
+function setMetricComp(m){
+  metricaComp=m;
+  ['cont','tas','capt','vend'].forEach(x=>{
+    const btn=document.getElementById('btn-c-'+x);
+    if(btn){btn.style.background=x===m?'var(--blue)':'var(--surface2)';btn.style.border=x===m?'none':'1px solid var(--border)';btn.style.color=x===m?'white':'var(--muted)';}
+  });
+  renderCompAño();
+}
+
+function setProsp(v){
+  filtroProsp=v;
+  const btnT=document.getElementById('btn-tot');
+  const btnP=document.getElementById('btn-prop');
+  if(v==='total'){
+    btnT.style.background='var(--blue)';btnT.style.border='none';btnT.style.color='white';
+    btnP.style.background='var(--surface2)';btnP.style.border='1px solid var(--border)';btnP.style.color='var(--muted)';
+  } else {
+    btnP.style.background='var(--green)';btnP.style.border='none';btnP.style.color='white';
+    btnT.style.background='var(--surface2)';btnT.style.border='1px solid var(--border)';btnT.style.color='var(--muted)';
+  }
+  renderEmbudoProsp();renderEmbudoAño();renderCompAño();renderP1P2Zona(kpis);renderBarrio();
+}
+
+function renderP1P2Zona(k){
+  if(!k)return;
+  const rows=getRowsProsp();
+  const byP1={},byP2={},byZona={};
+  rows.forEach(r=>{
+    byP1[r.prosp1||'Sin dato']=(byP1[r.prosp1||'Sin dato']||0)+1;
+    byP2[r.prosp2||'Sin dato']=(byP2[r.prosp2||'Sin dato']||0)+1;
+    byZona[r.zona||'Sin zona']=(byZona[r.zona||'Sin zona']||0)+1;
+  });
+  destroyChart('p1');
+  const p1e=sorted(byP1);
+  const ctxP1=document.getElementById('chart-p1');
+  if(ctxP1)charts.p1=new Chart(ctxP1,{type:'doughnut',data:{labels:p1e.map(e=>e[0]),datasets:[{data:p1e.map(e=>e[1]),backgroundColor:G,borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'65%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
+  destroyChart('zona');
+  const ze=sorted(byZona);
+  const ctxZ=document.getElementById('chart-zona');
+  if(ctxZ)charts.zona=new Chart(ctxZ,{type:'doughnut',data:{labels:ze.map(e=>e[0]),datasets:[{data:ze.map(e=>e[1]),backgroundColor:[...B,...O],borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'65%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
+  // Actualizar sel-p1
+  const p1v=[...new Set(allRows.map(r=>r.prosp1).filter(Boolean))].sort();
+  const s1=document.getElementById('sel-p1');
+  if(s1){const cur=s1.value;s1.innerHTML='<option value="">Todos</option>'+p1v.map(v=>`<option value="${v}">${v}</option>`).join('');s1.value=cur;}
+  renderP2();
+}
+
+function renderP2(){
+  if(!kpis)return;
+  const fp=document.getElementById('sel-p1')?.value||'';
+  let rows=getRowsProsp();if(fp)rows=rows.filter(r=>r.prosp1===fp);
+  const by={};rows.forEach(r=>{const p=r.prosp2||'Sin dato';by[p]=(by[p]||0)+1;});
+  destroyChart('p2');
+  const e=sorted(by);
+  const ctx=document.getElementById('chart-p2');
+  if(ctx)charts.p2=new Chart(ctx,{type:'doughnut',data:{labels:e.map(x=>x[0]),datasets:[{data:e.map(x=>x[1]),backgroundColor:O,borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'65%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
+}
+
+function renderBarrio(){
+  if(!kpis)return;
+  const fz=document.getElementById('sel-zona')?.value||'';
+  let rows=getRowsProsp();if(fz)rows=rows.filter(r=>r.zona===fz);
+  const by={};rows.forEach(r=>{const b=r.barrio||'Sin barrio';by[b]=(by[b]||0)+1;});
+  destroyChart('barrio');
+  const e=sorted(by).slice(0,10);
+  const ctx=document.getElementById('chart-barrio');
+  if(ctx)charts.barrio=new Chart(ctx,{type:'bar',data:{labels:e.map(x=>x[0]),datasets:[{label:'Contactos',data:e.map(x=>x[1]),backgroundColor:B[0],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:true,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:'#21262d'}},y:{grid:{display:false},ticks:{font:{size:10}}}}}});
+}
+
+function renderCredito(k){
+  destroyChart('credito');
+  const ce=sorted(k.credMap);
+  const ctx=document.getElementById('chart-credito');
+  if(ctx)charts.credito=new Chart(ctx,{type:'doughnut',data:{labels:ce.map(e=>e[0]),datasets:[{data:ce.map(e=>e[1]),backgroundColor:MX,borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'60%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
+}
+
+function buildRefCharts(k){
+  destroyChart('refC');destroyChart('refV');
   const refs=Object.entries(k.refMap).sort((a,b)=>b[1].contactos-a[1].contactos);
   const rl=refs.map(r=>r[0]);
   const ctxRC=document.getElementById('chart-ref-c');
@@ -549,226 +737,115 @@ function buildAllCharts(k){
     {label:'Captados',data:refs.map(r=>r[1].captados),backgroundColor:B[0],borderRadius:4},
     {label:'Vendidos',data:refs.map(r=>r[1].vendidos),backgroundColor:O[0],borderRadius:4},
   ]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:10}}}},scales:{x:{grid:{display:false}},y:{grid:{color:'#21262d'},ticks:{precision:0}}}}});
-
   const ctxRV=document.getElementById('chart-ref-v');
   if(ctxRV)charts.refV=new Chart(ctxRV,{type:'bar',data:{labels:rl,datasets:[{label:'En venta',data:refs.map(r=>r[1].enVenta),backgroundColor:B[0],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'#21262d'},ticks:{precision:0}}}}});
-
   document.getElementById('tb-ref').innerHTML=refs.map(([n,d])=>`<tr>
     <td>${n}</td><td>${d.contactos}</td><td>${d.tasados}</td><td>${d.captados}</td>
     <td>${d.enVenta}</td><td>${d.vendidos}</td>
     <td>${d.contactos?fmt(d.vendidos/d.contactos*100,1)+'%':'—'}</td>
     <td>${fU(d.comision)}</td></tr>`).join('');
+}
 
-  // P1
-  const p1e=sorted(k.byP1);
-  const ctxP1=document.getElementById('chart-p1');
-  if(ctxP1)charts.p1=new Chart(ctxP1,{type:'doughnut',data:{labels:p1e.map(e=>e[0]),datasets:[{data:p1e.map(e=>e[1]),backgroundColor:G,borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'65%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
-
-  // Zona
-  const ze=sorted(k.byZona);
-  const ctxZ=document.getElementById('chart-zona');
-  if(ctxZ)charts.zona=new Chart(ctxZ,{type:'doughnut',data:{labels:ze.map(e=>e[0]),datasets:[{data:ze.map(e=>e[1]),backgroundColor:[...B,...O],borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'65%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
-
-  // Crédito
-  const ce=sorted(k.credMap);
-  const ctxCr=document.getElementById('chart-credito');
-  if(ctxCr)charts.credito=new Chart(ctxCr,{type:'doughnut',data:{labels:ce.map(e=>e[0]),datasets:[{data:ce.map(e=>e[1]),backgroundColor:MX,borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'60%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
-
-  // Selects
-  const p1v=[...new Set(allRows.map(r=>r.prosp1).filter(Boolean))].sort();
-  const s1=document.getElementById('sel-p1');
-  if(s1)s1.innerHTML='<option value="">Todos</option>'+p1v.map(v=>`<option value="${v}">${v}</option>`).join('');
-  const zv=[...new Set(allRows.map(r=>r.zona).filter(Boolean))].sort();
-  const sz=document.getElementById('sel-zona');
-  if(sz)sz.innerHTML='<option value="">Todas</option>'+zv.map(z=>`<option value="${z}">${z}</option>`).join('');
-
-  renderP2();renderBarrio();renderEmbudoProsp();
-
-  // Bolsillo acumulado por mes
-  const mesesVend=[...new Set(k.vendidosData.map(r=>{const d=pd(r.f_escritura);return d?mkey(d):null;}).filter(Boolean))].sort();
-  let acumBol=0;
-  const acumData=mesesVend.map(m=>{
-    const ops=k.vendidosData.filter(r=>{const d=pd(r.f_escritura);return d&&mkey(d)===m;});
-    acumBol+=ops.reduce((s,r)=>s+(r.tbol_total||0),0);
-    return acumBol;
+// ── CARTERA + SIMULADOR ────────────────────────────────────────────────────
+function getSimDash(){
+  if(!kpis)return 0;
+  let dash=0,acumPrev=kpis.dashVend+kpis.dashRes;
+  kpis.enVentaData.forEach(r=>{
+    const st=simState[r.dir];if(!st?.sel)return;
+    const p=st.precio||0;if(!p)return;
+    const pv=st.pctV||0,pc=st.pctC||0;if(!pv&&!pc)return;
+    const res=calcSim(r,p,pv,pc,acumPrev);
+    dash+=res.dash;acumPrev+=res.dash;
   });
-  const ctxBA=document.getElementById('chart-bolsillo-acum');
-  if(ctxBA){
-    if(charts.bolAcum){charts.bolAcum.destroy();delete charts.bolAcum;}
-    charts.bolAcum=new Chart(ctxBA,{type:'line',data:{
-      labels:mesesVend.map(m=>{const[y,mo]=m.split('-');return MES[+mo-1].slice(0,3)+' '+y.slice(2);}),
-      datasets:[{label:'Bolsillo acumulado',data:acumData,borderColor:G[2],backgroundColor:'rgba(82,183,136,0.1)',fill:true,tension:0.3,pointRadius:3}]
-    },options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:false}},
-      scales:{x:{grid:{display:false},ticks:{font:{size:9}}},y:{grid:{color:'#21262d'}}}}});
-  }
-
-  // Gráfico conversión por mes
-  const ctxConv=document.getElementById('chart-conv-mes');
-  if(ctxConv){
-    if(charts.conv){charts.conv.destroy();delete charts.conv;}
-    const allMC=[...new Set([...Object.keys(k.byMes.cont),...Object.keys(k.byMes.tas),...Object.keys(k.byMes.capt),...Object.keys(k.byMes.vend)])].sort().slice(-18);
-    charts.conv=new Chart(ctxConv,{type:'bar',data:{
-      labels:allMC.map(m=>{const[y,mo]=m.split('-');return MES[+mo-1].slice(0,3)+' '+y.slice(2);}),
-      datasets:[
-        {label:'Contactos',data:allMC.map(m=>k.byMes.cont[m]||0),backgroundColor:B[0],borderRadius:3},
-        {label:'Tasaciones',data:allMC.map(m=>k.byMes.tas[m]||0),backgroundColor:G[2],borderRadius:3},
-        {label:'Captaciones',data:allMC.map(m=>k.byMes.capt[m]||0),backgroundColor:O[0],borderRadius:3},
-        {label:'Ventas',data:allMC.map(m=>k.byMes.vend[m]||0),backgroundColor:'#f85149',borderRadius:3},
-      ]
-    },options:{responsive:true,maintainAspectRatio:true,
-      plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:10}}}},
-      scales:{x:{grid:{display:false},ticks:{font:{size:9}}},y:{grid:{color:'#21262d'},ticks:{precision:0}}}}});
-  }
+  return dash;
 }
 
-let filtroProsp='total';
-function setFiltroProsp(v){
-  filtroProsp=v;
-  const btnT=document.getElementById('btn-prosp-total');
-  const btnP=document.getElementById('btn-prosp-propia');
-  if(v==='total'){
-    btnT.style.background='var(--blue)';btnT.style.borderColor='var(--blue)';
-    btnP.style.background='var(--surface2)';btnP.style.borderColor='var(--border)';btnP.style.color='var(--text)';
-  } else {
-    btnP.style.background='var(--green)';btnP.style.borderColor='var(--green)';btnP.style.color='white';
-    btnT.style.background='var(--surface2)';btnT.style.borderColor='var(--border)';btnT.style.color='var(--text)';
-  }
-  renderP2();renderBarrio();renderProspCharts();
-  renderEmbudoProsp();
-}
-
-function getRowsProsp(){
-  if(!kpis)return[];
-  let rows=kpis.filteredRows;
-  if(filtroProsp==='propia')rows=rows.filter(r=>r.prospectador===TUTE);
-  return rows;
-}
-
-function renderEmbudoProsp(){
-  if(!kpis)return;
-  const rows=getRowsProsp();
-  const VEND=['Vendido','Busqueda GANADA'];
-  const CAPT=['En Venta','Vendido','Busqueda GANADA','Reservado'];
-  const TAS=['En Venta','Vendido','Busqueda GANADA','Reservado','No captado','Tasado','CANCELADO'];
-  const total=rows.length;
-  const tasados=rows.filter(r=>r.f_tasacion).length;
-  const captados=rows.filter(r=>CAPT.includes(r.estado)).length;
-  const vendidos=rows.filter(r=>VEND.includes(r.estado)).length;
-  const pctCapt=tasados?(captados/tasados*100):0;
-  const pctConv=captados?(vendidos/captados*100):0;
-  const el=document.getElementById('kpi-embudo-prosp');
-  if(!el)return;
-  el.innerHTML=`
-    <div class="kpi"><div class="kpi-label">Contactos</div><div class="kpi-value">${total}</div></div>
-    <div class="kpi"><div class="kpi-label">Tasados</div><div class="kpi-value">${tasados}</div></div>
-    <div class="kpi"><div class="kpi-label">Captados</div><div class="kpi-value">${captados}</div><div class="kpi-badge">% capt: ${fmt(pctCapt,1)}%</div></div>
-    <div class="kpi"><div class="kpi-label">Vendidos</div><div class="kpi-value green">${vendidos}</div><div class="kpi-badge">% conv: ${fmt(pctConv,1)}%</div></div>`;
-}
-
-function renderProspCharts(){
-  if(!kpis)return;
-  const rows=getRowsProsp();
-  const byP1={},byZona={};
-  rows.forEach(r=>{
-    byP1[r.prosp1||'Sin dato']=(byP1[r.prosp1||'Sin dato']||0)+1;
-    byZona[r.zona||'Sin zona']=(byZona[r.zona||'Sin zona']||0)+1;
-  });
-  if(charts.p1){charts.p1.destroy();delete charts.p1;}
-  const p1e=sorted(byP1);
-  const ctxP1=document.getElementById('chart-p1');
-  if(ctxP1)charts.p1=new Chart(ctxP1,{type:'doughnut',data:{labels:p1e.map(e=>e[0]),datasets:[{data:p1e.map(e=>e[1]),backgroundColor:G,borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'65%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
-  if(charts.zona){charts.zona.destroy();delete charts.zona;}
-  const ze=sorted(byZona);
-  const ctxZ=document.getElementById('chart-zona');
-  if(ctxZ)charts.zona=new Chart(ctxZ,{type:'doughnut',data:{labels:ze.map(e=>e[0]),datasets:[{data:ze.map(e=>e[1]),backgroundColor:[...B,...O],borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'65%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
-}
-
-function renderP2(){
-  const fp=document.getElementById('sel-p1')?.value||'';
-  let rows=getRowsProsp();
-  if(fp)rows=rows.filter(r=>r.prosp1===fp);
-  const by={};rows.forEach(r=>{const p=r.prosp2||'Sin dato';by[p]=(by[p]||0)+1;});
-  if(charts.p2){charts.p2.destroy();delete charts.p2;}
-  const ctx=document.getElementById('chart-p2');if(!ctx)return;
-  const e=sorted(by);
-  charts.p2=new Chart(ctx,{type:'doughnut',data:{labels:e.map(x=>x[0]),datasets:[{data:e.map(x=>x[1]),backgroundColor:O,borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'65%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
-}
-
-function renderBarrio(){
-  const fz=document.getElementById('sel-zona')?.value||'';
-  let rows=getRowsProsp();
-  if(fz)rows=rows.filter(r=>r.zona===fz);
-  const by={};rows.forEach(r=>{const b=r.barrio||'Sin barrio';by[b]=(by[b]||0)+1;});
-  if(charts.barrio){charts.barrio.destroy();delete charts.barrio;}
-  const ctx=document.getElementById('chart-barrio');if(!ctx)return;
-  const e=sorted(by).slice(0,10);
-  charts.barrio=new Chart(ctx,{type:'bar',data:{labels:e.map(x=>x[0]),datasets:[{label:'Contactos',data:e.map(x=>x[1]),backgroundColor:B[0],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:true,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:'#21262d'}},y:{grid:{display:false},ticks:{font:{size:10}}}}}});
-}
-
-// CARTERA + SIMULADOR
 function renderCartera(){
   if(!kpis)return;
-  let rows=[...kpis.enVentaData];
+  // Combinar en venta + reservados
+  const enVenta=kpis.enVentaData.map(r=>({...r,_tipo:'venta'}));
+  const reserv=kpis.reservadosData.map(r=>({...r,_tipo:'reservado'}));
+  let rows=[...enVenta,...reserv];
   if(busqC)rows=rows.filter(r=>(r.dir+r.nombre+r.zona+r.barrio).toLowerCase().includes(busqC.toLowerCase()));
   if(sortCC)rows.sort((a,b)=>{const va=a[sortCC]||0,vb=b[sortCC]||0;return sdC*(typeof va==='number'?va-vb:String(va).localeCompare(String(vb)));});
-  document.getElementById('cnt-cartera').textContent=rows.length+' prop.';
+  document.getElementById('cnt-cartera').textContent=rows.length+' prop. ('+enVenta.length+' en venta, '+reserv.length+' reservadas)';
   document.getElementById('tb-cartera').innerHTML=rows.map(r=>{
-    const p=r.val_pub_ult||r.val_pub_ini||0;
-    const st=simState[r.dir]||{sel:false,precio:p,pctV:r.pct_vend_teo||0.03,pctC:r.pct_comp_teo||0.03};
-    const simP=st.precio||p;
-    const {bruto,bol}=calcBolsillo(r,simP,st.pctV,st.pctC);
-    return`<tr>
-      <td style="text-align:center"><input type="checkbox" ${st.sel?'checked':''} onchange="tSim('${esc(r.dir)}',this.checked)"></td>
-      <td>${r.dir||'—'}<br><span style="color:var(--muted);font-size:10px">${r.nombre}</span></td>
+    const st=simState[r.dir]||{sel:false};
+    // Precio: del estado del simulador o de la planilla como default
+    const precioDefault=r.val_pub_ult||r.val_pub_ini||0;
+    const p=st.precio!=null&&st.precio!==''?+st.precio:precioDefault;
+    const pv=st.pctV||0,pc=st.pctC||0;
+    // Comisión pot y bolsillo pot: solo si hay % cargados
+    const comPot=(p&&(pv||pc))?fU(p*(pv+pc)):'—';
+    const bolPot=(p&&(pv||pc))?fU(calcSim(r,p,pv,pc,kpis.dashVend+kpis.dashRes).bol):'—';
+    const esRes=r._tipo==='reservado';
+    const badgeEstado=esRes?`<span class="badge r">Reservado</span>`:`<span class="badge e">En venta</span>`;
+    return`<tr style="${esRes?'opacity:0.85':''}">
+      <td style="text-align:center">${esRes?'':(`<input type="checkbox" class="sim-check" ${st.sel?'checked':''} onchange="tSim('${esc(r.dir)}',this.checked)">`)}</td>
+      <td>${badgeEstado}<br>${r.dir||'—'}<br><span style="color:var(--muted);font-size:10px">${r.nombre}</span></td>
       <td>${r.zona||'—'}</td>
-      <td style="color:var(--muted)">${fU(p)}</td>
-      <td><input type="number" value="${simP||''}" placeholder="precio" onchange="sP('${esc(r.dir)}',+this.value)" oninput="sP('${esc(r.dir)}',+this.value)"></td>
-      <td><input type="number" value="${((st.pctV||r.pct_vend_teo||0.03)*100).toFixed(1)}" min="0" max="10" step="0.5" onchange="sPV('${esc(r.dir)}',+this.value/100)" oninput="sPV('${esc(r.dir)}',+this.value/100)" style="width:60px">%</td>
-      <td><input type="number" value="${((st.pctC||r.pct_comp_teo||0.03)*100).toFixed(1)}" min="0" max="10" step="0.5" onchange="sPC('${esc(r.dir)}',+this.value/100)" oninput="sPC('${esc(r.dir)}',+this.value/100)" style="width:60px">%</td>
-      <td>${fU(bruto)}</td>
-      <td style="color:var(--green-glow)">${fU(bol)}</td>
+      <td style="color:var(--muted)">${fU(precioDefault)}</td>
+      <td>${esRes?'—':`<input class="sim-input" type="number" value="${st.precio!=null&&st.precio!==''?st.precio:precioDefault}" placeholder="precio" onchange="sP('${esc(r.dir)}',+this.value)" oninput="sP('${esc(r.dir)}',+this.value)">`}</td>
+      <td>${esRes?'—':`<input class="sim-input" type="number" value="${st.pctV?+(st.pctV*100).toFixed(1):''}" placeholder="${r.zona==='CABA'?4:3}" step="0.5" onchange="sPV('${esc(r.dir)}',+this.value/100)" oninput="sPV('${esc(r.dir)}',+this.value/100)" style="width:60px">%`}</td>
+      <td>${esRes?'—':`<input class="sim-input" type="number" value="${st.pctC?+(st.pctC*100).toFixed(1):''}" placeholder="${r.zona==='CABA'?4:3}" step="0.5" onchange="sPC('${esc(r.dir)}',+this.value/100)" oninput="sPC('${esc(r.dir)}',+this.value/100)" style="width:60px">%`}</td>
+      <td style="color:var(--accent)">${comPot}</td>
+      <td style="color:var(--green-glow)">${bolPot}</td>
     </tr>`;
   }).join('');
   updateSim();
 }
 
 function esc(s){return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
-function tSim(dir,v){if(!simState[dir])simState[dir]={sel:false,precio:0,pctV:0.03,pctC:0.03};simState[dir].sel=v;updateSim();}
-function sP(dir,v){if(!simState[dir])simState[dir]={sel:false,precio:v,pctV:0.03,pctC:0.03};simState[dir].precio=v;updateSim();}
-function sPV(dir,v){if(!simState[dir])simState[dir]={sel:false,precio:0,pctV:v,pctC:0.03};simState[dir].pctV=v;updateSim();}
-function sPC(dir,v){if(!simState[dir])simState[dir]={sel:false,precio:0,pctV:0.03,pctC:v};simState[dir].pctC=v;updateSim();}
+function tSim(dir,v){if(!simState[dir])simState[dir]={};simState[dir].sel=v;updateSim();}
+function sP(dir,v){if(!simState[dir])simState[dir]={};simState[dir].precio=v;updateSim();}
+function sPV(dir,v){if(!simState[dir])simState[dir]={};simState[dir].pctV=v;updateSim();}
+function sPC(dir,v){if(!simState[dir])simState[dir]={};simState[dir].pctC=v;updateSim();}
 
 function updateSim(){
   if(!kpis)return;
-  let cnt=0,comis=0,bol=0,dash=0;
+  let cnt=0,comis=0,bol=0,dash=0,diLib=0;
+  let acumPrev=kpis.dashVend+kpis.dashRes; // base: vendido + reservado año actual
   kpis.enVentaData.forEach(r=>{
     const st=simState[r.dir];if(!st?.sel)return;
+    const precio=st.precio!=null&&st.precio!==''?+st.precio:(r.val_pub_ult||r.val_pub_ini||0);
+    if(!precio)return;
+    const pv=st.pctV||0,pc=st.pctC||0;if(!pv&&!pc)return;
     cnt++;
-    const p=st.precio||r.val_pub_ult||r.val_pub_ini||0;
-    const res=calcBolsillo(r,p,st.pctV||r.pct_vend_teo||0.03,st.pctC||r.pct_comp_teo||0.03);
+    const res=calcSim(r,precio,pv,pc,acumPrev);
     comis+=res.bruto;bol+=res.bol;dash+=res.dash;
+    // DI liberado: si con esta op cruzamos los 80k
+    if(r.prospectador===TUTE){
+      if(acumPrev>=80000) diLib+=res.neto*0.3;
+      else if(acumPrev+res.neto>80000) diLib+=(acumPrev+res.neto-80000)*0.3;
+    }
+    acumPrev+=res.dash;
   });
-  document.getElementById('sim-count').textContent=cnt;
-  document.getElementById('sim-comis').textContent=fU(comis);
-  document.getElementById('sim-bol').textContent=fU(bol);
-  document.getElementById('sim-dash').textContent=fU(dash);
 
-  // Actualizar barra en cartera
+  document.getElementById('sim-count').textContent=cnt||0;
+  document.getElementById('sim-comis').textContent=comis?fU(comis):'—';
+  document.getElementById('sim-bol').textContent=bol?fU(bol):'—';
+  document.getElementById('sim-dash').textContent=dash?fU(dash):'—';
+  document.getElementById('sim-di').textContent=diLib?fU(diLib):'—';
+
   const d80=80000;
   const pV=Math.min(kpis.dashVend/d80*100,100);
   const pR=Math.min((kpis.dashVend+kpis.dashRes)/d80*100,100)-pV;
   const pS=Math.min((kpis.dashVend+kpis.dashRes+dash)/d80*100,100)-(pV+pR);
-  document.getElementById('sim-seg-vend').style.width=pV+'%';
-  document.getElementById('sim-seg-res').style.width=pR+'%';
-  document.getElementById('sim-seg-sim').style.width=Math.max(0,pS)+'%';
+  document.getElementById('sp-vend').style.width=pV+'%';
+  document.getElementById('sp-res').style.width=pR+'%';
+  document.getElementById('sp-sim').style.width=Math.max(0,pS)+'%';
+  const total=kpis.dashVend+kpis.dashRes+dash;
   document.getElementById('sim-prog-label').textContent=
-    `Dashboard: vendido USD ${fmt(kpis.dashVend)} | +reservado USD ${fmt(kpis.dashRes)} | +simulado USD ${fmt(dash)} → total USD ${fmt(kpis.dashVend+kpis.dashRes+dash)} (${fmt(Math.min((kpis.dashVend+kpis.dashRes+dash)/d80*100,100),1)}% de $80k)`;
+    `Dashboard: vendido USD ${fmt(kpis.dashVend)} | +reservado USD ${fmt(kpis.dashRes)} | +simulado USD ${fmt(dash)} → total USD ${fmt(total)} (${fmt(Math.min(total/d80*100,100),1)}% de $80k)`;
+  document.getElementById('leg-vend').textContent=`Vendido: USD ${fmt(kpis.dashVend)}`;
+  document.getElementById('leg-res').textContent=`Reservado: USD ${fmt(kpis.dashRes)}`;
+  document.getElementById('leg-sim').textContent=`Simulado: USD ${fmt(dash)}`;
 
-  // Actualizar también en resumen si existe
+  // Actualizar barra en resumen si existe
   const dSim=document.getElementById('dash-seg-sim');
   if(dSim)dSim.style.width=Math.max(0,pS)+'%';
-  const dLabel=document.getElementById('dash-sim-label');
-  if(dLabel)dLabel.textContent='USD '+fmt(dash);
+  const dL=document.getElementById('dash-sim-label');
+  if(dL)dL.textContent='USD '+fmt(dash);
 }
 
 function renderVentas(){
@@ -793,6 +870,7 @@ function renderVentas(){
 function srtV(col){if(sortCV===col)sdV*=-1;else{sortCV=col;sdV=-1;}renderVentas();}
 function srtC(col){if(sortCC===col)sdC*=-1;else{sortCC=col;sdC=-1;}renderCartera();}
 
+// ── MULTI-SELECT ───────────────────────────────────────────────────────────
 function buildMS(id,ops,sel,lbl){
   const w=document.getElementById(id);if(!w)return;
   const tr=w.querySelector('.ms-trigger'),dd=w.querySelector('.ms-dropdown'),oo=w.querySelector('.opts');
@@ -813,31 +891,44 @@ function aplicar(){
   filtroAños=getMS('ms-años').map(Number);
   filtroMeses=getMS('ms-meses').map(Number);
   kpis=compute(allRows);
-  renderKPIs(kpis);buildAllCharts(kpis);renderCartera();renderVentas();renderEmbudoProsp();
+  renderKPIs(kpis);buildResumenCharts(kpis);
+  buildProspCharts(kpis);buildRefCharts(kpis);
+  renderCartera();renderVentas();
 }
 
+// ── INIT ──────────────────────────────────────────────────────────────────
 async function init(){
   try{
     const data=await fetchData();
     if(!data.length)throw new Error('Sin datos');
     allRows=data;kpis=compute(allRows);
     document.getElementById('loading').style.display='none';
-    document.getElementById('filtros-globales').style.display='block';
+    document.getElementById('app').style.display='block';
+
     const años=[...new Set(allRows.map(r=>{const d=pd(r.f_escritura)||pd(r.f_reserva)||pd(r.f_contacto);return d?d.getFullYear():null;}).filter(Boolean))].sort();
     buildMS('ms-años',años,[],String);
     buildMS('ms-meses',[1,2,3,4,5,6,7,8,9,10,11,12],[],m=>MES[m-1]);
-    renderKPIs(kpis);buildAllCharts(kpis);renderCartera();renderVentas();renderEmbudoProsp();
+
+    // Llenar selector de año en embudo
+    const selAño=document.getElementById('sel-año-emb');
+    if(selAño)selAño.innerHTML='<option value="">Todos</option>'+años.map(y=>`<option value="${y}">${y}</option>`).join('');
+
+    // Llenar selector de zona
+    const zonas=[...new Set(allRows.map(r=>r.zona).filter(Boolean))].sort();
+    const sz=document.getElementById('sel-zona');
+    if(sz)sz.innerHTML='<option value="">Todas</option>'+zonas.map(z=>`<option value="${z}">${z}</option>`).join('');
+
+    renderKPIs(kpis);buildResumenCharts(kpis);
+    buildProspCharts(kpis);buildRefCharts(kpis);
+    renderCartera();renderVentas();
     document.getElementById('last-update').textContent='Act: '+new Date().toLocaleTimeString('es-AR');
-    // Inicializar color botón prospección
-    const btnT=document.getElementById('btn-prosp-total');
-    if(btnT){btnT.style.background='var(--blue)';btnT.style.borderColor='var(--blue)';}
   }catch(e){
     document.getElementById('loading').innerHTML=`<div style="color:var(--danger);padding:20px">Error: ${e.message}</div>`;
   }
 }
 
 init();
-setInterval(()=>fetchData().then(d=>{if(d.length){allRows=d;kpis=compute(d);renderKPIs(kpis);buildAllCharts(kpis);renderCartera();renderVentas();renderEmbudoProsp();document.getElementById('last-update').textContent='Act: '+new Date().toLocaleTimeString('es-AR');}}).catch(()=>{}),5*60*1000);
+setInterval(()=>fetchData().then(d=>{if(d.length){allRows=d;kpis=compute(d);renderKPIs(kpis);buildResumenCharts(kpis);buildProspCharts(kpis);buildRefCharts(kpis);renderCartera();renderVentas();document.getElementById('last-update').textContent='Act: '+new Date().toLocaleTimeString('es-AR');}}).catch(()=>{}),5*60*1000);
 </script>
 </body>
 </html>
