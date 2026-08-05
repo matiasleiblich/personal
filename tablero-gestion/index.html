@@ -185,6 +185,7 @@ tr:last-child td{border-bottom:none;}
             <button onclick="setMetric('tas')" id="btn-m-tas" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Tasaciones</button>
             <button onclick="setMetric('capt')" id="btn-m-capt" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Captaciones</button>
             <button onclick="setMetric('vend')" id="btn-m-vend" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Ventas</button>
+            <button onclick="setMetric('res')" id="btn-m-res" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Reservas</button>
           </div>
           <canvas id="chart-emb-año" height="200"></canvas>
         </div>
@@ -195,6 +196,7 @@ tr:last-child td{border-bottom:none;}
               <button onclick="setMetricComp('tas')" id="btn-c-tas" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Tasaciones</button>
               <button onclick="setMetricComp('capt')" id="btn-c-capt" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Captaciones</button>
               <button onclick="setMetricComp('vend')" id="btn-c-vend" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Ventas</button>
+              <button onclick="setMetricComp('res')" id="btn-c-res" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Reservas</button>
             </div>
           </div>
           <canvas id="chart-comp-año" height="200"></canvas>
@@ -215,7 +217,7 @@ tr:last-child td{border-bottom:none;}
             <select id="sel-zona" class="card-select" onchange="renderBarrio()"><option value="">Todas</option></select>
           </div><canvas id="chart-barrio" height="220"></canvas>
         </div>
-        <div class="card"><div class="card-title"><span class="dot"></span>Crédito (vendidos + reservados)</div><canvas id="chart-credito" height="220"></canvas></div>
+        <div class="card"><div class="card-title"><span class="dot"></span>Crédito (vendidos + reservados)</div><canvas id="chart-credito" height="160"></canvas></div>
       </div>
     </div>
 
@@ -363,7 +365,7 @@ async function fetchData(){
     pct_vend_teo:pn(r[C.pct_vend_teo]),pct_comp_teo:pn(r[C.pct_comp_teo]),
     usd_vend_real:pn(r[C.usd_vend_real]),usd_comp_real:pn(r[C.usd_comp_real]),
     comis_bruta:pn(r[C.comis_bruta]),usd_colega:pn(r[C.usd_colega]),
-    tbol_total:pn(r[C.tbol_total]),dashboard:pn(r[C.dashboard]),
+    tbol_total:pn(r[C.tbol_total]),dashboard:pn(r[C.dashboard]),ba:pn(r[52]),
   }));
 }
 
@@ -420,6 +422,9 @@ function compute(rows){
   const comBrutaRes=reservados.filter(r=>r.prospectador===TUTE).reduce((s,r)=>s+(r.comis_bruta||0),0);
 
   const usdColega=vendidos.reduce((s,r)=>s+(r.usd_colega||0),0);
+  // DI liberado real de la planilla
+  const diLibVend=vendidos.filter(r=>r.prospectador===TUTE).reduce((s,r)=>s+(r.ba||0),0);
+  const diLibRes=reservados.filter(r=>r.prospectador===TUTE).reduce((s,r)=>s+(r.ba||0),0);
 
   // Dashboard año actual
   const añoAct=new Date().getFullYear();
@@ -436,12 +441,13 @@ function compute(rows){
   const pctConv=captados.length?(vendidos.length/captados.length*100):0;
 
   // Embudo por mes — desde allRows para gráficos históricos
-  const byMes={cont:{},tas:{},capt:{},vend:{}};
+  const byMes={cont:{},tas:{},capt:{},vend:{},res:{}};
   rows.forEach(r=>{
     const dc=pd(r.f_contacto);if(dc){const k=mkey(dc);byMes.cont[k]=(byMes.cont[k]||0)+1;}
     const dt=pd(r.f_tasacion);if(dt){const k=mkey(dt);byMes.tas[k]=(byMes.tas[k]||0)+1;}
     const dp=pd(r.f_pub);if(dp){const k=mkey(dp);byMes.capt[k]=(byMes.capt[k]||0)+1;}
     const de=pd(r.f_escritura);if(de){const k=mkey(de);byMes.vend[k]=(byMes.vend[k]||0)+1;}
+    const dr=pd(r.f_reserva);if(dr){const k=mkey(dr);byMes.res[k]=(byMes.res[k]||0)+1;}
   });
 
   // Referidores
@@ -482,7 +488,7 @@ function compute(rows){
   return{
     total:f.length,vendidos:vendidos.length,reservados:reservados.length,
     captados:captados.length,tasados,enVenta:enVenta.length,
-    bolVendido,bolReservado,comBruta,comBrutaRes,usdColega,
+    bolVendido,bolReservado,comBruta,comBrutaRes,usdColega,diLibVend,diLibRes,
     dashVend,dashRes,ticketProm,diasProm,maxComis,pctCapt,pctConv,
     byMes,refMap,byP1,byP2,byZona,byBarrio,credMap,
     mesesVend,bolAcumData,
@@ -507,12 +513,13 @@ function renderKPIs(k){
   const d80=80000;
   const pctV=Math.min(k.dashVend/d80*100,100);
   const pctR=Math.min((k.dashVend+k.dashRes)/d80*100,100)-pctV;
-  const pctSimAcum=getSimDash();
-  const pctS=Math.min((k.dashVend+k.dashRes+pctSimAcum)/d80*100,100)-(pctV+pctR);
+
 
   document.getElementById('kpi-bolsillo').innerHTML=`
-    <div class="kpi hl"><div class="kpi-label">Bolsillo — vendidos</div><div class="kpi-value green">USD ${fmt(k.bolVendido)}</div><div class="kpi-sub">${k.vendidos} operaciones</div></div>
-    <div class="kpi ora"><div class="kpi-label">+ Reservados</div><div class="kpi-value orange">USD ${fmt(k.bolReservado)}</div><div class="kpi-sub">${k.reservados} propiedades</div></div>
+    <div class="kpi hl"><div class="kpi-label">Bolsillo — vendidos</div><div class="kpi-value green">USD ${fmt(k.bolVendido)}</div>
+      ${k.diLibVend>0?`<div class="kpi-sub" style="color:var(--purple)">incl. USD ${fmt(k.diLibVend)} DI liberado 🎉</div>`:`<div class="kpi-sub">${k.vendidos} operaciones</div>`}</div>
+    <div class="kpi ora"><div class="kpi-label">+ Reservados</div><div class="kpi-value orange">USD ${fmt(k.bolReservado)}</div>
+      ${k.diLibRes>0?`<div class="kpi-sub" style="color:var(--purple)">incl. USD ${fmt(k.diLibRes)} DI liberado 🎉</div>`:`<div class="kpi-sub">${k.reservados} propiedades</div>`}</div>
     <div class="kpi"><div class="kpi-label">Total acumulado</div><div class="kpi-value green">USD ${fmt(k.bolVendido+k.bolReservado)}</div><div class="kpi-sub">vendido + reservado</div></div>`;
 
   document.getElementById('dash-progress').innerHTML=`
@@ -521,13 +528,11 @@ function renderKPIs(k){
       <div class="prog-track" style="height:12px;border-radius:6px;">
         <div class="prog-seg green" style="width:${pctV}%"></div>
         <div class="prog-seg orange" style="width:${pctR}%"></div>
-        <div class="prog-seg purple" id="dash-seg-sim" style="width:${Math.max(0,pctS)}%"></div>
       </div>
-      <div class="prog-feet" style="margin-top:4px"><span>$0</span><span>${fmt(pctV+pctR,1)}% de $80k</span><span>$80k</span></div>
+      <div class="prog-feet" style="margin-top:4px"><span>$0</span><span>${fmt(pctV+pctR,1)}% de $80k — USD ${fmt(k.dashVend+k.dashRes)}</span><span>$80k</span></div>
       <div class="prog-legend" style="margin-top:8px">
         <div class="prog-legend-item"><div class="prog-dot" style="background:var(--green-glow)"></div>Vendido: USD ${fmt(k.dashVend)}</div>
         <div class="prog-legend-item"><div class="prog-dot" style="background:var(--warn)"></div>Reservado: USD ${fmt(k.dashRes)}</div>
-        <div class="prog-legend-item"><div class="prog-dot" style="background:var(--purple)"></div>Simulado: <span id="dash-sim-label">USD ${fmt(pctSimAcum)}</span></div>
       </div>
     </div>`;
 
@@ -588,11 +593,13 @@ function renderEmbudoProsp(){
     <div class="kpi"><div class="kpi-label">Contactos</div><div class="kpi-value">${total}</div></div>
     <div class="kpi"><div class="kpi-label">Tasados</div><div class="kpi-value">${tasados}</div></div>
     <div class="kpi"><div class="kpi-label">Captados</div><div class="kpi-value">${captados}</div><div class="kpi-badge">% capt: ${fmt(pctCapt,1)}%</div></div>
-    <div class="kpi"><div class="kpi-label">Vendidos</div><div class="kpi-value green">${vendidos}</div><div class="kpi-badge">% conv: ${fmt(pctConv,1)}%</div></div>`;
+    <div class="kpi"><div class="kpi-label">Vendidos</div><div class="kpi-value green">${vendidos}</div><div class="kpi-badge">% conv: ${fmt(pctConv,1)}%</div></div>
+    <div class="kpi"><div class="kpi-label">% Captación</div><div class="kpi-value">${fmt(pctCapt,1)}%</div><div class="kpi-sub">captados / tasados</div></div>
+    <div class="kpi"><div class="kpi-label">% Conversión</div><div class="kpi-value">${fmt(pctConv,1)}%</div><div class="kpi-sub">vendidos / captados</div></div>`;
 }
 
-let metricaColors={cont:B[0],tas:G[2],capt:O[0],vend:'#f85149'};
-let metricaLabels={cont:'Contactos',tas:'Tasaciones',capt:'Captaciones',vend:'Ventas'};
+let metricaColors={cont:B[0],tas:G[2],capt:O[0],vend:'#f85149',res:'#a855f7'};
+let metricaLabels={cont:'Contactos',tas:'Tasaciones',capt:'Captaciones',vend:'Ventas',res:'Reservas'};
 
 function renderEmbudoAño(){
   if(!kpis)return;
@@ -607,7 +614,7 @@ function renderEmbudoAño(){
     const de=pd(r.f_escritura);if(de&&(!selAño||de.getFullYear()==selAño)){const k=mkey(de);byM.vend[k]=(byM.vend[k]||0)+1;}
   });
   const allM=[...new Set([...Object.keys(byM.cont),...Object.keys(byM.tas),...Object.keys(byM.capt),...Object.keys(byM.vend)])].sort();
-  const mostrar=metricaEmb==='all'?['cont','tas','capt','vend']:[metricaEmb];
+  const mostrar=metricaEmb==='all'?['cont','tas','capt','vend','res']:[metricaEmb];
   const datasets=mostrar.map(m=>({label:metricaLabels[m],data:allM.map(k=>byM[m][k]||0),backgroundColor:metricaColors[m],borderRadius:3}));
   const ctx=document.getElementById('chart-emb-año');
   if(ctx)charts.embAño=new Chart(ctx,{type:'bar',data:{
@@ -629,7 +636,7 @@ function renderCompAño(){
   const datasets=años.map((año,idx)=>{
     const data=meses.map(mes=>{
       return rows.filter(r=>{
-        const campo=metricaComp==='cont'?r.f_contacto:metricaComp==='tas'?r.f_tasacion:metricaComp==='capt'?r.f_pub:r.f_escritura;
+        const campo=metricaComp==='cont'?r.f_contacto:metricaComp==='tas'?r.f_tasacion:metricaComp==='capt'?r.f_pub:metricaComp==='res'?r.f_reserva:r.f_escritura;
         const d=pd(campo);return d&&d.getFullYear()===año&&d.getMonth()+1===mes;
       }).length;
     });
@@ -644,7 +651,7 @@ function renderCompAño(){
 
 function setMetric(m){
   metricaEmb=m;
-  ['all','cont','tas','capt','vend'].forEach(x=>{
+  ['all','cont','tas','capt','vend','res'].forEach(x=>{
     const btn=document.getElementById('btn-m-'+x);
     if(btn){btn.style.background=x===m?'var(--blue)':'var(--surface2)';btn.style.border=x===m?'none':'1px solid var(--border)';btn.style.color=x===m?'white':'var(--muted)';}
   });
@@ -653,7 +660,7 @@ function setMetric(m){
 
 function setMetricComp(m){
   metricaComp=m;
-  ['cont','tas','capt','vend'].forEach(x=>{
+  ['cont','tas','capt','vend','res'].forEach(x=>{
     const btn=document.getElementById('btn-c-'+x);
     if(btn){btn.style.background=x===m?'var(--blue)':'var(--surface2)';btn.style.border=x===m?'none':'1px solid var(--border)';btn.style.color=x===m?'white':'var(--muted)';}
   });
@@ -850,17 +857,18 @@ function updateSim(){
 
 function renderVentas(){
   if(!kpis)return;
-  let rows=[...kpis.vendidosData];
+  const reservNaranja=kpis.reservadosData.map(r=>({...r,_esRes:true}));
+  let rows=[...kpis.vendidosData,...reservNaranja];
   if(busqV)rows=rows.filter(r=>(r.dir+r.nombre+r.zona+r.barrio).toLowerCase().includes(busqV.toLowerCase()));
   if(sortCV)rows.sort((a,b)=>{const va=a[sortCV]||0,vb=b[sortCV]||0;return sdV*(typeof va==='number'?va-vb:String(va).localeCompare(String(vb)));});
   document.getElementById('cnt-ventas').textContent=rows.length+' operaciones';
-  document.getElementById('tb-ventas').innerHTML=rows.map(r=>`<tr>
+  document.getElementById('tb-ventas').innerHTML=rows.map(r=>`<tr style="${r._esRes?'opacity:0.85':''}">
     <td>${r.dir||'—'}<br><span style="color:var(--muted);font-size:10px">${r.nombre}</span></td>
     <td>${r.zona||'—'}</td>
-    <td><span class="badge v">${r.estado}</span></td>
-    <td>${fU(r.precio_cierre)}</td>
+    <td><span class="badge ${r._esRes?'r':'v'}">${r.estado}</span></td>
+    <td>${fU(r.precio_cierre||r.val_pub_ult||r.val_pub_ini)}</td>
     <td>${fU(r.comis_bruta)}</td>
-    <td style="color:var(--green-glow);font-weight:600">${fU(r.tbol_total)}</td>
+    <td style="color:${r._esRes?'var(--warn)':'var(--green-glow)'};font-weight:600">${fU(r.tbol_total)}</td>
     <td>${r.dias_venta>0?fmt(r.dias_venta)+' d':'—'}</td>
     <td>${r.pct_neg?fmt(r.pct_neg*100,1)+'%':'—'}</td>
     <td>${r.credito&&r.credito!=='No'&&r.credito!==''?r.credito:'—'}</td>
