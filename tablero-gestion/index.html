@@ -503,6 +503,14 @@ function showTab(id){
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
   document.querySelector(`.tab[onclick="showTab('${id}')"]`).classList.add('active');
   document.getElementById('tab-'+id).classList.add('active');
+  // Redibujar gráficos al mostrar pestaña
+  if(kpis){
+    setTimeout(()=>{
+      if(id==='prospeccion'){buildProspCharts(kpis);}
+      if(id==='referidores'){buildRefCharts(kpis);}
+      if(id==='resumen'){buildResumenCharts(kpis);}
+    },50);
+  }
 }
 
 function destroyChart(id){if(charts[id]){charts[id].destroy();delete charts[id];}}
