@@ -614,16 +614,17 @@ function renderEmbudoAño(){
   destroyChart('embAño');
   const selAño=document.getElementById('sel-año-emb')?.value||'';
   const rows=getRowsProsp();
-  const byM={cont:{},tas:{},capt:{},vend:{}};
+  const byM={cont:{},tas:{},capt:{},vend:{},res:{}};
   rows.forEach(r=>{
     const dc=pd(r.f_contacto);if(dc&&(!selAño||dc.getFullYear()==selAño)){const k=mkey(dc);byM.cont[k]=(byM.cont[k]||0)+1;}
     const dt=pd(r.f_tasacion);if(dt&&(!selAño||dt.getFullYear()==selAño)){const k=mkey(dt);byM.tas[k]=(byM.tas[k]||0)+1;}
     const dp=pd(r.f_pub);if(dp&&(!selAño||dp.getFullYear()==selAño)){const k=mkey(dp);byM.capt[k]=(byM.capt[k]||0)+1;}
     const de=pd(r.f_escritura);if(de&&(!selAño||de.getFullYear()==selAño)){const k=mkey(de);byM.vend[k]=(byM.vend[k]||0)+1;}
+    const dr=pd(r.f_reserva);if(dr&&(!selAño||dr.getFullYear()==selAño)){const k=mkey(dr);byM.res[k]=(byM.res[k]||0)+1;}
   });
   const allM=[...new Set([...Object.keys(byM.cont),...Object.keys(byM.tas),...Object.keys(byM.capt),...Object.keys(byM.vend)])].sort();
   const mostrar=metricaEmb==='all'?['cont','tas','capt','vend','res']:[metricaEmb];
-  const datasets=mostrar.map(m=>({label:metricaLabels[m],data:allM.map(k=>byM[m][k]||0),backgroundColor:metricaColors[m],borderRadius:3}));
+  const datasets=mostrar.map(m=>({label:metricaLabels[m],data:allM.map(k=>(byM[m]&&byM[m][k])||0),backgroundColor:metricaColors[m],borderRadius:3}));
   const ctx=document.getElementById('chart-emb-año');
   if(ctx)charts.embAño=new Chart(ctx,{type:'bar',data:{
     labels:allM.map(m=>{const[y,mo]=m.split('-');return MES[+mo-1].slice(0,3)+' '+y.slice(2);}),
