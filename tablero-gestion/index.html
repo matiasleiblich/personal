@@ -2,915 +2,1114 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tasación · Bahía Blanca 323 · 2C & 3A · Matías Leiblich</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tablero — Matias Leiblich</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#f5f4f0;color:#0b0b0b;font-size:13px;line-height:1.6}
-.header{background:#0d1b2e;color:#fff;padding:40px 56px 36px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
-.eyebrow{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#6b9fff;margin-bottom:12px;font-weight:500}
-.header h1{font-size:32px;font-weight:300;color:#f0f1f3;line-height:1.15;margin-bottom:6px}
-.header h1 strong{font-weight:700;color:#fff}
-.header-sub{font-size:12px;color:#6b7280}
-.header-right{text-align:right;font-size:12px;color:#6b7280;line-height:1.9;flex-shrink:0}
-.header-right strong{display:block;color:#f0f1f3;font-size:13px;font-weight:600}
-.header-right .handle{font-size:10px;color:#6b9fff;letter-spacing:.5px}
-.section{padding:36px 56px;border-bottom:1px solid #e1e0d9}
-.section-blanca{background:#fff}
-.sec-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:24px}
-.sec-num{font-size:11px;font-weight:600;letter-spacing:2px;color:#1a7aff;background:#1a7aff11;padding:4px 10px;border-radius:20px;white-space:nowrap;margin-top:2px;border:1px solid #1a7aff22}
-.sec-titulo{font-size:20px;font-weight:300;color:#0b0b0b;line-height:1.25}
-.sec-titulo strong{font-weight:700}
-.sec-desc{font-size:12px;color:#52514e;margin-top:4px;line-height:1.6}
-/* STATS */
-.mercado-stats{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px}
-.mstat{background:#fff;border:.5px solid #e1e0d9;border-radius:10px;padding:18px 22px;flex:1;min-width:130px}
-.mstat-num{font-size:26px;font-weight:700;color:#0b0b0b;margin-bottom:2px}
-.mstat-label{font-size:10px;color:#898781;text-transform:uppercase;letter-spacing:.8px}
-.mstat-sub{font-size:10px;color:#b0afa8;margin-top:3px}
-.mstat-hl .mstat-num{color:#1a7aff}
-/* CHARTS */
-.chart-card{background:#fff;border:.5px solid #e1e0d9;border-radius:8px;padding:16px 18px}
-.chart-eyebrow{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#898781;margin-bottom:8px}
-.chart-title{font-size:12px;font-weight:600;color:#0b0b0b;margin-bottom:14px}
-.chart-wrap{position:relative;height:200px}
-.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
-/* EVOLUCION */
-.evol-img-wrap{border-radius:8px;overflow:hidden;border:.5px solid #e1e0d9}
-.evol-img-wrap img{width:100%;display:block}
-.evol-placeholder{background:#f0f0ec;border-radius:8px;border:.5px solid #e1e0d9;height:200px;display:flex;align-items:center;justify-content:center;color:#b0afa8;font-size:12px;text-align:center;padding:20px}
-/* ZONA */
-.zona-imgs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
-.zona-img-block img{width:100%;border-radius:8px;border:.5px solid #e1e0d9;display:block}
-.zona-img-caption{font-size:10px;color:#898781;margin-top:6px;text-align:center}
-.zona-stats{display:flex;gap:16px;flex-wrap:wrap}
-.zona-stat{background:#fff;border:.5px solid #e1e0d9;border-radius:10px;padding:18px 24px;flex:1;min-width:200px}
-.zona-num{font-size:34px;font-weight:700;color:#1a7aff;margin-bottom:4px}
-.zona-desc{font-size:12px;color:#52514e;line-height:1.5}
-/* PROPS DUAL */
-.props-dual{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
-.prop-card-wrap{background:#fff;border:.5px solid #e1e0d9;border-radius:12px;padding:20px 22px}
-.prop-card-header{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#1a7aff;margin-bottom:14px;padding-bottom:10px;border-bottom:.5px solid #e1e0d9}
-.prop-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:.5px solid #f0efea;font-size:12px}
-.prop-row:last-child{border-bottom:none}
-.prop-key{color:#52514e}
-.prop-val{font-weight:600;color:#0b0b0b;text-align:right}
-/* FODA */
-.foda-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
-.foda-cell{border:.5px solid #e1e0d9;border-radius:8px;padding:11px 13px}
-.foda-cell-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;padding-bottom:6px;border-bottom:.5px solid #e1e0d9}
-.foda-cell-f{background:#f0faf4}.foda-cell-f .foda-cell-label{color:#1a7a4a}
-.foda-cell-o{background:#f0f4ff}.foda-cell-o .foda-cell-label{color:#1a7aff}
-.foda-cell-d{background:#fffbf0}.foda-cell-d .foda-cell-label{color:#b8860b}
-.foda-cell-a{background:#fff0f0}.foda-cell-a .foda-cell-label{color:#c0392b}
-.foda-line{display:flex;gap:7px;align-items:baseline;margin-bottom:4px;font-size:11.5px;color:#52514e;flex-wrap:wrap}
-.u-badge{font-size:9px;font-weight:700;padding:1px 6px;border-radius:8px;white-space:nowrap;line-height:1.6}
-/* VIZ GBA */
-.viz-gba-row{display:flex;align-items:stretch;margin-bottom:8px;border-radius:8px;overflow:hidden}
-/* PROP CARDS (vendido / comparables) */
-.prop-cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.prop-card{background:#fff;border:.5px solid #e1e0d9;border-radius:12px;overflow:hidden}
-.prop-card-fotos{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:160px 100px;gap:3px;background:#e1e0d9}
-.prop-card-foto-main{grid-row:1/3;overflow:hidden}
-.prop-card-foto-main img,.prop-card-foto-side img{width:100%;height:100%;object-fit:cover;display:block}
-.prop-card-foto-side{overflow:hidden;position:relative}
-.mas-fotos-overlay{position:absolute;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:600}
-.prop-card-body{padding:16px 18px}
-.prop-card-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 9px;border-radius:20px;margin-bottom:8px}
-.tag-vendida{background:#edf7f1;color:#1a7a4a;border:.5px solid #9fd4b6}
-.tag-venta{background:#eff4ff;color:#1a4aaf;border:.5px solid #9ab4f0}
-.prop-card-precio{font-size:22px;font-weight:700;color:#0b0b0b;margin-bottom:2px}
-.prop-card-m2{font-size:12px;color:#52514e;margin-bottom:10px}
-.prop-card-specs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
-.spec{font-size:11px;color:#52514e;display:flex;align-items:center;gap:4px}
-.spec::before{content:'';width:4px;height:4px;border-radius:50%;background:#1a7aff;flex-shrink:0}
-.prop-card-desc{font-size:11.5px;color:#52514e;line-height:1.6;border-top:.5px solid #e1e0d9;padding-top:10px;margin-top:4px}
-.prop-card-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:.5px solid #e1e0d9}
-.meta-pill{font-size:10px;font-weight:500;padding:3px 9px;border-radius:10px;border:.5px solid #e1e0d9;color:#52514e}
-.meta-pill.dias-alto{background:#fdecea;border-color:#f0b0a0;color:#b71c1c}
-.meta-pill.dias-med{background:#fff8e1;border-color:#e8d080;color:#7d5a00}
-.meta-pill.dias-ok{background:#edf7f1;border-color:#9fd4b6;color:#1a5a2a}
-.comp-conclusion{background:#f9f8f5;border-left:3px solid #1a7aff;border-radius:0 6px 6px 0;padding:8px 12px;font-size:11.5px;color:#52514e;line-height:1.55;margin-top:8px}
-/* TRIANGULO */
-.tri-wrap{display:flex;gap:36px;align-items:flex-start;flex-wrap:wrap}
-.tri-svg-col{flex:0 0 260px}
-.tri-text-col{flex:1;min-width:200px}
-.tri-item{margin-bottom:14px;padding-bottom:14px;border-bottom:.5px solid #e1e0d9}
-.tri-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
-.tri-pct{font-size:13px;font-weight:700;margin-bottom:4px}
-.tri-desc{font-size:12px;color:#52514e;line-height:1.6}
-/* AVISO STATS */
-.aviso-stats{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:18px}
-.aviso-stat{background:#fff;border:.5px solid #e1e0d9;border-radius:10px;padding:14px 18px;flex:1;min-width:100px;text-align:center}
-.aviso-stat-num{font-size:22px;font-weight:700;color:#0b0b0b;margin-bottom:2px}
-.aviso-stat-label{font-size:10px;color:#898781;text-transform:uppercase;letter-spacing:.7px}
-/* TABLA */
-.table-wrap{border-radius:8px;border:.5px solid #e1e0d9;overflow:hidden;margin-top:16px}
-table{width:100%;border-collapse:collapse;font-size:12px}
-thead th{background:#f5f4f0;color:#52514e;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.7px;padding:10px 12px;border-bottom:.5px solid #e1e0d9;text-align:left;white-space:nowrap}
-tbody tr{border-bottom:.5px solid #f0efea}
-tbody tr:last-child{border-bottom:none}
-tbody td{padding:10px 12px;vertical-align:middle}
-.badge{display:inline-block;font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px}
-.b-dest{background:#e3f2fd;color:#0d47a1;border:.5px solid #90c8f0}
-.b-sdest{background:#e8f5e9;color:#1b5e20;border:.5px solid #a5d6a7}
-.b-free{background:#fdecea;color:#b71c1c;border:.5px solid #f0a0a0}
-/* NOTE */
-.note-box{background:#fff8e1;border:.5px solid #f0c040;border-radius:8px;padding:13px 16px;font-size:12px;color:#52514e;line-height:1.65;margin-top:14px}
-.note-box strong{color:#7d5a00}
-/* CONCLUSIONES */
-.concl-line{display:flex;gap:12px;align-items:baseline;padding:10px 0;border-bottom:.5px solid #e1e0d9;font-size:13px;color:#0b0b0b;line-height:1.55}
-.concl-line:last-child{border-bottom:none}
-/* PRECIOS */
-.precios-dual{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.precios-col-header{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#1a7aff;margin-bottom:12px;padding-bottom:8px;border-bottom:.5px solid #e1e0d9}
-.precios-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.precio-block{background:#fff;border:.5px solid #e1e0d9;border-radius:10px;padding:16px 20px}
-.precio-block-label{font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:#898781;margin-bottom:8px}
-.precio-block-valor{font-size:22px;font-weight:700;color:#0b0b0b;margin-bottom:3px}
-.precio-block-m2{font-size:11px;color:#52514e}
-.neg-nota{text-align:center;font-size:11px;color:#b0afa8;margin-top:10px;font-style:italic}
-/* LINKS AL PIE */
-.links-pie{background:#fff;padding:40px 56px;text-align:center;border-bottom:1px solid #e1e0d9}
-.links-pie-label{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#898781;margin-bottom:20px}
-/* FOOTER */
-.footer{background:#0d1b2e;color:#6b7280;padding:24px 56px;font-size:11px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.footer strong{color:#f0f1f3}
-@media(max-width:720px){
-  .header,.section,.links-pie,.footer{padding-left:20px;padding-right:20px}
-  .header{flex-direction:column;gap:14px}.header-right{text-align:left}
-  .charts-grid,.foda-grid,.prop-cards-grid,.props-dual,.zona-imgs,.precios-dual,.precios-grid{grid-template-columns:1fr}
-  .tri-wrap{flex-direction:column}.tri-svg-col{width:100%}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap');
+:root{
+  --bg:#0d1117;--surface:#161b22;--surface2:#21262d;--border:#30363d;
+  --green:#2D6A4F;--green-mid:#40916C;--green-lt:#74C69D;--green-glow:#52B788;
+  --text:#e6edf3;--muted:#7d8590;--accent:#3fb68a;--danger:#f85149;
+  --warn:#d29922;--blue:#388bfd;--purple:#a855f7;
+  --font:'Inter',sans-serif;--mono:'DM Mono',monospace;
 }
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);}
+.header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;}
+.logo{width:36px;height:36px;background:linear-gradient(135deg,var(--green),var(--green-lt));border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:white;}
+.header-left{display:flex;align-items:center;gap:12px;}
+.header-title{font-size:15px;font-weight:600;}
+.header-sub{font-size:11px;color:var(--muted);}
+.pill{border:1px solid var(--accent);border-radius:20px;padding:4px 12px;font-size:11px;color:var(--accent);}
+.pill::before{content:'● ';}
+#last-update{font-size:11px;color:var(--muted);}
+.tabs-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28px;display:flex;gap:4px;overflow-x:auto;}
+.tab{padding:12px 18px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s;}
+.tab:hover{color:var(--text);}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.main{padding:20px 28px;max-width:1600px;margin:0 auto;}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+.filters-bar{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:20px;display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;}
+.filter-group{display:flex;flex-direction:column;gap:6px;}
+.filter-label{font-size:11px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.5px;}
+.multi-select{position:relative;min-width:140px;}
+.ms-trigger{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:7px 12px;font-size:12px;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:8px;}
+.ms-trigger:hover{border-color:var(--accent);}
+.ms-dropdown{position:absolute;top:calc(100% + 4px);left:0;background:var(--surface);border:1px solid var(--border);border-radius:8px;z-index:300;min-width:180px;box-shadow:0 8px 24px rgba(0,0,0,.4);display:none;max-height:220px;overflow-y:auto;}
+.ms-dropdown.open{display:block;}
+.ms-option{padding:8px 14px;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:8px;}
+.ms-option:hover{background:var(--surface2);}
+.ms-all{padding:8px 14px;font-size:11px;color:var(--muted);cursor:pointer;border-bottom:1px solid var(--border);}
+.ms-all:hover{background:var(--surface2);}
+.btn{background:var(--green);border:none;border-radius:6px;padding:8px 18px;color:white;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font);transition:all .15s;}
+.btn:hover{opacity:.85;}
+.btn.sec{background:var(--surface2);border:1px solid var(--border);color:var(--muted);}
+.section-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:10px;margin-top:16px;}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:16px;}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;transition:border-color .2s,transform .15s;}
+.kpi:hover{border-color:var(--accent);transform:translateY(-1px);}
+.kpi.hl{border-color:var(--green-mid);background:linear-gradient(135deg,var(--surface) 60%,rgba(45,106,79,.12));}
+.kpi.hl::before{content:'';display:block;height:2px;background:linear-gradient(90deg,var(--green),var(--green-lt));margin:-14px -16px 12px;border-radius:10px 10px 0 0;}
+.kpi.ora{border-color:var(--warn);background:linear-gradient(135deg,var(--surface) 60%,rgba(210,153,34,.08));}
+.kpi.ora::before{content:'';display:block;height:2px;background:var(--warn);margin:-14px -16px 12px;border-radius:10px 10px 0 0;}
+.kpi.pur{border-color:var(--purple);background:linear-gradient(135deg,var(--surface) 60%,rgba(168,85,247,.08));}
+.kpi.pur::before{content:'';display:block;height:2px;background:var(--purple);margin:-14px -16px 12px;border-radius:10px 10px 0 0;}
+.kpi-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;font-weight:500;}
+.kpi-value{font-size:24px;font-weight:700;line-height:1;font-family:var(--mono);}
+.kpi-value.green{color:var(--green-glow);}
+.kpi-value.blue{color:var(--blue);}
+.kpi-value.warn{color:var(--warn);}
+.kpi-value.orange{color:var(--warn);}
+.kpi-value.purple{color:var(--purple);}
+.kpi-sub{font-size:10px;color:var(--muted);margin-top:3px;}
+.kpi-badge{display:inline-block;background:rgba(63,182,138,.12);color:var(--accent);border-radius:4px;padding:1px 6px;font-size:10px;font-weight:600;margin-top:4px;}
+.prog-track{height:10px;background:var(--border);border-radius:5px;overflow:hidden;display:flex;}
+.prog-seg{height:100%;transition:width .8s ease;}
+.prog-seg.green{background:var(--green-glow);}
+.prog-seg.orange{background:var(--warn);}
+.prog-seg.purple{background:var(--purple);}
+.prog-feet{display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-top:3px;}
+.prog-legend{display:flex;gap:12px;margin-top:6px;flex-wrap:wrap;}
+.prog-legend-item{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted);}
+.prog-dot{width:8px;height:8px;border-radius:2px;}
+.charts-grid{display:grid;gap:14px;margin-bottom:18px;}
+.cg-3{grid-template-columns:1fr 1fr 1fr;}
+.cg-2{grid-template-columns:2fr 1fr;}
+.cg-2b{grid-template-columns:1fr 1fr;}
+@media(max-width:1100px){.cg-3,.cg-2,.cg-2b{grid-template-columns:1fr 1fr;}}
+@media(max-width:700px){.cg-3,.cg-2,.cg-2b{grid-template-columns:1fr;}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px;}
+.card-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block;margin-right:4px;}
+.card-select{background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 8px;font-size:11px;color:var(--text);font-family:var(--font);cursor:pointer;}
+.table-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;}
+th{text-align:left;padding:8px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:1px solid var(--border);cursor:pointer;user-select:none;white-space:nowrap;}
+th:hover{color:var(--accent);}
+td{padding:9px 10px;border-bottom:1px solid rgba(48,54,61,.4);color:var(--text);font-family:var(--mono);font-size:11px;vertical-align:middle;}
+tr:hover td{background:var(--surface2);}
+tr:last-child td{border-bottom:none;}
+.badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:600;font-family:var(--font);}
+.badge.v{background:rgba(63,182,138,.12);color:var(--accent);}
+.badge.r{background:rgba(210,153,34,.12);color:var(--warn);}
+.table-controls{display:flex;gap:10px;margin-bottom:10px;align-items:center;flex-wrap:wrap;}
+.search-input{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:7px 12px;font-size:12px;color:var(--text);font-family:var(--font);width:220px;}
+.search-input:focus{outline:none;border-color:var(--accent);}
+.table-count{font-size:11px;color:var(--muted);}
+.sim-input{background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:5px 7px;color:var(--text);font-family:var(--mono);font-size:11px;width:90px;}
+.sim-input:focus{outline:none;border-color:var(--accent);}
+.sim-check{accent-color:var(--accent);width:16px;height:16px;cursor:pointer;}
+.sim-box{background:var(--surface);border:1px solid var(--green-mid);border-radius:10px;padding:16px;margin-bottom:16px;}
+.sim-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:14px;}
+.sim-kpi-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+.sim-kpi-value{font-size:18px;font-weight:700;font-family:var(--mono);}
+.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:14px;}
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-text{font-size:13px;color:var(--muted);}
 </style>
 </head>
 <body>
-
 <header class="header">
-  <div>
-    <div class="eyebrow">Informe de Tasación · 2 ambientes · GBA Sur</div>
-    <h1><strong>Bahía Blanca 323</strong><br>Wilde · Avellaneda</h1>
-    <div class="header-sub">Unidades 2C y 3A · Loft · 2015 · Bueno · Agosto 2026</div>
+  <div class="header-left">
+    <div class="logo">IN²</div>
+    <div><div class="header-title">Matias Leiblich — Tablero de Gestión</div>
+    <div class="header-sub">deinmobiliarios · Ingenieros Inmobiliarios</div></div>
   </div>
-  <div class="header-right">
-    <strong>Matías Leiblich</strong>
-    Ingenieros Inmobiliarios<br>
-    deinmobiliarios.com<br>
-    <a href="https://wa.me/5491161737552" target="_blank" class="handle" style="color:#c9a84c;text-decoration:none">11-6173-7552</a>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <span class="pill">En vivo</span>
+    <span id="last-update"></span>
   </div>
 </header>
 
-<!-- 01: MERCADO -->
-<section class="section section-blanca">
-  <div class="sec-header">
-    <span class="sec-num">01</span>
-    <div>
-      <div class="sec-titulo"><strong>El mercado</strong> hoy</div>
-      <div class="sec-desc">CABA · Colegio de Escribanos · Agosto 2026</div>
-    </div>
-  </div>
-  <div class="mercado-stats">
-    <div class="mstat"><div class="mstat-num">110.615</div><div class="mstat-label">Avisos publicados hoy</div></div>
-    <div class="mstat">
-      <div class="mstat-num">5.784</div>
-      <div class="mstat-label">Escrituras promedio / mes</div>
-      <div class="mstat-sub">Total últ. 12 meses: 69.410</div>
-    </div>
-    <div class="mstat mstat-hl"><div class="mstat-num">5,2%</div><div class="mstat-label">Se vende de lo publicado</div></div>
-    <div class="mstat"><div class="mstat-num">1 cada 19</div><div class="mstat-label">Avisos por operación</div></div>
-  </div>
-  <div class="chart-card">
-    <div class="chart-eyebrow">Escrituras realizadas · CABA</div>
-    <div class="chart-title">Operaciones escrituradas y con hipoteca por mes</div>
-    <div class="chart-wrap"><canvas id="cEscr"></canvas></div>
-  </div>
-  <div style="font-size:11px;color:#898781;margin-top:8px;font-style:italic">Fuente: Colegio de Escribanos · Los valores de publicación no reflejan la realidad — <strong style="color:#0b0b0b">lo que importa son los precios de cierre</strong>.</div>
-</section>
+<nav class="tabs-bar">
+  <div class="tab active" onclick="showTab('resumen')">📊 Resumen</div>
+  <div class="tab" onclick="showTab('prospeccion')">📈 Prospección</div>
+  <div class="tab" onclick="showTab('cartera')">🏠 Cartera</div>
+  <div class="tab" onclick="showTab('ventas')">✅ Ventas</div>
+  <div class="tab" onclick="showTab('busquedas')">🔍 Búsquedas</div>
+  <div class="tab" onclick="showTab('referidores')">👥 Referidores</div>
+  <div class="tab" onclick="showTab('personal')">📊 Personal</div>
+</nav>
 
-<!-- 02: EVOLUCIÓN VALOR AVELLANEDA -->
-<section class="section">
-  <div class="sec-header">
-    <span class="sec-num">02</span>
-    <div>
-      <div class="sec-titulo"><strong>Evolución del valor</strong> en Avellaneda</div>
-      <div class="sec-desc">USD/m² promedio publicado · Usado · GBA Sur · Enero 2019 – Enero 2026</div>
+<div class="main">
+  <div class="loading" id="loading"><div class="spinner"></div><div class="loading-text">Conectando...</div></div>
+  <div id="app" style="display:none">
+
+    <!-- FILTROS GLOBALES -->
+    <div class="filters-bar">
+      <div class="filter-group"><div class="filter-label">Año</div>
+        <div class="multi-select" id="ms-años"><div class="ms-trigger"><span>Todos</span>▾</div>
+        <div class="ms-dropdown"><div class="ms-all" onclick="selAll('ms-años')">Todos/Ninguno</div><div class="opts"></div></div></div></div>
+      <div class="filter-group"><div class="filter-label">Mes</div>
+        <div class="multi-select" id="ms-meses"><div class="ms-trigger"><span>Todos</span>▾</div>
+        <div class="ms-dropdown"><div class="ms-all" onclick="selAll('ms-meses')">Todos/Ninguno</div><div class="opts"></div></div></div></div>
+      <div class="filter-group"><div class="filter-label" style="opacity:0">.</div>
+        <button class="btn" onclick="aplicar()">Aplicar</button></div>
     </div>
-  </div>
-  <div class="evol-img-wrap">
-    <img src="IMG/evolucion-avellaneda.png"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-         alt="Evolución valor Avellaneda">
-    <div class="evol-placeholder" style="display:none">
-      <div>
-        <div style="font-size:28px;margin-bottom:8px">📈</div>
-        <div style="font-weight:500;color:#52514e">Gráfico de evolución del valor</div>
-        <div style="margin-top:4px;font-size:11px">IMG/evolucion-avellaneda.png</div>
+
+    <!-- RESUMEN -->
+    <div class="tab-content active" id="tab-resumen">
+      <p class="section-title">Tu bolsillo</p>
+      <div class="kpi-grid" id="kpi-bolsillo"></div>
+      <div id="dash-progress" style="margin-bottom:18px"></div>
+      <p class="section-title">Financiero</p>
+      <div class="kpi-grid" id="kpi-financiero"></div>
+      <p class="section-title">Embudo</p>
+      <div class="kpi-grid" id="kpi-embudo"></div>
+      <div class="charts-grid cg-2b" style="margin-top:4px">
+        <div class="card"><div class="card-title"><span><span class="dot"></span>Estado cartera activa</span></div><canvas id="chart-estado" height="220"></canvas></div>
+        <div class="card"><div class="card-title"><span><span class="dot"></span>Bolsillo acumulado</span></div><canvas id="chart-bol-acum" height="220"></canvas></div>
       </div>
     </div>
-  </div>
-  <div style="font-size:11px;color:#898781;margin-top:8px;font-style:italic">Fuente: Zonaprop · Precio de publicación promedio por m² · Departamentos usados · Avellaneda</div>
-</section>
 
-<!-- 03: ZONA DE INFLUENCIA -->
-<section class="section section-blanca">
-  <div class="sec-header">
-    <span class="sec-num">03</span>
-    <div>
-      <div class="sec-titulo"><strong>Competencia</strong> en la zona</div>
-      <div class="sec-desc">Zona de influencia · Wilde · Agosto 2026</div>
-    </div>
-  </div>
-  <div class="zona-imgs">
-    <div class="zona-img-block">
-      <img src="IMG/wilde-zona.png"
-           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-           alt="Wilde zona completa">
-      <div style="display:none;background:#f0f0ec;border-radius:8px;height:180px;align-items:center;justify-content:center;color:#b0afa8;font-size:12px">IMG/wilde-zona.png</div>
-      <div class="zona-img-caption">2 ambientes en venta en Wilde</div>
-    </div>
-    <div class="zona-img-block">
-      <img src="IMG/wilde-radio.png"
-           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-           alt="Radio cercano">
-      <div style="display:none;background:#f0f0ec;border-radius:8px;height:180px;align-items:center;justify-content:center;color:#b0afa8;font-size:12px">IMG/wilde-radio.png</div>
-      <div class="zona-img-caption">Radio de 5 cuadras a la redonda</div>
-    </div>
-  </div>
-  <div class="zona-stats">
-    <div class="zona-stat">
-      <div class="zona-num">359</div>
-      <div class="zona-desc">2 ambientes en venta en <strong>Wilde</strong> — <strong>155</strong> a estrenar</div>
-    </div>
-    <div class="zona-stat">
-      <div class="zona-num">245</div>
-      <div class="zona-desc">en el <strong>radio cercano</strong> — <strong>110</strong> a estrenar</div>
-    </div>
-  </div>
-</section>
-
-<!-- 04: LAS PROPIEDADES -->
-<section class="section">
-  <div class="sec-header">
-    <span class="sec-num">04</span>
-    <div>
-      <div class="sec-titulo"><strong>Las propiedades</strong> a tasar</div>
-      <div class="sec-desc">Dos unidades en el mismo edificio · Bahía Blanca 323</div>
-    </div>
-  </div>
-
-  <div class="props-dual">
-    <div class="prop-card-wrap">
-      <div class="prop-card-header">Unidad 2C · Piso 2°/3° · Contrafrente</div>
-      <div class="prop-row"><span class="prop-key">Tipología</span><span class="prop-val">2 ambientes · Loft</span></div>
-      <div class="prop-row"><span class="prop-key">Sup. cubierta</span><span class="prop-val">49 m²</span></div>
-      <div class="prop-row"><span class="prop-key">Balcón</span><span class="prop-val">3,65 m²</span></div>
-      <div class="prop-row"><span class="prop-key">Sup. ponderada</span><span class="prop-val" style="color:#1F4E79;font-size:14px">50,1 m²</span></div>
-      <div class="prop-row"><span class="prop-key">Dormitorios / Baños</span><span class="prop-val">1 / 2</span></div>
-      <div class="prop-row"><span class="prop-key">Piso</span><span class="prop-val">2°/3°</span></div>
-      <div class="prop-row"><span class="prop-key">Orientación</span><span class="prop-val">Contrafrente</span></div>
-      <div class="prop-row"><span class="prop-key">Año / Estado</span><span class="prop-val">2015 · Bueno</span></div>
-      <div class="prop-row"><span class="prop-key">Expensas</span><span class="prop-val">$100.000/mes</span></div>
-    </div>
-    <div class="prop-card-wrap">
-      <div class="prop-card-header">Unidad 3A · Piso 3°/4° · Frente</div>
-      <div class="prop-row"><span class="prop-key">Tipología</span><span class="prop-val">2 ambientes · Loft</span></div>
-      <div class="prop-row"><span class="prop-key">Sup. cubierta</span><span class="prop-val">49 m²</span></div>
-      <div class="prop-row"><span class="prop-key">Balcón</span><span class="prop-val">3,65 m²</span></div>
-      <div class="prop-row"><span class="prop-key">Sup. ponderada</span><span class="prop-val" style="color:#1F4E79;font-size:14px">50,1 m²</span></div>
-      <div class="prop-row"><span class="prop-key">Dormitorios / Baños</span><span class="prop-val">1 / 2</span></div>
-      <div class="prop-row"><span class="prop-key">Piso</span><span class="prop-val">3°/4°</span></div>
-      <div class="prop-row"><span class="prop-key">Orientación</span><span class="prop-val">Frente</span></div>
-      <div class="prop-row"><span class="prop-key">Año / Estado</span><span class="prop-val">2015 · Bueno</span></div>
-      <div class="prop-row"><span class="prop-key">Expensas</span><span class="prop-val">$100.000/mes</span></div>
-    </div>
-  </div>
-
-  <!-- FODA COMPARTIDO -->
-  <div style="font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#898781;margin-bottom:10px">
-    Análisis FODA — ambas unidades
-    <span style="font-weight:400;letter-spacing:0;text-transform:none;margin-left:10px;font-size:11px;color:#b0afa8">
-      Diferencias marcadas con
-      <span class="u-badge" style="background:#0d1b2e;color:#fff;margin:0 2px">2C</span>
-      <span class="u-badge" style="background:#1a7aff;color:#fff;margin:0 2px">3A</span>
-    </span>
-  </div>
-  <div class="foda-grid">
-    <div class="foda-cell foda-cell-f">
-      <div class="foda-cell-label">✓ Fortalezas</div>
-      <div class="foda-line"><span style="color:#1a7a4a">✓</span> Edificio moderno (2015)</div>
-      <div class="foda-line"><span style="color:#1a7a4a">✓</span> Toilette — diferencial en la zona</div>
-      <div class="foda-line"><span style="color:#1a7a4a">✓</span> Loft — doble altura</div>
-      <div class="foda-line">
-        <span style="color:#1a7a4a">✓</span> Frente con luz
-        <span class="u-badge" style="background:#1a7aff;color:#fff">3A</span>
+    <!-- PROSPECCIÓN -->
+    <div class="tab-content" id="tab-prospeccion">
+      <div style="display:flex;gap:8px;margin-bottom:16px;margin-top:4px;align-items:center">
+        <button id="btn-tot" onclick="setProsp('total')" style="background:var(--blue);border:none;border-radius:6px;padding:8px 18px;color:white;font-size:12px;font-weight:600;cursor:pointer;">🌐 Todos</button>
+        <button id="btn-prop" onclick="setProsp('propia')" style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 18px;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;">⭐ Prospección propia</button>
+      </div>
+      <p class="section-title">Embudo</p>
+      <div class="kpi-grid" id="kpi-emb-prosp"></div>
+      <div class="charts-grid cg-2b">
+        <div class="card">
+          <div class="card-title">
+            <span><span class="dot"></span>Por año — elegí año</span>
+            <select id="sel-año-emb" class="card-select" onchange="renderEmbudoAño()">
+              <option value="">Todos</option>
+            </select>
+          </div>
+          <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap" id="btn-metric-wrap">
+            <button onclick="setMetric('all')" id="btn-m-all" style="background:var(--blue);border:none;border-radius:5px;padding:4px 10px;color:white;font-size:11px;cursor:pointer;">Todo</button>
+            <button onclick="setMetric('cont')" id="btn-m-cont" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Contactos</button>
+            <button onclick="setMetric('tas')" id="btn-m-tas" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Tasaciones</button>
+            <button onclick="setMetric('capt')" id="btn-m-capt" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Captaciones</button>
+            <button onclick="setMetric('vend')" id="btn-m-vend" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Ventas</button>
+            <button onclick="setMetric('res')" id="btn-m-res" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Reservas</button>
+          </div>
+          <canvas id="chart-emb-año" height="200"></canvas>
+        </div>
+        <div class="card">
+          <div class="card-title"><span><span class="dot"></span>Comparativa año a año</span>
+            <div style="display:flex;gap:6px;flex-wrap:wrap" id="btn-comp-wrap">
+              <button onclick="setMetricComp('cont')" id="btn-c-cont" style="background:var(--blue);border:none;border-radius:5px;padding:4px 10px;color:white;font-size:11px;cursor:pointer;">Contactos</button>
+              <button onclick="setMetricComp('tas')" id="btn-c-tas" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Tasaciones</button>
+              <button onclick="setMetricComp('capt')" id="btn-c-capt" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Captaciones</button>
+              <button onclick="setMetricComp('vend')" id="btn-c-vend" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Ventas</button>
+              <button onclick="setMetricComp('res')" id="btn-c-res" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Reservas</button>
+            </div>
+          </div>
+          <canvas id="chart-comp-año" height="200"></canvas>
+        </div>
+      </div>
+      <div class="charts-grid cg-3">
+        <div class="card"><div class="card-title"><span class="dot"></span>Prospección 1</div><canvas id="chart-p1" height="200"></canvas></div>
+        <div class="card">
+          <div class="card-title"><span><span class="dot"></span>Prospección 2</span>
+            <select id="sel-p1" class="card-select" onchange="renderP2()"><option value="">Todos</option></select>
+          </div><canvas id="chart-p2" height="200"></canvas>
+        </div>
+        <div class="card"><div class="card-title"><span class="dot"></span>Por zona</div><canvas id="chart-zona" height="200"></canvas></div>
+      </div>
+      <div class="charts-grid cg-2b">
+        <div class="card">
+          <div class="card-title"><span><span class="dot"></span>Por barrio (top 10)</span>
+            <select id="sel-zona" class="card-select" onchange="renderBarrio()"><option value="">Todas</option></select>
+          </div><canvas id="chart-barrio" height="220"></canvas>
+        </div>
+        <div class="card"><div class="card-title"><span class="dot"></span>Crédito (vendidos + reservados)</div><canvas id="chart-credito" height="160"></canvas></div>
       </div>
     </div>
-    <div class="foda-cell foda-cell-o">
-      <div class="foda-cell-label">◈ Oportunidades</div>
-      <div class="foda-line"><span style="color:#1a7aff">◈</span> Inversión / primera vivienda</div>
-      <div class="foda-line"><span style="color:#1a7aff">◈</span> Apto crédito</div>
-      <div class="foda-line"><span style="color:#1a7aff">◈</span> Compradores de nuevo emprendimiento</div>
-    </div>
-    <div class="foda-cell foda-cell-d">
-      <div class="foda-cell-label">⚠ Debilidades</div>
-      <div class="foda-line"><span style="color:#b8860b">⚠</span> Sin placard</div>
-      <div class="foda-line"><span style="color:#b8860b">⚠</span> Cocina pequeña</div>
-      <div class="foda-line"><span style="color:#b8860b">⚠</span> Terminaciones a mejorar</div>
-      <div class="foda-line">
-        <span style="color:#b8860b">⚠</span> Contrafrente
-        <span class="u-badge" style="background:#0d1b2e;color:#fff">2C</span>
+
+    <!-- CARTERA -->
+    <div class="tab-content" id="tab-cartera">
+      <p class="section-title">Simulador de ventas</p>
+      <div class="sim-box">
+        <!-- Estado actual -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px">
+        <div style="background:rgba(82,183,136,0.08);border:1px solid var(--green-mid);border-radius:8px;padding:12px">
+          <div class="sim-kpi-label" style="color:var(--muted)">Bolsillo vendido</div>
+          <div class="sim-kpi-value" style="color:var(--green-glow)" id="sim-base-bol-vend">—</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:2px">Dashboard: <span id="sim-base-dash-vend">—</span></div>
+        </div>
+        <div style="background:rgba(210,153,34,0.08);border:1px solid var(--warn);border-radius:8px;padding:12px">
+          <div class="sim-kpi-label" style="color:var(--muted)">+ Bolsillo reservado</div>
+          <div class="sim-kpi-value" style="color:var(--warn)" id="sim-base-bol-res">—</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:2px">Dashboard: <span id="sim-base-dash-res">—</span></div>
+        </div>
+        <div style="background:rgba(168,85,247,0.08);border:1px solid var(--purple);border-radius:8px;padding:12px">
+          <div class="sim-kpi-label" style="color:var(--muted)">+ Simulado</div>
+          <div class="sim-kpi-value" style="color:var(--purple)" id="sim-bol">—</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:2px">Dashboard: <span id="sim-dash">—</span></div>
+        </div>
       </div>
-    </div>
-    <div class="foda-cell foda-cell-a">
-      <div class="foda-cell-label">✗ Amenazas</div>
-      <div class="foda-line"><span style="color:#c0392b">✗</span> Alta competencia en la zona</div>
-      <div class="foda-line"><span style="color:#c0392b">✗</span> Muchos a estrenar cercanos</div>
-    </div>
-  </div>
-</section>
-
-<!-- 05: VISUALIZACIONES NECESARIAS -->
-<section class="section section-blanca">
-  <div class="sec-header">
-    <span class="sec-num">05</span>
-    <div>
-      <div class="sec-titulo"><strong>Visualizaciones</strong> necesarias para vender</div>
-      <div class="sec-desc">La velocidad depende del precio de salida · GBA · Zonaprop</div>
-    </div>
-  </div>
-  <div style="max-width:500px">
-    <div style="font-size:11px;color:#898781;margin-bottom:14px;font-weight:500;letter-spacing:.5px;text-transform:uppercase">GBA · Referencia de mercado</div>
-
-    <div style="display:flex;align-items:stretch;margin-bottom:8px;border-radius:8px;overflow:hidden;border:.5px solid #9fd4b6;background:#edf7f1">
-      <div style="flex:1;padding:14px 18px;display:flex;align-items:center">
+      <!-- Totales -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:14px">
+        <div><div class="sim-kpi-label">Total bolsillo</div><div class="sim-kpi-value" id="sim-total-bol" style="color:var(--text)">—</div></div>
+        <div><div class="sim-kpi-label">Seleccionadas</div><div class="sim-kpi-value" id="sim-count" style="color:var(--blue)">0</div></div>
+        <div><div class="sim-kpi-label">Comisión bruta sim.</div><div class="sim-kpi-value" id="sim-comis" style="color:var(--accent)">—</div></div>
+        <div><div class="sim-kpi-label">DI liberado sim. 🎉</div><div class="sim-kpi-value" id="sim-di" style="color:var(--purple)">—</div></div>
+      </div>
         <div>
-          <div style="font-size:15px;font-weight:700;color:#1a7a4a">&gt; 8 viz/día</div>
-          <div style="font-size:9px;color:#898781;letter-spacing:.8px;text-transform:uppercase;margin-top:2px">Visualizaciones / día</div>
+          <div style="font-size:10px;color:var(--muted);margin-bottom:5px" id="sim-prog-label">Dashboard acumulado</div>
+          <div class="prog-track" id="sim-prog">
+            <div class="prog-seg green" id="sp-vend" style="width:0%"></div>
+            <div class="prog-seg orange" id="sp-res" style="width:0%"></div>
+            <div class="prog-seg purple" id="sp-sim" style="width:0%"></div>
+          </div>
+          <div class="prog-feet"><span>$0</span><span>$80k</span></div>
+          <div class="prog-legend">
+            <div class="prog-legend-item"><div class="prog-dot" style="background:var(--green-glow)"></div><span id="leg-vend">Vendido: —</span></div>
+            <div class="prog-legend-item"><div class="prog-dot" style="background:var(--warn)"></div><span id="leg-res">Reservado: —</span></div>
+            <div class="prog-legend-item"><div class="prog-dot" style="background:var(--purple)"></div><span id="leg-sim">Simulado: USD 0</span></div>
+          </div>
         </div>
       </div>
-      <div style="width:1px;background:#9fd4b6"></div>
-      <div style="min-width:160px;padding:14px 18px;text-align:center;display:flex;flex-direction:column;justify-content:center">
-        <div style="font-size:24px;font-weight:700;color:#1a7a4a">2 visitas/sem.</div>
-        <div style="font-size:9px;color:#898781;letter-spacing:.8px;text-transform:uppercase;margin-top:2px">Visitas presenciales</div>
-      </div>
-    </div>
-
-    <div style="display:flex;align-items:stretch;margin-bottom:8px;border-radius:8px;overflow:hidden;border:.5px solid #e8d080;background:#fffbf0">
-      <div style="flex:1;padding:14px 18px;display:flex;align-items:center">
-        <div>
-          <div style="font-size:15px;font-weight:700;color:#b8860b">5 a 8 viz/día</div>
-          <div style="font-size:9px;color:#898781;letter-spacing:.8px;text-transform:uppercase;margin-top:2px">Visualizaciones / día</div>
+      <div class="card">
+        <div class="table-controls">
+          <input class="search-input" placeholder="Buscar..." oninput="busqC=this.value;renderCartera()">
+          <span class="table-count" id="cnt-cartera"></span>
         </div>
-      </div>
-      <div style="width:1px;background:#e8d080"></div>
-      <div style="min-width:160px;padding:14px 18px;text-align:center;display:flex;flex-direction:column;justify-content:center">
-        <div style="font-size:24px;font-weight:700;color:#b8860b">1 visita/sem.</div>
-        <div style="font-size:9px;color:#898781;letter-spacing:.8px;text-transform:uppercase;margin-top:2px">Visitas presenciales</div>
-      </div>
-    </div>
-
-    <div style="display:flex;align-items:stretch;border-radius:8px;overflow:hidden;border:.5px solid #f0b0b0;background:#fef0f0">
-      <div style="flex:1;padding:14px 18px;display:flex;align-items:center">
-        <div>
-          <div style="font-size:15px;font-weight:700;color:#c0392b">&lt; 5 viz/día</div>
-          <div style="font-size:9px;color:#898781;letter-spacing:.8px;text-transform:uppercase;margin-top:2px">Visualizaciones / día</div>
-        </div>
-      </div>
-      <div style="width:1px;background:#f0b0b0"></div>
-      <div style="min-width:160px;padding:14px 18px;text-align:center;display:flex;flex-direction:column;justify-content:center">
-        <div style="font-size:24px;font-weight:700;color:#c0392b">&lt; 1 visita/sem.</div>
-        <div style="font-size:9px;color:#898781;letter-spacing:.8px;text-transform:uppercase;margin-top:2px">Visitas presenciales</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 06: QUÉ SE VENDIÓ -->
-<section class="section">
-  <div class="sec-header">
-    <span class="sec-num">06</span>
-    <div>
-      <div class="sec-titulo"><strong>Qué se vendió</strong> en el edificio</div>
-      <div class="sec-desc">Operación de cierre reciente · Bahía Blanca 323 · Wilde</div>
-    </div>
-  </div>
-
-  <!-- Stats período 1: USD 75K -->
-  <div style="font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#898781;margin-bottom:10px">
-    Período 1 — USD 75.000 · Nov 2024 – Oct 2025
-    <span style="margin-left:8px;font-size:10px;font-weight:400;color:#c0392b;background:#fdecea;padding:2px 8px;border-radius:8px;border:.5px solid #f0a0a0;letter-spacing:0;text-transform:none">Sin cierre</span>
-  </div>
-  <div class="aviso-stats" style="margin-bottom:20px">
-    <div class="aviso-stat">
-      <div class="aviso-stat-num" style="color:#c0392b">11+</div>
-      <div class="aviso-stat-label">Meses publicado</div>
-    </div>
-    <div class="aviso-stat">
-      <div class="aviso-stat-num">46.215</div>
-      <div class="aviso-stat-label">Exposiciones</div>
-    </div>
-    <div class="aviso-stat">
-      <div class="aviso-stat-num">1.607</div>
-      <div class="aviso-stat-label">Visualizaciones</div>
-    </div>
-    <div class="aviso-stat" style="background:#fef0f0;border-color:#f0b0b0">
-      <div class="aviso-stat-num" style="color:#c0392b">4,9</div>
-      <div class="aviso-stat-label">Viz / día prom.</div>
-    </div>
-    <div class="aviso-stat">
-      <div class="aviso-stat-num">19</div>
-      <div class="aviso-stat-label">Consultas</div>
-    </div>
-    <div class="aviso-stat">
-      <div class="aviso-stat-num">12</div>
-      <div class="aviso-stat-label">Visitas presenciales</div>
-    </div>
-  </div>
-
-  <!-- Stats período 2: USD 69K -->
-  <div style="font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#898781;margin-bottom:10px">
-    Período 2 — USD 69.000 · 2026
-    <span style="margin-left:8px;font-size:10px;font-weight:600;color:#1a5a2a;background:#edf7f1;padding:2px 8px;border-radius:8px;border:.5px solid #9fd4b6;letter-spacing:0;text-transform:none">Cerró en USD 64.000</span>
-  </div>
-  <div class="aviso-stats" style="margin-bottom:24px">
-    <div class="aviso-stat">
-      <div class="aviso-stat-num">48.172</div>
-      <div class="aviso-stat-label">Exposiciones</div>
-    </div>
-    <div class="aviso-stat">
-      <div class="aviso-stat-num">1.701</div>
-      <div class="aviso-stat-label">Visualizaciones</div>
-    </div>
-    <div class="aviso-stat" style="background:#fff8e1;border-color:#e8d080">
-      <div class="aviso-stat-num" style="color:#b8860b">6,8</div>
-      <div class="aviso-stat-label">Viz / día prom.</div>
-    </div>
-    <div class="aviso-stat">
-      <div class="aviso-stat-num">24</div>
-      <div class="aviso-stat-label">Consultas</div>
-    </div>
-    <div class="aviso-stat">
-      <div class="aviso-stat-num">10</div>
-      <div class="aviso-stat-label">Visitas presenciales</div>
-    </div>
-    <div class="aviso-stat" style="background:#edf7f1;border-color:#9fd4b6">
-      <div class="aviso-stat-num" style="color:#1a7a4a;font-size:16px">1 oferta</div>
-      <div class="aviso-stat-label">que derivó en cierre</div>
-    </div>
-  </div>
-
-  <div class="prop-cards-grid" style="grid-template-columns:1fr;max-width:520px">
-    <div class="prop-card">
-      <div class="prop-card-fotos">
-        <div class="prop-card-foto-main">
-          <img src="https://static.kiteprop.com/kp/properties/513157/751a09/md/751a096cd8917a605641e6001c6c4335.jpg" alt="Bahía Blanca 323 vendido" onerror="this.parentElement.style.background='#e8edf2'">
-        </div>
-        <div class="prop-card-foto-side">
-          <img src="https://static.kiteprop.com/kp/properties/513157/e4b683/md/e4b68394a39f9159344b89c9db0e6850.jpg" alt="" onerror="this.parentElement.style.background='#e8edf2'">
-        </div>
-        <div class="prop-card-foto-side" style="position:relative">
-          <img src="https://static.kiteprop.com/kp/properties/513157/f3db4b/md/f3db4bf5e71b6d7d83ea67b572938af2.jpg" alt="" onerror="this.parentElement.style.background='#e8edf2'">
-          <div class="mas-fotos-overlay">+6 fotos</div>
-        </div>
-      </div>
-      <div class="prop-card-body">
-        <span class="prop-card-tag tag-vendida">✓ Vendida</span>
-        <div class="prop-card-precio">USD 64.000</div>
-        <div class="prop-card-m2">48 m² cub · 4 m² balcón · <strong>49,2 m² pond.</strong> · USD 1.301/m²</div>
-        <div class="prop-card-specs">
-          <span class="spec">2 ambientes · Loft</span>
-          <span class="spec">Piso 5°/6°</span>
-          <span class="spec">Contrafrente</span>
-          <span class="spec">Toilette</span>
-          <span class="spec">Balcón vista abierta</span>
-        </div>
-        <div class="prop-card-desc">Bahía Blanca 323, Wilde. Mismo edificio, piso 5°/6°, contrafrente. Loft: living-comedor, cocina integrada, toilette en planta baja. Dormitorio en planta alta con baño. Balcón. Expensas $100.000. Apto crédito.</div>
-        <div class="prop-card-meta">
-          <span class="meta-pill" style="background:#fdecea;color:#b71c1c;border-color:#f0a0a0">USD 75.000 · 11 meses · sin cierre</span>
-          <span class="meta-pill dias-med">USD 69.000 · 10 visitas · 1 oferta</span>
-          <span class="meta-pill" style="background:#edf7f1;color:#1a5a2a;border-color:#9fd4b6">Cerró USD 64.000</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="note-box">
-    <strong>Lo que muestran los dos períodos:</strong> A USD 75.000 estuvo más de 11 meses con 4,9 viz/día — por debajo del umbral mínimo en GBA. 12 visitas presenciales, cero ofertas. Al bajar a USD 69.000, las visualizaciones subieron a 6,8/día, se generaron 10 visitas y apareció la única oferta de todo el proceso, que derivó en el cierre a USD 64.000. La diferencia entre "visitas sin oferta" y "cierre" fue de USD 5.000 y un comprador que encontró el precio en zona de mercado real. Es la referencia más directa para esta tasación: mismo edificio, misma tipología, mismo estado.
-  </div>
-</section>
-
-<!-- 07: TRIÁNGULO -->
-<section class="section section-blanca">
-  <div class="sec-header">
-    <span class="sec-num">07</span>
-    <div>
-      <div class="sec-titulo"><strong>Tu precio decide</strong> quién te llama</div>
-      <div class="sec-desc">Posicionamiento de precio y comportamiento del comprador</div>
-    </div>
-  </div>
-  <div class="tri-wrap">
-    <div class="tri-svg-col">
-      <svg viewBox="0 0 300 290" xmlns="http://www.w3.org/2000/svg" style="width:100%">
-        <polygon points="150,14 286,226 14,226" fill="#c0392b" opacity=".75"/>
-        <polygon points="150,58 270,226 30,226" fill="#6a3a8a" opacity=".82"/>
-        <polygon points="150,104 254,226 46,226" fill="#1F4E79" opacity=".85"/>
-        <polygon points="150,150 238,226 62,226" fill="#1a7a4a" opacity=".88"/>
-        <line x1="14" y1="226" x2="286" y2="226" stroke="#e1e0d9" stroke-width="1"/>
-        <text x="150" y="43" text-anchor="middle" fill="#fff" font-family="Inter" font-weight="700" font-size="13">+20%</text>
-        <text x="150" y="56" text-anchor="middle" fill="#fcc" font-family="Inter" font-size="9">No consultan</text>
-        <text x="150" y="86" text-anchor="middle" fill="#fff" font-family="Inter" font-weight="700" font-size="12">~15%</text>
-        <text x="150" y="99" text-anchor="middle" fill="#dcc" font-family="Inter" font-size="9">Consultan, no visitan</text>
-        <text x="150" y="130" text-anchor="middle" fill="#fff" font-family="Inter" font-weight="700" font-size="12">~10%</text>
-        <text x="150" y="143" text-anchor="middle" fill="#cdf" font-family="Inter" font-size="9">Visitan, no ofertan</text>
-        <text x="150" y="183" text-anchor="middle" fill="#fff" font-family="Inter" font-weight="700" font-size="12">~5%</text>
-        <text x="150" y="196" text-anchor="middle" fill="#cfc" font-family="Inter" font-size="9">Consultan, visitan y ofertan</text>
-        <text x="12" y="130" text-anchor="middle" fill="#898781" font-family="Inter" font-size="7.5" transform="rotate(-90,12,130)">PRECIO SOBRE EL MERCADO</text>
-        <text x="150" y="246" text-anchor="middle" fill="#898781" font-family="Inter" font-size="7.5" letter-spacing="1.5">COMPRADORES INTERESADOS</text>
-        <text x="150" y="262" text-anchor="middle" fill="#b4b2a9" font-family="Inter" font-size="7" letter-spacing="1">@tutemudas</text>
-      </svg>
-    </div>
-    <div class="tri-text-col">
-      <div class="tri-item">
-        <div class="tri-pct" style="color:#c0392b">+20% — No consultan</div>
-        <div class="tri-desc">El aviso aparece en resultados pero nadie hace clic. Visualizaciones bajísimas. El vendido de este edificio arrancó aquí — USD 75.000, meses sin consultas, 4,9 viz/día: por debajo del umbral mínimo de actividad en GBA.</div>
-      </div>
-      <div class="tri-item">
-        <div class="tri-pct" style="color:#6a3a8a">~15% — Consultan, no visitan</div>
-        <div class="tri-desc">Algo de movimiento, pero la brecha entre el precio pedido y el valor percibido frena al comprador antes de pisar el depto.</div>
-      </div>
-      <div class="tri-item">
-        <div class="tri-pct" style="color:#1F4E79">~10% — Visitan, no ofertan</div>
-        <div class="tri-desc">El precio genera interés pero no urgencia. El vendido estuvo aquí en USD 69.000: 12 visitas presenciales, sin que ninguna derivara en oferta. El comprador visita, compara, y sigue buscando.</div>
-      </div>
-      <div class="tri-item">
-        <div class="tri-pct" style="color:#1a7a4a">~5% — Zona objetivo</div>
-        <div class="tri-desc"><strong>Consultan, visitan y hacen ofertas.</strong> El precio está donde el mercado real opera. El vendido de este edificio cerró en USD 64.000 — habiendo estado publicado en USD 69.000. La diferencia entre "visitas sin oferta" y "cierre" fue USD 5.000.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 08: QUÉ HAY EN VENTA -->
-<section class="section">
-  <div class="sec-header">
-    <span class="sec-num">08</span>
-    <div>
-      <div class="sec-titulo"><strong>Qué hay en venta</strong> hoy</div>
-      <div class="sec-desc">Comparables activos · Wilde / GBA Sur · Agosto 2026</div>
-    </div>
-  </div>
-
-  <div style="font-size:11px;color:#898781;margin-bottom:14px;font-style:italic">* Balcón declarado en el aviso pero superficie no detallada — ponderada calculada sobre cubierta únicamente.</div>
-
-  <div class="prop-cards-grid">
-
-    <!-- C1: Bolívar 6101 -->
-    <div class="prop-card">
-      <div class="prop-card-fotos">
-        <div class="prop-card-foto-main"><img src="https://imgar.zonapropcdn.com/avisos/1/00/59/04/87/31/720x532/2051147827.jpg" alt="Bolívar 6101" onerror="this.parentElement.style.background='#e8edf2'"></div>
-        <div class="prop-card-foto-side"><img src="https://imgar.zonapropcdn.com/avisos/1/00/59/04/87/31/720x532/2051147860.jpg" alt="" onerror="this.parentElement.style.background='#e8edf2'"></div>
-        <div class="prop-card-foto-side" style="position:relative"><img src="https://imgar.zonapropcdn.com/avisos/1/00/59/04/87/31/720x532/2051147803.jpg" alt="" onerror="this.parentElement.style.background='#e8edf2'"><div class="mas-fotos-overlay">+ fotos</div></div>
-      </div>
-      <div class="prop-card-body">
-        <span class="prop-card-tag tag-venta">En venta</span>
-        <div class="prop-card-precio">USD 65.000</div>
-        <div class="prop-card-m2">50 m² cub · 5 m² balcón · <strong>51,5 m² pond.</strong> · USD 1.262/m²</div>
-        <div class="prop-card-specs">
-          <span class="spec">2 ambientes</span><span class="spec">1 dormitorio</span><span class="spec">1 baño</span><span class="spec">Sin toilette</span><span class="spec">Sin cochera</span><span class="spec">~10 años</span>
-        </div>
-        <div class="prop-card-desc">Bolívar 6101, Wilde Centro. Corredor comercial, cerca de colectivos y estación de tren. Edificio de categoría. Balcón.</div>
-        <div class="comp-conclusion">Sin toilette; sin cochera; balcón; ~10 años; ub. similar. Super Dest. con 2,6 viz/día — franja roja. 95 días sin cerrar.</div>
-        <div class="prop-card-meta">
-          <span class="meta-pill dias-med">95 días</span>
-          <span class="meta-pill" style="background:#fef0f0;border-color:#f0b0b0;color:#c0392b">2,6 viz/día</span>
-          <span class="badge b-sdest">Super Dest.</span>
-        </div>
+        <div class="table-wrap"><table>
+          <thead><tr>
+            <th style="width:36px">+</th>
+            <th onclick="srtC('dir')">Propiedad ↕</th>
+            <th onclick="srtC('zona')">Zona ↕</th>
+            <th onclick="srtC('val_pub_ult')">Último precio ↕</th>
+            <th>Precio simulado</th>
+            <th>% Vend.</th>
+            <th>% Comp.</th>
+            <th>Comisión pot.</th>
+            <th>Tu bolsillo pot.</th>
+          </tr></thead>
+          <tbody id="tb-cartera"></tbody>
+        </table></div>
       </div>
     </div>
 
-    <!-- C2: Lobos e/ Mitre -->
-    <div class="prop-card">
-      <div class="prop-card-fotos">
-        <div class="prop-card-foto-main"><img src="https://imgar.zonapropcdn.com/avisos/1/00/59/24/74/51/720x532/2058814588.jpg" alt="Lobos e/ Mitre" onerror="this.parentElement.style.background='#e8edf2'"></div>
-        <div class="prop-card-foto-side"><img src="https://imgar.zonapropcdn.com/avisos/1/00/59/24/74/51/720x532/2058814720.jpg" alt="" onerror="this.parentElement.style.background='#e8edf2'"></div>
-        <div class="prop-card-foto-side" style="position:relative"><img src="https://imgar.zonapropcdn.com/avisos/1/00/59/24/74/51/720x532/2058814940.jpg" alt="" onerror="this.parentElement.style.background='#e8edf2'"><div class="mas-fotos-overlay">+ fotos</div></div>
-      </div>
-      <div class="prop-card-body">
-        <span class="prop-card-tag tag-venta">En venta</span>
-        <div class="prop-card-precio">USD 66.000</div>
-        <div class="prop-card-m2">48 m² cub · balcón* · <strong>48 m² pond.</strong> · USD 1.375/m²</div>
-        <div class="prop-card-specs">
-          <span class="spec">2 ambientes</span><span class="spec">1 dormitorio</span><span class="spec">1 baño</span><span class="spec">Sin toilette</span><span class="spec">Sin cochera</span>
+    <!-- VENTAS -->
+    <div class="tab-content" id="tab-ventas">
+      <p class="section-title">Operaciones cerradas</p>
+      <div class="card">
+        <div class="table-controls">
+          <input class="search-input" placeholder="Buscar..." oninput="busqV=this.value;renderVentas()">
+          <span class="table-count" id="cnt-ventas"></span>
         </div>
-        <div class="prop-card-desc">Lobos entre Av. Bartolomé Mitre y Mariano Moreno, Wilde. Ub. similar sobre eje Mitre. Balcón declarado, sup. no detallada.</div>
-        <div class="comp-conclusion">Sin toilette; sin cochera; balcón*; ub. similar. Anuncio simple con 2,2 viz/día — franja roja. 73 días sin cerrar.</div>
-        <div class="prop-card-meta">
-          <span class="meta-pill dias-ok">73 días</span>
-          <span class="meta-pill" style="background:#fef0f0;border-color:#f0b0b0;color:#c0392b">2,2 viz/día</span>
-          <span class="badge b-free">Free</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- C3: Bahía Blanca 10 -->
-    <div class="prop-card">
-      <div class="prop-card-fotos">
-        <div class="prop-card-foto-main"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/04/91/58/720x532/1997674509.jpg" alt="Bahía Blanca 10" onerror="this.parentElement.style.background='#e8edf2'"></div>
-        <div class="prop-card-foto-side"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/04/91/58/720x532/1997674510.jpg" alt="" onerror="this.parentElement.style.background='#e8edf2'"></div>
-        <div class="prop-card-foto-side" style="position:relative"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/04/91/58/720x532/1997674502.jpg" alt="" onerror="this.parentElement.style.background='#e8edf2'"><div class="mas-fotos-overlay">+ fotos</div></div>
-      </div>
-      <div class="prop-card-body">
-        <span class="prop-card-tag tag-venta">En venta</span>
-        <div class="prop-card-precio">USD 77.500</div>
-        <div class="prop-card-m2">47 m² cub · balcón* · <strong>47 m² pond.</strong> · USD 1.649/m²</div>
-        <div class="prop-card-specs">
-          <span class="spec">2 ambientes</span><span class="spec">1 dormitorio</span><span class="spec">1 baño</span><span class="spec">Sin toilette</span><span class="spec">Cochera</span><span class="spec">~8 años</span>
-        </div>
-        <div class="prop-card-desc">Bahía Blanca 10, Wilde. Mismo eje que la propiedad tasada. Living con AA, cocina instalada, dormitorio con placard. Cochera.</div>
-        <div class="comp-conclusion">Sin toilette; cochera; balcón*; ~8 años; ub. similar. Super Dest.: 345 días publicado, 3,3 viz/día. Precio más alto del segmento — y el más estancado.</div>
-        <div class="prop-card-meta">
-          <span class="meta-pill dias-alto">345 días</span>
-          <span class="meta-pill" style="background:#fef0f0;border-color:#f0b0b0;color:#c0392b">3,3 viz/día</span>
-          <span class="badge b-sdest">Super Dest.</span>
-        </div>
+        <div class="table-wrap"><table>
+          <thead><tr>
+            <th onclick="srtV('dir')">Propiedad ↕</th>
+            <th onclick="srtV('zona')">Zona ↕</th>
+            <th>Estado</th>
+            <th onclick="srtV('precio_cierre')">Precio cierre ↕</th>
+            <th onclick="srtV('comis_bruta')">Comisión bruta ↕</th>
+            <th onclick="srtV('tbol_total')">Tu bolsillo ↕</th>
+            <th onclick="srtV('dias_venta')">Días ↕</th>
+            <th>% Neg.</th>
+            <th>Crédito</th>
+          </tr></thead>
+          <tbody id="tb-ventas"></tbody>
+        </table></div>
       </div>
     </div>
 
-    <!-- C4: Av. Mitre 5700 -->
-    <div class="prop-card">
-      <div class="prop-card-fotos">
-        <div class="prop-card-foto-main"><img src="https://imgar.zonapropcdn.com/avisos/1/00/59/65/57/40/720x532/2066493213.jpg" alt="Av. Mitre 5700" onerror="this.parentElement.style.background='#e8edf2'"></div>
-        <div class="prop-card-foto-side"><img src="https://imgar.zonapropcdn.com/avisos/1/00/59/65/57/40/720x532/2066493166.jpg" alt="" onerror="this.parentElement.style.background='#e8edf2'"></div>
-        <div class="prop-card-foto-side" style="position:relative"><img src="https://imgar.zonapropcdn.com/avisos/1/00/59/65/57/40/720x532/2066493096.jpg" alt="" onerror="this.parentElement.style.background='#e8edf2'"><div class="mas-fotos-overlay">+ fotos</div></div>
-      </div>
-      <div class="prop-card-body">
-        <span class="prop-card-tag tag-venta">En venta</span>
-        <div class="prop-card-precio">USD 82.000</div>
-        <div class="prop-card-m2">57 m² cub · balcón* · <strong>57 m² pond.</strong> · USD 1.439/m²</div>
-        <div class="prop-card-specs">
-          <span class="spec">2 ambientes</span><span class="spec">1 dormitorio</span><span class="spec">1 baño</span><span class="spec">Sin toilette</span><span class="spec">A estrenar</span><span class="spec">Contrafrente</span>
-        </div>
-        <div class="prop-card-desc">Av. Mitre al 5700, Wilde. A estrenar. Contrafrente con living-comedor integrado a balcón. Cocheras opcionales. Sin toilette.</div>
-        <div class="comp-conclusion">Sin toilette; sin cochera propia; balcón*; a estrenar; contrafrente. 4,2 viz/día — el único cerca de la franja amarilla, y recién publicado (21 días). A monitorear.</div>
-        <div class="prop-card-meta">
-          <span class="meta-pill dias-ok">21 días</span>
-          <span class="meta-pill" style="background:#fff8e1;border-color:#e8d080;color:#7d5a00">4,2 viz/día</span>
-          <span class="badge b-sdest">Super Dest.</span>
-        </div>
+    <!-- BÚSQUEDAS -->
+    <div class="tab-content" id="tab-busquedas">
+      <p class="section-title">Búsquedas</p>
+      <div class="card" style="padding:40px;text-align:center;color:var(--muted)">
+        <div style="font-size:32px;margin-bottom:12px">🔍</div>
+        <div style="font-size:14px">Próximamente — datos en preparación</div>
       </div>
     </div>
 
-    <!-- C5: Soreda 6264 -->
-    <div class="prop-card">
-      <div class="prop-card-fotos">
-        <div class="prop-card-foto-main"><img src="https://imgar.zonapropcdn.com/avisos/1/00/51/37/35/29/720x532/1862073857.jpg" alt="Soreda 6264" onerror="this.parentElement.style.background='#e8edf2'"></div>
-        <div class="prop-card-foto-side"><img src="https://imgar.zonapropcdn.com/avisos/1/00/51/37/35/29/720x532/1862073853.jpg" alt="" onerror="this.parentElement.style.background='#e8edf2'"></div>
-        <div class="prop-card-foto-side" style="position:relative"><img src="https://imgar.zonapropcdn.com/avisos/1/00/51/37/35/29/720x532/1862073859.jpg" alt="" onerror="this.parentElement.style.background='#e8edf2'"><div class="mas-fotos-overlay">+ fotos</div></div>
+    <!-- REFERIDORES -->
+    <div class="tab-content" id="tab-referidores">
+      <p class="section-title">Actividad por referidor</p>
+      <div class="charts-grid cg-2b">
+        <div class="card"><div class="card-title"><span class="dot"></span>Contactos / Captados / Vendidos</div><canvas id="chart-ref-c" height="220"></canvas></div>
+        <div class="card"><div class="card-title"><span class="dot"></span>En venta por referidor</div><canvas id="chart-ref-v" height="220"></canvas></div>
       </div>
-      <div class="prop-card-body">
-        <span class="prop-card-tag tag-venta">En venta</span>
-        <div class="prop-card-precio">USD 76.000</div>
-        <div class="prop-card-m2">46 m² cub · 4 m² balcón · <strong>47,2 m² pond.</strong> · USD 1.610/m²</div>
-        <div class="prop-card-specs">
-          <span class="spec">2 ambientes</span><span class="spec">1 dormitorio</span><span class="spec">1 baño</span><span class="spec">Sin toilette</span><span class="spec">Cochera</span><span class="spec">Contrafrente</span>
-        </div>
-        <div class="prop-card-desc">Salvador Soreda 6264, Wilde. Contrafrente con balcón-parrilla. Cochera. Dormitorio con placard. Más de 1 año publicado sin cerrarse.</div>
-        <div class="comp-conclusion">Sin toilette; cochera; balcón-parrilla; ub. similar; contrafrente. Anuncio simple. +1 año en cartel con 2,6 viz/día — señal inequívoca de precio fuera de mercado.</div>
-        <div class="prop-card-meta">
-          <span class="meta-pill dias-alto">+1 año</span>
-          <span class="meta-pill" style="background:#fef0f0;border-color:#f0b0b0;color:#c0392b">2,6 viz/día</span>
-          <span class="badge b-free">Free</span>
-        </div>
+      <div class="card">
+        <div class="table-wrap"><table>
+          <thead><tr>
+            <th>Referidor</th><th>Contactos</th><th>Tasados</th><th>Captados</th>
+            <th>En venta</th><th>Vendidos</th><th>% Conv.</th><th>Comisión generada</th>
+          </tr></thead>
+          <tbody id="tb-ref"></tbody>
+        </table></div>
       </div>
     </div>
 
-  </div>
-
-  <!-- NOTA -->
-  <div class="note-box">
-    <strong>Lectura del mercado activo:</strong> El rango va de USD 65.000 a USD 82.000 en publicación. Ningún comparable tiene toilette — ese es el único diferencial concreto de las unidades tasadas frente a toda la competencia. Cuatro de los cinco están por debajo de 3 viz/día (franja roja GBA), dos llevan más de 300 días sin cerrarse. El único con algo de tracción es el a-estrenar de Mitre 5700 con 4,2 viz/día y 21 días publicado — pero todavía en franja roja.
-  </div>
-
-  <!-- GRÁFICOS -->
-  <div class="charts-grid">
-    <div class="chart-card">
-      <div class="chart-eyebrow">Precio de publicación</div>
-      <div class="chart-title">USD por comparable activo</div>
-      <div class="chart-wrap"><canvas id="cPrecios"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-eyebrow">Precio relativo</div>
-      <div class="chart-title">USD/m² ponderado por comparable</div>
-      <div class="chart-wrap"><canvas id="cUsd"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-eyebrow">Exposición</div>
-      <div class="chart-title">Visualizaciones / día por comparable</div>
-      <div class="chart-wrap"><canvas id="cViz"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-eyebrow">Tiempo en mercado</div>
-      <div class="chart-title">Días publicado por comparable</div>
-      <div class="chart-wrap"><canvas id="cDias"></canvas></div>
-    </div>
-  </div>
-
-  <!-- TABLA -->
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th>Comparable</th>
-          <th style="text-align:right">Precio</th>
-          <th style="text-align:right">m² pond.</th>
-          <th style="text-align:right">USD/m²</th>
-          <th style="text-align:right">Días</th>
-          <th style="text-align:right">Viz/día</th>
-          <th>Publicidad</th>
-          <th>Nota</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="font-weight:600">Bolívar 6101</td>
-          <td style="text-align:right;font-weight:700">USD 65.000</td>
-          <td style="text-align:right;color:#52514e">51,5 m²</td>
-          <td style="text-align:right;color:#52514e">1.262</td>
-          <td style="text-align:right"><span class="meta-pill dias-med" style="display:inline">95d</span></td>
-          <td style="text-align:right;color:#c0392b">2,6</td>
-          <td><span class="badge b-sdest">Super Dest.</span></td>
-          <td style="color:#52514e;font-size:11px">Sin toilette. Sin cochera. Balcón.</td>
-        </tr>
-        <tr>
-          <td style="font-weight:600">Lobos e/ Mitre</td>
-          <td style="text-align:right;font-weight:700">USD 66.000</td>
-          <td style="text-align:right;color:#52514e">48 m²*</td>
-          <td style="text-align:right;color:#52514e">1.375</td>
-          <td style="text-align:right"><span class="meta-pill dias-ok" style="display:inline">73d</span></td>
-          <td style="text-align:right;color:#c0392b">2,2</td>
-          <td><span class="badge b-free">Free</span></td>
-          <td style="color:#52514e;font-size:11px">Sin toilette. Sin cochera. Balcón*.</td>
-        </tr>
-        <tr>
-          <td style="font-weight:600">Bahía Blanca 10</td>
-          <td style="text-align:right;font-weight:700">USD 77.500</td>
-          <td style="text-align:right;color:#52514e">47 m²*</td>
-          <td style="text-align:right;color:#52514e">1.649</td>
-          <td style="text-align:right"><span class="meta-pill dias-alto" style="display:inline">345d</span></td>
-          <td style="text-align:right;color:#c0392b">3,3</td>
-          <td><span class="badge b-sdest">Super Dest.</span></td>
-          <td style="color:#52514e;font-size:11px">Sin toilette. Cochera. 345 días.</td>
-        </tr>
-        <tr>
-          <td style="font-weight:600">Av. Mitre 5700</td>
-          <td style="text-align:right;font-weight:700">USD 82.000</td>
-          <td style="text-align:right;color:#52514e">57 m²*</td>
-          <td style="text-align:right;color:#52514e">1.439</td>
-          <td style="text-align:right"><span class="meta-pill dias-ok" style="display:inline">21d</span></td>
-          <td style="text-align:right;color:#b8860b">4,2</td>
-          <td><span class="badge b-sdest">Super Dest.</span></td>
-          <td style="color:#52514e;font-size:11px">Sin toilette. A estrenar. Contrafrente.</td>
-        </tr>
-        <tr>
-          <td style="font-weight:600">Soreda 6264</td>
-          <td style="text-align:right;font-weight:700">USD 76.000</td>
-          <td style="text-align:right;color:#52514e">47,2 m²</td>
-          <td style="text-align:right;color:#52514e">1.610</td>
-          <td style="text-align:right"><span class="meta-pill dias-alto" style="display:inline">+1 año</span></td>
-          <td style="text-align:right;color:#c0392b">2,6</td>
-          <td><span class="badge b-free">Free</span></td>
-          <td style="color:#52514e;font-size:11px">Sin toilette. Cochera. +1 año en cartel.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<!-- 09: CONCLUSIONES -->
-<section class="section section-blanca">
-  <div class="sec-header">
-    <span class="sec-num">09</span>
-    <div>
-      <div class="sec-titulo"><strong>Conclusiones</strong></div>
-      <div class="sec-desc">Lo que el mercado indica</div>
-    </div>
-  </div>
-  <div style="max-width:640px">
-    <div class="concl-line"><span style="color:#c0392b;font-size:15px;flex-shrink:0">◉</span>Hay 359 unidades similares en venta en Wilde — alta competencia, los compradores tienen opciones, muchas a estrenar</div>
-    <div class="concl-line"><span style="color:#c0392b;font-size:15px;flex-shrink:0">◉</span>Cuatro de cinco comparables están en franja roja de viz/día; dos llevan más de 300 días sin cerrarse — el mercado está rechazando esos precios</div>
-    <div class="concl-line"><span style="color:#c0392b;font-size:15px;flex-shrink:0">◉</span>Los precios de publicación no reflejan la realidad — los cierres ocurren por debajo del valor publicado, como muestra el vendido del mismo edificio</div>
-    <div class="concl-line"><span style="color:#b8860b;font-size:15px;flex-shrink:0">◉</span>El Super Destacado de Bahía Blanca 10 con 345 días confirma que la inversión en publicidad no reemplaza al precio: sin ajuste, no se vende</div>
-    <div class="concl-line"><span style="color:#1a7aff;font-size:15px;flex-shrink:0">◉</span>El toilette es el único diferencial concreto de estas unidades frente a toda la competencia activa — ningún comparable lo tiene</div>
-    <div class="concl-line"><span style="color:#1a7aff;font-size:15px;flex-shrink:0">◉</span>El precio de salida y la calidad del aviso son los dos únicos factores que el propietario controla desde el día 1</div>
-  </div>
-</section>
-
-<!-- 10: PROPUESTA -->
-<section class="section">
-  <div class="sec-header">
-    <span class="sec-num">10</span>
-    <div>
-      <div class="sec-titulo"><strong>Propuesta</strong> de precio</div>
-      <div class="sec-desc">Estrategia de publicación y precio objetivo de cierre · Por unidad</div>
-    </div>
-  </div>
-
-  <div class="precios-dual">
-    <div>
-      <div class="precios-col-header">Unidad 2C · Contrafrente · 2°/3°</div>
-      <div class="precios-grid">
-        <div class="precio-block">
-          <div class="precio-block-label">Publicación prueba</div>
-          <div class="precio-block-valor">USD 67.000</div>
-          <div class="precio-block-m2">USD 1.337/m²</div>
+    <!-- PERSONAL -->
+    <div class="tab-content" id="tab-personal">
+      <p class="section-title">Tu negocio — evolución personal</p>
+      <div class="kpi-grid" id="kpi-personal"></div>
+      <div class="charts-grid cg-2b">
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Bolsillo mes a mes + acumulado anual</div>
+          <canvas id="chart-bol-mes" height="220"></canvas>
         </div>
-        <div class="precio-block" style="opacity:.65">
-          <div class="precio-block-label">Publicación sugerida</div>
-          <div class="precio-block-valor">USD 64.000</div>
-          <div class="precio-block-m2">USD 1.277/m²</div>
-        </div>
-        <div class="precio-block" style="opacity:.65;grid-column:1/-1">
-          <div class="precio-block-label">Cierre esperado · 120 días</div>
-          <div class="precio-block-valor">USD 61.000</div>
-          <div class="precio-block-m2">USD 1.218/m²</div>
+        <div class="card">
+          <div class="card-title">
+            <span><span class="dot"></span>Comparativa año a año</span>
+            <select id="sel-pers-tipo" class="card-select" onchange="renderPersonalComp()">
+              <option value="bol">Bolsillo</option>
+              <option value="comis">Comisión bruta</option>
+            </select>
+          </div>
+          <canvas id="chart-pers-comp" height="220"></canvas>
         </div>
       </div>
-      <div class="neg-nota">Negociación estimada: 5–7%</div>
-    </div>
-    <div>
-      <div class="precios-col-header">Unidad 3A · Frente · 3°/4°</div>
-      <div class="precios-grid">
-        <div class="precio-block">
-          <div class="precio-block-label">Publicación prueba</div>
-          <div class="precio-block-valor">USD 75.000</div>
-          <div class="precio-block-m2">USD 1.497/m²</div>
-        </div>
-        <div class="precio-block" style="opacity:.65">
-          <div class="precio-block-label">Publicación sugerida</div>
-          <div class="precio-block-valor">USD 72.000</div>
-          <div class="precio-block-m2">USD 1.437/m²</div>
-        </div>
-        <div class="precio-block" style="opacity:.65;grid-column:1/-1">
-          <div class="precio-block-label">Cierre esperado · 120 días</div>
-          <div class="precio-block-valor">USD 67.000</div>
-          <div class="precio-block-m2">USD 1.337/m²</div>
-        </div>
+      <div class="charts-grid cg-3">
+        <div class="card"><div class="card-title"><span class="dot"></span>Origen del bolsillo</div><canvas id="chart-pers-origen" height="200"></canvas></div>
+        <div class="card"><div class="card-title"><span class="dot"></span>Por zona</div><canvas id="chart-pers-zona" height="200"></canvas></div>
+        <div class="card"><div class="card-title"><span class="dot"></span>Ticket vs Bolsillo</div><canvas id="chart-pers-ticket" height="200"></canvas></div>
       </div>
-      <div class="neg-nota">Negociación estimada: 5–7%</div>
     </div>
-  </div>
-</section>
 
-<!-- LINKS AL PIE -->
-<div class="links-pie">
-  <div class="links-pie-label">Más información</div>
-  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
-    <a href="#" style="display:inline-flex;align-items:center;gap:8px;background:#0d1b2e;color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;padding:14px 28px;border-radius:8px;text-decoration:none">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-      ¿Qué hacemos para vender en 4 meses?
-    </a>
-    <a href="#" style="display:inline-flex;align-items:center;gap:8px;background:#fff;color:#0d1b2e;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;padding:14px 28px;border-radius:8px;text-decoration:none;border:1.5px solid #0d1b2e">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-      Condiciones de trabajo
-    </a>
-  </div>
+  </div><!-- /app -->
 </div>
 
-<footer class="footer">
-  <span><strong>Matías Leiblich</strong> · Ingenieros Inmobiliarios · deinmobiliarios.com · @tutemudas</span>
-  <span>Fuente: Zonaprop · KiteProp · Colegio de Escribanos · Agosto 2026 · Precios de publicación salvo indicación de cierre</span>
-</footer>
-
 <script>
-const gc='#e1e0d9',tc='#52514e',tip={backgroundColor:'#fff',borderColor:'#e1e0d9',borderWidth:1,titleColor:'#0b0b0b',bodyColor:'#52514e',padding:10};
-const base={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tip},scales:{x:{ticks:{color:tc,font:{size:9,family:'Inter'}},grid:{color:gc}},y:{ticks:{color:tc,font:{size:9,family:'Inter'}},grid:{color:gc}}}};
+const CSV='https://docs.google.com/spreadsheets/d/e/2PACX-1vQNkVL_2PEPtVfpNhiUw4LHxw0tOVymJAt-Uj9bBxqIHEbLXMp2fMxQ5NYpuVtjOQ/pub?gid=1670165147&single=true&output=csv';
+const C={
+  nombre:1,dir:4,barrio:5,zona:6,prosp1:9,prosp2:10,referidor:11,prospectador:12,
+  f_contacto:13,f_tasacion:15,estado:16,val_p1:17,
+  val_pub_ini:23,val_pub_ult:24,captador:21,f_pub:22,
+  f_reserva:25,precio_cierre:26,vendedor:27,f_escritura:28,
+  credito:29,dias_venta:30,pct_neg:31,usd_colega:34,
+  pct_vend_teo:38,pct_comp_teo:39,
+  usd_vend_real:40,usd_comp_real:41,
+  comis_bruta:42,tbol_total:54,dashboard:55
+};
+const TUTE='Matias Leiblich';
+const G=['#2D6A4F','#40916C','#52B788','#74C69D','#95D5B2','#B7E4C7'];
+const B=['#388bfd','#58a6ff','#79c0ff'];
+const O=['#d29922','#e3b341','#f0c94b'];
+const MX=[...G,...O,...B,'#f85149','#a855f7','#e879f9'];
+const MES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const COLORS_AÑO=['#388bfd','#52B788','#d29922','#f85149','#a855f7','#58a6ff'];
+Chart.defaults.color='#7d8590';Chart.defaults.borderColor='#30363d';
+Chart.defaults.font.family="'Inter',sans-serif";
 
-// Escrituras
-const escrLabels=["Ene '24","Feb '24","Mar '24","Abr '24","May '24","Jun '24","Jul '24","Ago '24","Sep '24","Oct '24","Nov '24","Dic '24","Ene '25","Feb '25","Mar '25","Abr '25","May '25","Jun '25","Jul '25","Ago '25","Sep '25","Oct '25","Nov '25","Dic '25","Ene '26","Feb '26","Mar '26","Abr '26","May '26","Jun '26"];
-const escrVals=[1882,2213,3399,3636,4599,4232,4946,5297,5157,5987,5755,7667,3645,4293,4747,5471,5610,5762,6651,6370,6998,7018,5250,7646,3423,3567,5590,5472,5435,5990];
-const hipVals=[69,79,106,114,141,115,225,416,705,944,950,1130,945,965,992,1192,1300,1216,1393,1338,1486,1501,737,888,765,592,834,609,587,765];
-new Chart(document.getElementById('cEscr'),{type:'bar',data:{labels:escrLabels,datasets:[
-  {type:'bar',data:escrVals,borderRadius:3,borderSkipped:false,backgroundColor:'#1a7aff88',borderWidth:0,label:'Escrituras'},
-  {type:'line',data:hipVals,borderColor:'#e05a3a',backgroundColor:'#e05a3a22',borderWidth:2,pointRadius:3,pointBackgroundColor:'#e05a3a',tension:.3,label:'Con Hipoteca',yAxisID:'y'}
-]},options:{...base,plugins:{...base.plugins,legend:{display:true,labels:{color:tc,font:{size:10,family:'Inter'},boxWidth:12}}},scales:{x:{ticks:{color:tc,font:{size:8}},grid:{color:gc}},y:{ticks:{color:tc,font:{size:9},callback:v=>v.toLocaleString('es-AR')},grid:{color:gc}}}}});
+function pcsv(t){return t.split('\n').map(l=>{const c=[];let cur='',q=false;for(let i=0;i<l.length;i++){if(l[i]==='"'){q=!q;}else if(l[i]===','&&!q){c.push(cur.trim());cur='';}else cur+=l[i];}c.push(cur.trim());return c;});}
+function pn(v){const n=parseFloat(String(v||'').replace(/[^\d.-]/g,''));return isNaN(n)?null:n;}
+function pd(s){if(!s)return null;const p=String(s).split('/');if(p.length===3)return new Date(+p[2],+p[1]-1,+p[0]);return null;}
+function fmt(n,d=0){if(n===null||n===undefined||isNaN(n))return'—';return n.toLocaleString('es-AR',{minimumFractionDigits:d,maximumFractionDigits:d});}
+function fU(n){if(!n&&n!==0)return'—';return'USD '+fmt(n);}
+function mkey(d){return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;}
 
-// Comparables
-const cLabels=['Bolívar 6101','Lobos e/\nMitre','Bahía\nBlanca 10','Av. Mitre\n5700','Soreda\n6264'];
-const cPrecios=[65000,66000,77500,82000,76000];
-const cUsdM2=[1262,1375,1649,1439,1610];
-const cDias=[95,73,345,21,400];
-const cColors=cDias.map(d=>d<90?'#1a7aff88':d<=180?'#f59e0b88':'#ef444488');
-const cBorder=cDias.map(d=>d<90?'#1a7aff':d<=180?'#f59e0b':'#ef4444');
-new Chart(document.getElementById('cPrecios'),{type:'bar',data:{labels:cLabels,datasets:[{data:cPrecios,borderRadius:4,borderSkipped:false,backgroundColor:cColors,borderColor:cBorder,borderWidth:1.5}]},options:{...base,scales:{x:{ticks:{color:tc,font:{size:9}},grid:{color:gc}},y:{ticks:{color:tc,font:{size:9},callback:v=>'USD '+v.toLocaleString('es-AR')},grid:{color:gc}}}}});
-new Chart(document.getElementById('cUsd'),{type:'bar',data:{labels:cLabels,datasets:[{data:cUsdM2,borderRadius:4,borderSkipped:false,backgroundColor:cColors,borderColor:cBorder,borderWidth:1.5}]},options:{...base,scales:{x:{ticks:{color:tc,font:{size:9}},grid:{color:gc}},y:{ticks:{color:tc,font:{size:9},callback:v=>v.toLocaleString('es-AR')},grid:{color:gc}}}}});
-const cVizData=[2.6,2.2,3.3,4.2,2.6];
-const cVizColors=cVizData.map(v=>v>8?'#22c55e44':v>=5?'#f59e0b44':'#ef444444');
-const cVizBorder=cVizData.map(v=>v>8?'#22c55e':v>=5?'#f59e0b':'#ef4444');
-new Chart(document.getElementById('cViz'),{type:'bar',data:{labels:cLabels,datasets:[{data:cVizData,borderRadius:4,borderSkipped:false,backgroundColor:cVizColors,borderColor:cVizBorder,borderWidth:1.5}]},options:{...base,scales:{x:{ticks:{color:tc,font:{size:9}},grid:{color:gc}},y:{ticks:{color:tc,font:{size:9},callback:v=>v+' viz'},grid:{color:gc}}}}});
-const cDiasChart=[95,73,345,21,400];
-new Chart(document.getElementById('cDias'),{type:'bar',data:{labels:cLabels,datasets:[{data:cDiasChart,borderRadius:4,borderSkipped:false,backgroundColor:cColors,borderColor:cBorder,borderWidth:1.5}]},options:{...base,scales:{x:{ticks:{color:tc,font:{size:9}},grid:{color:gc}},y:{ticks:{color:tc,font:{size:9}},grid:{color:gc}}}}});
+let allRows=[],filtroAños=[],filtroMeses=[];
+let sortCV='',sdV=1,sortCC='',sdC=1,busqV='',busqC='';
+let charts={},kpis=null,simState={};
+let filtroProsp='total',metricaEmb='all',metricaComp='cont';
+
+async function fetchData(){
+  const r=await fetch(CSV);if(!r.ok)throw new Error('CSV no accesible');
+  const t=await r.text();
+  return pcsv(t).slice(3).filter(r=>r[C.nombre]||r[C.dir]).map(r=>({
+    nombre:r[C.nombre]||'',dir:r[C.dir]||'',barrio:r[C.barrio]||'',zona:r[C.zona]||'',
+    prosp1:r[C.prosp1]||'',prosp2:r[C.prosp2]||'',referidor:r[C.referidor]||'',
+    prospectador:r[C.prospectador]||'',captador:r[C.captador]||'',vendedor:r[C.vendedor]||'',
+    f_contacto:r[C.f_contacto]||'',f_tasacion:r[C.f_tasacion]||'',
+    f_pub:r[C.f_pub]||'',f_reserva:r[C.f_reserva]||'',f_escritura:r[C.f_escritura]||'',
+    estado:r[C.estado]||'',
+    val_p1:pn(r[C.val_p1]),val_pub_ini:pn(r[C.val_pub_ini]),val_pub_ult:pn(r[C.val_pub_ult]),
+    precio_cierre:pn(r[C.precio_cierre]),credito:r[C.credito]||'',
+    dias_venta:pn(r[C.dias_venta]),pct_neg:pn(r[C.pct_neg]),
+    pct_vend_teo:pn(r[C.pct_vend_teo]),pct_comp_teo:pn(r[C.pct_comp_teo]),
+    usd_vend_real:pn(r[C.usd_vend_real]),usd_comp_real:pn(r[C.usd_comp_real]),
+    comis_bruta:pn(r[C.comis_bruta]),usd_colega:pn(r[C.usd_colega]),
+    tbol_total:pn(r[C.tbol_total]),dashboard:pn(r[C.dashboard]),ba:pn(r[52]),tbol_prosp:pn(r[49]),tbol_capt:pn(r[50]),tbol_vend:pn(r[51]),
+  }));
+}
+
+function rowIn(r){
+  const d=pd(r.f_escritura)||pd(r.f_reserva)||pd(r.f_contacto);
+  if(!d)return filtroAños.length===0&&filtroMeses.length===0;
+  return(filtroAños.length===0||filtroAños.includes(d.getFullYear()))&&
+        (filtroMeses.length===0||filtroMeses.includes(d.getMonth()+1));
+}
+
+function getRowsProsp(){
+  const f=allRows.filter(rowIn);
+  return filtroProsp==='propia'?f.filter(r=>r.prospectador===TUTE):f;
+}
+
+// Calcula bolsillo simulado para una propiedad dado precio, %s y acumulado previo
+function calcSim(r,precio,pctV,pctC,acumPrev){
+  const bruto=precio*(pctV+pctC);
+  const neto=bruto; // sin referidor en simulación
+  // DI: 30% sobre el tramo hasta $80k
+  let montoSinDI=0;
+  if(r.prospectador===TUTE){
+    if(acumPrev>=80000) montoSinDI=neto*0.3; // ya pasó: no paga DI, se libera todo
+    else if(acumPrev+neto>80000) montoSinDI=(acumPrev+neto-80000)*0.3;
+    // else: todavía bajo umbral, DI liberado=0
+  }
+  const montoADI=r.prospectador===TUTE?
+    (acumPrev>=80000?0:acumPrev+neto>80000?(80000-acumPrev)*0.3:neto*0.3):neto*0.3;
+  const tp=r.prospectador===TUTE?0.2:0;
+  const tc=r.captador===TUTE?0.15:0;
+  const tv=r.vendedor===TUTE?0.15:0;
+  const bol=neto*(tp+tc+tv)+montoSinDI;
+  const dash=r.prospectador===TUTE?neto:0;
+  return{bruto,bol,dash,neto};
+}
+
+function compute(rows){
+  const f=rows.filter(rowIn);
+  const VEND=['Vendido','Busqueda GANADA'];
+  const CAPT=['En Venta','Vendido','Busqueda GANADA','Reservado'];
+
+  const vendidos=f.filter(r=>VEND.includes(r.estado));
+  const reservados=allRows.filter(r=>r.estado==='Reservado'); // siempre todos, sin filtro de año
+  const captados=f.filter(r=>CAPT.includes(r.estado));
+  const enVenta=rows.filter(r=>r.estado==='En Venta');
+  const tasados=f.filter(r=>r.f_tasacion).length;
+
+  // Bolsillo: todos (sin filtrar por prospectador)
+  const bolVendido=vendidos.reduce((s,r)=>s+(r.tbol_total||0),0);
+  const bolReservado=reservados.reduce((s,r)=>s+(r.tbol_total||0),0);
+
+  // Comisión bruta: solo donde Tute prospectó
+  const comBruta=vendidos.filter(r=>r.prospectador===TUTE).reduce((s,r)=>s+(r.comis_bruta||0),0);
+  const comBrutaRes=reservados.filter(r=>r.prospectador===TUTE).reduce((s,r)=>s+(r.comis_bruta||0),0);
+
+  const usdColega=vendidos.reduce((s,r)=>s+(r.usd_colega||0),0);
+  // DI liberado real de la planilla
+  const diLibVend=vendidos.filter(r=>r.prospectador===TUTE).reduce((s,r)=>s+(r.ba||0),0);
+  const diLibRes=reservados.filter(r=>r.prospectador===TUTE).reduce((s,r)=>s+(r.ba||0),0);
+
+  // Dashboard año actual
+  const añoAct=new Date().getFullYear();
+  const dashVend=rows.filter(r=>{const d=pd(r.f_escritura);return d&&d.getFullYear()===añoAct&&['Vendido','Busqueda GANADA'].includes(r.estado);}).reduce((s,r)=>s+(r.dashboard||0),0);
+  const dashRes=reservados.reduce((s,r)=>s+(r.dashboard||0),0);
+
+  const conP=vendidos.filter(r=>r.precio_cierre);
+  const ticketProm=conP.length?conP.reduce((s,r)=>s+r.precio_cierre,0)/conP.length:0;
+  const conD=vendidos.filter(r=>r.dias_venta>0);
+  const diasProm=conD.length?conD.reduce((s,r)=>s+r.dias_venta,0)/conD.length:0;
+  const maxComis=vendidos.length?Math.max(...vendidos.map(r=>r.comis_bruta||0)):0;
+
+  const pctCapt=tasados?(captados.length/tasados*100):0;
+  const pctConv=captados.length?(vendidos.length/captados.length*100):0;
+
+  // Embudo por mes — desde allRows para gráficos históricos
+  const byMes={cont:{},tas:{},capt:{},vend:{},res:{}};
+  rows.forEach(r=>{
+    const dc=pd(r.f_contacto);if(dc){const k=mkey(dc);byMes.cont[k]=(byMes.cont[k]||0)+1;}
+    const dt=pd(r.f_tasacion);if(dt){const k=mkey(dt);byMes.tas[k]=(byMes.tas[k]||0)+1;}
+    const dp=pd(r.f_pub);if(dp){const k=mkey(dp);byMes.capt[k]=(byMes.capt[k]||0)+1;}
+    const de=pd(r.f_escritura);if(de){const k=mkey(de);byMes.vend[k]=(byMes.vend[k]||0)+1;}
+    const dr=pd(r.f_reserva);if(dr){const k=mkey(dr);byMes.res[k]=(byMes.res[k]||0)+1;}
+  });
+
+  // Referidores
+  const refMap={};
+  rows.forEach(r=>{
+    if(!r.referidor)return;
+    if(!refMap[r.referidor])refMap[r.referidor]={contactos:0,tasados:0,captados:0,enVenta:0,vendidos:0,comision:0};
+    refMap[r.referidor].contactos++;
+    if(r.f_tasacion)refMap[r.referidor].tasados++;
+    if(CAPT.includes(r.estado))refMap[r.referidor].captados++;
+    if(r.estado==='En Venta')refMap[r.referidor].enVenta++;
+    if(VEND.includes(r.estado)){refMap[r.referidor].vendidos++;refMap[r.referidor].comision+=(r.comis_bruta||0);}
+  });
+
+  // P1, P2, zona, barrio
+  const byP1={},byP2={},byZona={},byBarrio={};
+  f.forEach(r=>{
+    byP1[r.prosp1||'Sin dato']=(byP1[r.prosp1||'Sin dato']||0)+1;
+    byP2[r.prosp2||'Sin dato']=(byP2[r.prosp2||'Sin dato']||0)+1;
+    byZona[r.zona||'Sin zona']=(byZona[r.zona||'Sin zona']||0)+1;
+    byBarrio[r.barrio||'Sin barrio']=(byBarrio[r.barrio||'Sin barrio']||0)+1;
+  });
+
+  const credMap={};
+  [...vendidos,...reservados].forEach(r=>{
+    const c=r.credito&&r.credito!=='No'&&r.credito!==''?r.credito:'Sin crédito';
+    credMap[c]=(credMap[c]||0)+1;
+  });
+
+  // Bolsillo acumulado mes a mes
+  const mesesVend=[...new Set(vendidos.map(r=>{const d=pd(r.f_escritura);return d?mkey(d):null;}).filter(Boolean))].sort();
+  let acum=0;
+  const bolAcumData=mesesVend.map(m=>{
+    acum+=vendidos.filter(r=>{const d=pd(r.f_escritura);return d&&mkey(d)===m;}).reduce((s,r)=>s+(r.tbol_total||0),0);
+    return acum;
+  });
+
+  return{
+    total:f.length,vendidos:vendidos.length,reservados:reservados.length,
+    captados:captados.length,tasados,enVenta:enVenta.length,
+    bolVendido,bolReservado,comBruta,comBrutaRes,usdColega,diLibVend,diLibRes,
+    dashVend,dashRes,ticketProm,diasProm,maxComis,pctCapt,pctConv,
+    byMes,refMap,byP1,byP2,byZona,byBarrio,credMap,
+    mesesVend,bolAcumData,
+    estadoCartera:{'En Venta':enVenta.length,'Reservado':reservados.length},
+    vendidosData:vendidos,enVentaData:enVenta,
+    reservadosData:reservados,filteredRows:f,
+  };
+}
+
+function showTab(id){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelector(`.tab[onclick="showTab('${id}')"]`).classList.add('active');
+  document.getElementById('tab-'+id).classList.add('active');
+  // Redibujar gráficos al mostrar pestaña
+  if(kpis){
+    setTimeout(()=>{
+      if(id==='prospeccion'){buildProspCharts(kpis);}
+      if(id==='referidores'){buildRefCharts(kpis);}
+      if(id==='resumen'){buildResumenCharts(kpis);}
+      if(id==='personal'){renderPersonal();}
+    },50);
+  }
+}
+
+function destroyChart(id){if(charts[id]){charts[id].destroy();delete charts[id];}}
+function sorted(o){return Object.entries(o).sort((a,b)=>b[1]-a[1]);}
+
+// ── RENDER KPIs ────────────────────────────────────────────────────────────
+function renderKPIs(k){
+  const d80=80000;
+  const pctV=Math.min(k.dashVend/d80*100,100);
+  const pctR=Math.min((k.dashVend+k.dashRes)/d80*100,100)-pctV;
+
+
+  document.getElementById('kpi-bolsillo').innerHTML=`
+    <div class="kpi hl"><div class="kpi-label">Bolsillo — vendidos</div><div class="kpi-value green">USD ${fmt(k.bolVendido)}</div>
+      ${k.diLibVend>0?`<div class="kpi-sub" style="color:var(--purple)">incl. USD ${fmt(k.diLibVend)} DI liberado 🎉</div>`:`<div class="kpi-sub">${k.vendidos} operaciones</div>`}</div>
+    <div class="kpi ora"><div class="kpi-label">+ Reservados</div><div class="kpi-value orange">USD ${fmt(k.bolReservado)}</div>
+      ${k.diLibRes>0?`<div class="kpi-sub" style="color:var(--purple)">incl. USD ${fmt(k.diLibRes)} DI liberado 🎉</div>`:`<div class="kpi-sub">${k.reservados} propiedades</div>`}</div>
+    <div class="kpi"><div class="kpi-label">Total acumulado</div><div class="kpi-value green">USD ${fmt(k.bolVendido+k.bolReservado)}</div><div class="kpi-sub">vendido + reservado</div></div>`;
+
+  document.getElementById('dash-progress').innerHTML=`
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;">
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:10px;">📈 Carrera al Dashboard — ${new Date().getFullYear()}</div>
+      <div class="prog-track" style="height:12px;border-radius:6px;">
+        <div class="prog-seg green" style="width:${pctV}%"></div>
+        <div class="prog-seg orange" style="width:${pctR}%"></div>
+      </div>
+      <div class="prog-feet" style="margin-top:4px"><span>$0</span><span>${fmt(pctV+pctR,1)}% de $80k — USD ${fmt(k.dashVend+k.dashRes)}</span><span>$80k</span></div>
+      <div class="prog-legend" style="margin-top:8px">
+        <div class="prog-legend-item"><div class="prog-dot" style="background:var(--green-glow)"></div>Vendido: USD ${fmt(k.dashVend)}</div>
+        <div class="prog-legend-item"><div class="prog-dot" style="background:var(--warn)"></div>Reservado: USD ${fmt(k.dashRes)}</div>
+      </div>
+    </div>`;
+
+  document.getElementById('kpi-financiero').innerHTML=`
+    <div class="kpi"><div class="kpi-label">Comisión bruta cobrada</div><div class="kpi-value blue">USD ${fmt(k.comBruta)}</div><div class="kpi-sub">donde Tute prospectó</div></div>
+    <div class="kpi ora"><div class="kpi-label">+ Reservados</div><div class="kpi-value orange">USD ${fmt(k.comBrutaRes)}</div><div class="kpi-sub">donde Tute prospectó</div></div>
+    <div class="kpi"><div class="kpi-label">Total comisión bruta</div><div class="kpi-value blue">USD ${fmt(k.comBruta+k.comBrutaRes)}</div><div class="kpi-sub">vendido + reservado</div></div>
+    <div class="kpi"><div class="kpi-label">Mayor comisión</div><div class="kpi-value">USD ${fmt(k.maxComis)}</div></div>
+    <div class="kpi"><div class="kpi-label">Ticket promedio</div><div class="kpi-value">USD ${fmt(k.ticketProm)}</div><div class="kpi-sub">precio escritura</div></div>
+    <div class="kpi"><div class="kpi-label">Días prom. en venta</div><div class="kpi-value">${fmt(k.diasProm)}</div><div class="kpi-sub">pub. → reserva</div></div>
+    <div class="kpi"><div class="kpi-label">Cedido a colegas</div><div class="kpi-value warn">USD ${fmt(k.usdColega)}</div></div>`;
+
+  document.getElementById('kpi-embudo').innerHTML=`
+    <div class="kpi"><div class="kpi-label">Contactos</div><div class="kpi-value">${k.total}</div></div>
+    <div class="kpi"><div class="kpi-label">Tasados</div><div class="kpi-value">${k.tasados}</div></div>
+    <div class="kpi"><div class="kpi-label">Captados</div><div class="kpi-value">${k.captados}</div><div class="kpi-badge">% capt: ${fmt(k.pctCapt,1)}%</div></div>
+    <div class="kpi"><div class="kpi-label">Vendidos</div><div class="kpi-value green">${k.vendidos}</div><div class="kpi-badge">% conv: ${fmt(k.pctConv,1)}%</div></div>
+    <div class="kpi"><div class="kpi-label">En venta hoy</div><div class="kpi-value blue">${k.enVenta}</div></div>
+    <div class="kpi"><div class="kpi-label">Reservados</div><div class="kpi-value orange">${k.reservados}</div></div>`;
+}
+
+// ── CHARTS RESUMEN ─────────────────────────────────────────────────────────
+function buildResumenCharts(k){
+  destroyChart('estado');destroyChart('bolAcum');
+  const ee=Object.entries(k.estadoCartera).filter(e=>e[1]>0);
+  const ctxE=document.getElementById('chart-estado');
+  if(ctxE)charts.estado=new Chart(ctxE,{type:'doughnut',data:{labels:ee.map(e=>e[0]),datasets:[{data:ee.map(e=>e[1]),backgroundColor:[G[2],O[0]],borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'60%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
+
+  const ctxBA=document.getElementById('chart-bol-acum');
+  if(ctxBA)charts.bolAcum=new Chart(ctxBA,{type:'line',data:{
+    labels:k.mesesVend.map(m=>{const[y,mo]=m.split('-');return MES[+mo-1].slice(0,3)+' '+y.slice(2);}),
+    datasets:[{label:'Bolsillo acumulado',data:k.bolAcumData,borderColor:G[2],backgroundColor:'rgba(82,183,136,0.1)',fill:true,tension:0.3,pointRadius:3}]
+  },options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:9}}},y:{grid:{color:'#21262d'}}}}});
+}
+
+// ── CHARTS PROSPECCIÓN ─────────────────────────────────────────────────────
+function buildProspCharts(k){
+  renderEmbudoProsp();
+  renderEmbudoAño();
+  renderCompAño();
+  renderP1P2Zona(k);
+  renderBarrio();
+  renderCredito(k);
+}
+
+function renderEmbudoProsp(){
+  if(!kpis)return;
+  const rows=getRowsProsp();
+  const VEND=['Vendido','Busqueda GANADA'];
+  const CAPT=['En Venta','Vendido','Busqueda GANADA','Reservado'];
+  const total=rows.length;
+  const tasados=rows.filter(r=>r.f_tasacion).length;
+  const captados=rows.filter(r=>CAPT.includes(r.estado)).length;
+  const vendidos=rows.filter(r=>VEND.includes(r.estado)).length;
+  const pctCapt=tasados?(captados/tasados*100):0;
+  const pctConv=captados?(vendidos/captados*100):0;
+  const el=document.getElementById('kpi-emb-prosp');
+  if(el)el.innerHTML=`
+    <div class="kpi"><div class="kpi-label">Contactos</div><div class="kpi-value">${total}</div></div>
+    <div class="kpi"><div class="kpi-label">Tasados</div><div class="kpi-value">${tasados}</div></div>
+    <div class="kpi"><div class="kpi-label">Captados</div><div class="kpi-value">${captados}</div><div class="kpi-badge">% capt: ${fmt(pctCapt,1)}%</div></div>
+    <div class="kpi"><div class="kpi-label">Vendidos</div><div class="kpi-value green">${vendidos}</div><div class="kpi-badge">% conv: ${fmt(pctConv,1)}%</div></div>
+    <div class="kpi"><div class="kpi-label">% Captación</div><div class="kpi-value">${fmt(pctCapt,1)}%</div><div class="kpi-sub">captados / tasados</div></div>
+    <div class="kpi"><div class="kpi-label">% Conversión</div><div class="kpi-value">${fmt(pctConv,1)}%</div><div class="kpi-sub">vendidos / captados</div></div>`;
+}
+
+let metricaColors={cont:B[0],tas:G[2],capt:O[0],vend:'#f85149',res:'#a855f7'};
+let metricaLabels={cont:'Contactos',tas:'Tasaciones',capt:'Captaciones',vend:'Ventas',res:'Reservas'};
+
+function renderEmbudoAño(){
+  if(!kpis)return;
+  destroyChart('embAño');
+  const selAño=document.getElementById('sel-año-emb')?.value||'';
+  const rows=getRowsProsp();
+  const byM={cont:{},tas:{},capt:{},vend:{},res:{}};
+  rows.forEach(r=>{
+    const dc=pd(r.f_contacto);if(dc&&(!selAño||dc.getFullYear()==selAño)){const k=mkey(dc);byM.cont[k]=(byM.cont[k]||0)+1;}
+    const dt=pd(r.f_tasacion);if(dt&&(!selAño||dt.getFullYear()==selAño)){const k=mkey(dt);byM.tas[k]=(byM.tas[k]||0)+1;}
+    const dp=pd(r.f_pub);if(dp&&(!selAño||dp.getFullYear()==selAño)){const k=mkey(dp);byM.capt[k]=(byM.capt[k]||0)+1;}
+    const de=pd(r.f_escritura);if(de&&(!selAño||de.getFullYear()==selAño)){const k=mkey(de);byM.vend[k]=(byM.vend[k]||0)+1;}
+    const dr=pd(r.f_reserva);if(dr&&(!selAño||dr.getFullYear()==selAño)){const k=mkey(dr);byM.res[k]=(byM.res[k]||0)+1;}
+  });
+  const allM=[...new Set([...Object.keys(byM.cont),...Object.keys(byM.tas),...Object.keys(byM.capt),...Object.keys(byM.vend)])].sort();
+  const mostrar=metricaEmb==='all'?['cont','tas','capt','vend','res']:[metricaEmb];
+  const datasets=mostrar.map(m=>({label:metricaLabels[m],data:allM.map(k=>(byM[m]&&byM[m][k])||0),backgroundColor:metricaColors[m],borderRadius:3}));
+  const ctx=document.getElementById('chart-emb-año');
+  if(ctx)charts.embAño=new Chart(ctx,{type:'bar',data:{
+    labels:allM.map(m=>{const[y,mo]=m.split('-');return MES[+mo-1].slice(0,3)+' '+y.slice(2);}),
+    datasets
+  },options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:10}}}},scales:{x:{grid:{display:false},ticks:{font:{size:9}}},y:{grid:{color:'#21262d'},ticks:{precision:0}}}}});
+}
+
+function renderCompAño(){
+  if(!kpis)return;
+  destroyChart('compAño');
+  const rows=getRowsProsp();
+  const años=[...new Set(rows.map(r=>{
+    const m=metricaComp;
+    const campo=m==='cont'?r.f_contacto:m==='tas'?r.f_tasacion:m==='capt'?r.f_pub:r.f_escritura;
+    const d=pd(campo);return d?d.getFullYear():null;
+  }).filter(Boolean))].sort();
+  const meses=Array.from({length:12},(_,i)=>i+1);
+  const datasets=años.map((año,idx)=>{
+    const data=meses.map(mes=>{
+      return rows.filter(r=>{
+        const campo=metricaComp==='cont'?r.f_contacto:metricaComp==='tas'?r.f_tasacion:metricaComp==='capt'?r.f_pub:metricaComp==='res'?r.f_reserva:r.f_escritura;
+        const d=pd(campo);return d&&d.getFullYear()===año&&d.getMonth()+1===mes;
+      }).length;
+    });
+    return{label:String(año),data,backgroundColor:COLORS_AÑO[idx%COLORS_AÑO.length],borderRadius:3};
+  });
+  const ctx=document.getElementById('chart-comp-año');
+  if(ctx)charts.compAño=new Chart(ctx,{type:'bar',data:{
+    labels:MES.map(m=>m.slice(0,3)),
+    datasets
+  },options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:10}}}},scales:{x:{grid:{display:false}},y:{grid:{color:'#21262d'},ticks:{precision:0}}}}});
+}
+
+function setMetric(m){
+  metricaEmb=m;
+  ['all','cont','tas','capt','vend','res'].forEach(x=>{
+    const btn=document.getElementById('btn-m-'+x);
+    if(btn){btn.style.background=x===m?'var(--blue)':'var(--surface2)';btn.style.border=x===m?'none':'1px solid var(--border)';btn.style.color=x===m?'white':'var(--muted)';}
+  });
+  renderEmbudoAño();
+}
+
+function setMetricComp(m){
+  metricaComp=m;
+  ['cont','tas','capt','vend','res'].forEach(x=>{
+    const btn=document.getElementById('btn-c-'+x);
+    if(btn){btn.style.background=x===m?'var(--blue)':'var(--surface2)';btn.style.border=x===m?'none':'1px solid var(--border)';btn.style.color=x===m?'white':'var(--muted)';}
+  });
+  renderCompAño();
+}
+
+function setProsp(v){
+  filtroProsp=v;
+  const btnT=document.getElementById('btn-tot');
+  const btnP=document.getElementById('btn-prop');
+  if(v==='total'){
+    btnT.style.background='var(--blue)';btnT.style.border='none';btnT.style.color='white';
+    btnP.style.background='var(--surface2)';btnP.style.border='1px solid var(--border)';btnP.style.color='var(--muted)';
+  } else {
+    btnP.style.background='var(--green)';btnP.style.border='none';btnP.style.color='white';
+    btnT.style.background='var(--surface2)';btnT.style.border='1px solid var(--border)';btnT.style.color='var(--muted)';
+  }
+  renderEmbudoProsp();renderEmbudoAño();renderCompAño();renderP1P2Zona(kpis);renderBarrio();
+}
+
+function renderP1P2Zona(k){
+  if(!k)return;
+  const rows=getRowsProsp();
+  const byP1={},byP2={},byZona={};
+  rows.forEach(r=>{
+    byP1[r.prosp1||'Sin dato']=(byP1[r.prosp1||'Sin dato']||0)+1;
+    byP2[r.prosp2||'Sin dato']=(byP2[r.prosp2||'Sin dato']||0)+1;
+    byZona[r.zona||'Sin zona']=(byZona[r.zona||'Sin zona']||0)+1;
+  });
+  destroyChart('p1');
+  const p1e=sorted(byP1);
+  const ctxP1=document.getElementById('chart-p1');
+  if(ctxP1)charts.p1=new Chart(ctxP1,{type:'doughnut',data:{labels:p1e.map(e=>e[0]),datasets:[{data:p1e.map(e=>e[1]),backgroundColor:G,borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'65%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
+  destroyChart('zona');
+  const ze=sorted(byZona);
+  const ctxZ=document.getElementById('chart-zona');
+  if(ctxZ)charts.zona=new Chart(ctxZ,{type:'doughnut',data:{labels:ze.map(e=>e[0]),datasets:[{data:ze.map(e=>e[1]),backgroundColor:[...B,...O],borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'65%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
+  // Actualizar sel-p1
+  const p1v=[...new Set(allRows.map(r=>r.prosp1).filter(Boolean))].sort();
+  const s1=document.getElementById('sel-p1');
+  if(s1){const cur=s1.value;s1.innerHTML='<option value="">Todos</option>'+p1v.map(v=>`<option value="${v}">${v}</option>`).join('');s1.value=cur;}
+  renderP2();
+}
+
+function renderP2(){
+  if(!kpis)return;
+  const fp=document.getElementById('sel-p1')?.value||'';
+  let rows=getRowsProsp();if(fp)rows=rows.filter(r=>r.prosp1===fp);
+  const by={};rows.forEach(r=>{const p=r.prosp2||'Sin dato';by[p]=(by[p]||0)+1;});
+  destroyChart('p2');
+  const e=sorted(by);
+  const ctx=document.getElementById('chart-p2');
+  if(ctx)charts.p2=new Chart(ctx,{type:'doughnut',data:{labels:e.map(x=>x[0]),datasets:[{data:e.map(x=>x[1]),backgroundColor:O,borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'65%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
+}
+
+function renderBarrio(){
+  if(!kpis)return;
+  const fz=document.getElementById('sel-zona')?.value||'';
+  let rows=getRowsProsp();if(fz)rows=rows.filter(r=>r.zona===fz);
+  const by={};rows.forEach(r=>{const b=r.barrio||'Sin barrio';by[b]=(by[b]||0)+1;});
+  destroyChart('barrio');
+  const e=sorted(by).slice(0,10);
+  const ctx=document.getElementById('chart-barrio');
+  if(ctx)charts.barrio=new Chart(ctx,{type:'bar',data:{labels:e.map(x=>x[0]),datasets:[{label:'Contactos',data:e.map(x=>x[1]),backgroundColor:B[0],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:true,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:'#21262d'}},y:{grid:{display:false},ticks:{font:{size:10}}}}}});
+}
+
+function renderCredito(k){
+  destroyChart('credito');
+  const ce=sorted(k.credMap);
+  const ctx=document.getElementById('chart-credito');
+  if(ctx)charts.credito=new Chart(ctx,{type:'doughnut',data:{labels:ce.map(e=>e[0]),datasets:[{data:ce.map(e=>e[1]),backgroundColor:MX,borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'60%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
+}
+
+function buildRefCharts(k){
+  destroyChart('refC');destroyChart('refV');
+  const refs=Object.entries(k.refMap).sort((a,b)=>b[1].contactos-a[1].contactos);
+  const rl=refs.map(r=>r[0]);
+  const ctxRC=document.getElementById('chart-ref-c');
+  if(ctxRC)charts.refC=new Chart(ctxRC,{type:'bar',data:{labels:rl,datasets:[
+    {label:'Contactos',data:refs.map(r=>r[1].contactos),backgroundColor:G[2],borderRadius:4},
+    {label:'Captados',data:refs.map(r=>r[1].captados),backgroundColor:B[0],borderRadius:4},
+    {label:'Vendidos',data:refs.map(r=>r[1].vendidos),backgroundColor:O[0],borderRadius:4},
+  ]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:10}}}},scales:{x:{grid:{display:false}},y:{grid:{color:'#21262d'},ticks:{precision:0}}}}});
+  const ctxRV=document.getElementById('chart-ref-v');
+  if(ctxRV)charts.refV=new Chart(ctxRV,{type:'bar',data:{labels:rl,datasets:[{label:'En venta',data:refs.map(r=>r[1].enVenta),backgroundColor:B[0],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'#21262d'},ticks:{precision:0}}}}});
+  document.getElementById('tb-ref').innerHTML=refs.map(([n,d])=>`<tr>
+    <td>${n}</td><td>${d.contactos}</td><td>${d.tasados}</td><td>${d.captados}</td>
+    <td>${d.enVenta}</td><td>${d.vendidos}</td>
+    <td>${d.contactos?fmt(d.vendidos/d.contactos*100,1)+'%':'—'}</td>
+    <td>${fU(d.comision)}</td></tr>`).join('');
+}
+
+// ── CARTERA + SIMULADOR ────────────────────────────────────────────────────
+function getSimDash(){
+  if(!kpis)return 0;
+  let dash=0,acumPrev=kpis.dashVend+kpis.dashRes;
+  kpis.enVentaData.forEach(r=>{
+    const st=simState[r.dir];if(!st?.sel)return;
+    const p=st.precio||0;if(!p)return;
+    const pv=st.pctV||0,pc=st.pctC||0;if(!pv&&!pc)return;
+    const res=calcSim(r,p,pv,pc,acumPrev);
+    dash+=res.dash;acumPrev+=res.dash;
+  });
+  return dash;
+}
+
+function renderCartera(){
+  if(!kpis)return;
+  // Combinar en venta + reservados
+  const enVenta=kpis.enVentaData.map(r=>({...r,_tipo:'venta'}));
+  const reserv=kpis.reservadosData.map(r=>({...r,_tipo:'reservado'}));
+  let rows=[...enVenta,...reserv];
+  if(busqC)rows=rows.filter(r=>(r.dir+r.nombre+r.zona+r.barrio).toLowerCase().includes(busqC.toLowerCase()));
+  if(sortCC)rows.sort((a,b)=>{const va=a[sortCC]||0,vb=b[sortCC]||0;return sdC*(typeof va==='number'?va-vb:String(va).localeCompare(String(vb)));});
+  document.getElementById('cnt-cartera').textContent=rows.length+' prop. ('+enVenta.length+' en venta, '+reserv.length+' reservadas)';
+  document.getElementById('tb-cartera').innerHTML=rows.map(r=>{
+    const st=simState[r.dir]||{sel:false};
+    // Precio: del estado del simulador o de la planilla como default
+    const precioDefault=r.val_pub_ult||r.val_pub_ini||0;
+    const p=st.precio!=null&&st.precio!==''?+st.precio:precioDefault;
+    const pv=st.pctV||0,pc=st.pctC||0;
+    // Comisión pot y bolsillo pot: solo si hay % cargados
+    // Usar defaults si no hay % cargados
+    const pvEff=pv||(r.pct_vend_teo||0.03);
+    const pcEff=pc||(r.pct_comp_teo||(r.zona==='CABA'?0.04:0.03));
+    const comPot=p?fU(p*(pvEff+pcEff)):'—';
+    const bolPot=p?fU(calcSim(r,p,pvEff,pcEff,kpis.dashVend+kpis.dashRes).bol):'—';
+    const esRes=r._tipo==='reservado';
+    const badgeEstado=esRes?`<span class="badge r">Reservado</span>`:`<span class="badge e">En venta</span>`;
+    return`<tr style="${esRes?'opacity:0.85':''}">
+      <td style="text-align:center">${esRes?'':(`<input type="checkbox" class="sim-check" ${st.sel?'checked':''} onchange="tSim('${esc(r.dir)}',this.checked)">`)}</td>
+      <td>${badgeEstado}<br>${r.dir||'—'}<br><span style="color:var(--muted);font-size:10px">${r.nombre}</span></td>
+      <td>${r.zona||'—'}</td>
+      <td style="color:var(--muted)">${fU(precioDefault)}</td>
+      <td>${esRes?'—':`<input class="sim-input" type="number" value="${st.precio!=null&&st.precio!==''?st.precio:precioDefault}" placeholder="precio" onchange="sP('${esc(r.dir)}',+this.value)" oninput="sP('${esc(r.dir)}',+this.value)">`}</td>
+      <td>${esRes?'—':`<input class="sim-input" type="number" value="${st.pctV?+(st.pctV*100).toFixed(1):''}" placeholder="${r.zona==='CABA'?4:3}" step="0.5" onchange="sPV('${esc(r.dir)}',+this.value/100)" oninput="sPV('${esc(r.dir)}',+this.value/100)" style="width:60px">%`}</td>
+      <td>${esRes?'—':`<input class="sim-input" type="number" value="${st.pctC?+(st.pctC*100).toFixed(1):''}" placeholder="${r.zona==='CABA'?4:3}" step="0.5" onchange="sPC('${esc(r.dir)}',+this.value/100)" oninput="sPC('${esc(r.dir)}',+this.value/100)" style="width:60px">%`}</td>
+      <td style="color:var(--accent)">${comPot}</td>
+      <td style="color:var(--green-glow)">${bolPot}</td>
+    </tr>`;
+  }).join('');
+  updateSim();
+}
+
+function esc(s){return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
+function tSim(dir,v){if(!simState[dir])simState[dir]={};simState[dir].sel=v;updateSim();}
+function sP(dir,v){if(!simState[dir])simState[dir]={};simState[dir].precio=v;updateSim();}
+function sPV(dir,v){if(!simState[dir])simState[dir]={};simState[dir].pctV=v;updateSim();}
+function sPC(dir,v){if(!simState[dir])simState[dir]={};simState[dir].pctC=v;updateSim();}
+
+function updateSim(){
+  if(!kpis)return;
+  let cnt=0,comis=0,bol=0,dash=0,diLib=0;
+  let acumPrev=kpis.dashVend+kpis.dashRes; // base: vendido + reservado año actual
+  kpis.enVentaData.forEach(r=>{
+    const st=simState[r.dir];if(!st?.sel)return;
+    const precio=st.precio!=null&&st.precio!==''?+st.precio:(r.val_pub_ult||r.val_pub_ini||0);
+    if(!precio)return;
+    const pv=st.pctV||0,pc=st.pctC||0;if(!pv&&!pc)return;
+    cnt++;
+    const res=calcSim(r,precio,pv,pc,acumPrev);
+    comis+=res.bruto;bol+=res.bol;dash+=res.dash;
+    // DI liberado: si con esta op cruzamos los 80k
+    if(r.prospectador===TUTE){
+      if(acumPrev>=80000) diLib+=res.neto*0.3;
+      else if(acumPrev+res.neto>80000) diLib+=(acumPrev+res.neto-80000)*0.3;
+    }
+    acumPrev+=res.dash;
+  });
+
+  document.getElementById('sim-count').textContent=cnt||0;
+  document.getElementById('sim-comis').textContent=comis?fU(comis):'—';
+  document.getElementById('sim-bol').textContent=bol?fU(bol):'—';
+  document.getElementById('sim-dash').textContent=dash?fU(dash):'—';
+  document.getElementById('sim-di').textContent=diLib?fU(diLib):'—';
+  // Estado actual
+  if(kpis){
+    const bv=document.getElementById('sim-base-bol-vend');
+    const br=document.getElementById('sim-base-bol-res');
+    const dv=document.getElementById('sim-base-dash-vend');
+    const dr=document.getElementById('sim-base-dash-res');
+    const tt=document.getElementById('sim-total-bol');
+    if(bv)bv.textContent=fU(kpis.bolVendido);
+    if(br)br.textContent=fU(kpis.bolReservado);
+    if(dv)dv.textContent=fU(kpis.dashVend);
+    if(dr)dr.textContent=fU(kpis.dashRes);
+    if(tt)tt.textContent=fU(kpis.bolVendido+kpis.bolReservado+bol);
+  }
+
+  const d80=80000;
+  const pV=Math.min(kpis.dashVend/d80*100,100);
+  const pR=Math.min((kpis.dashVend+kpis.dashRes)/d80*100,100)-pV;
+  const pS=Math.min((kpis.dashVend+kpis.dashRes+dash)/d80*100,100)-(pV+pR);
+  document.getElementById('sp-vend').style.width=pV+'%';
+  document.getElementById('sp-res').style.width=pR+'%';
+  document.getElementById('sp-sim').style.width=Math.max(0,pS)+'%';
+  const total=kpis.dashVend+kpis.dashRes+dash;
+  document.getElementById('sim-prog-label').textContent=
+    `Dashboard: vendido USD ${fmt(kpis.dashVend)} | +reservado USD ${fmt(kpis.dashRes)} | +simulado USD ${fmt(dash)} → total USD ${fmt(total)} (${fmt(Math.min(total/d80*100,100),1)}% de $80k)`;
+  document.getElementById('leg-vend').textContent=`Vendido: USD ${fmt(kpis.dashVend)}`;
+  document.getElementById('leg-res').textContent=`Reservado: USD ${fmt(kpis.dashRes)}`;
+  document.getElementById('leg-sim').textContent=`Simulado: USD ${fmt(dash)}`;
+
+  // Actualizar barra en resumen si existe
+  const dSim=document.getElementById('dash-seg-sim');
+  if(dSim)dSim.style.width=Math.max(0,pS)+'%';
+  const dL=document.getElementById('dash-sim-label');
+  if(dL)dL.textContent='USD '+fmt(dash);
+}
+
+function renderVentas(){
+  if(!kpis)return;
+  const reservNaranja=kpis.reservadosData.map(r=>({...r,_esRes:true}));
+  let rows=[...kpis.vendidosData,...reservNaranja];
+  if(busqV)rows=rows.filter(r=>(r.dir+r.nombre+r.zona+r.barrio).toLowerCase().includes(busqV.toLowerCase()));
+  if(sortCV)rows.sort((a,b)=>{const va=a[sortCV]||0,vb=b[sortCV]||0;return sdV*(typeof va==='number'?va-vb:String(va).localeCompare(String(vb)));});
+  document.getElementById('cnt-ventas').textContent=rows.length+' operaciones';
+  document.getElementById('tb-ventas').innerHTML=rows.map(r=>`<tr style="${r._esRes?'opacity:0.85':''}">
+    <td>${r.dir||'—'}<br><span style="color:var(--muted);font-size:10px">${r.nombre}</span></td>
+    <td>${r.zona||'—'}</td>
+    <td><span class="badge ${r._esRes?'r':'v'}">${r.estado}</span></td>
+    <td>${fU(r.precio_cierre||r.val_pub_ult||r.val_pub_ini)}</td>
+    <td>${fU(r.comis_bruta)}</td>
+    <td style="color:${r._esRes?'var(--warn)':'var(--green-glow)'};font-weight:600">${fU(r.tbol_total)}</td>
+    <td>${r.dias_venta>0?fmt(r.dias_venta)+' d':'—'}</td>
+    <td>${r.pct_neg?fmt(r.pct_neg*100,1)+'%':'—'}</td>
+    <td>${r.credito&&r.credito!=='No'&&r.credito!==''?r.credito:'—'}</td>
+  </tr>`).join('');
+}
+
+function srtV(col){if(sortCV===col)sdV*=-1;else{sortCV=col;sdV=-1;}renderVentas();}
+function srtC(col){if(sortCC===col)sdC*=-1;else{sortCC=col;sdC=-1;}renderCartera();}
+
+// ── MULTI-SELECT ───────────────────────────────────────────────────────────
+function buildMS(id,ops,sel,lbl){
+  const w=document.getElementById(id);if(!w)return;
+  const tr=w.querySelector('.ms-trigger'),dd=w.querySelector('.ms-dropdown'),oo=w.querySelector('.opts');
+  oo.innerHTML='';
+  ops.forEach(op=>{const d=document.createElement('div');d.className='ms-option';
+    const c=document.createElement('input');c.type='checkbox';c.value=op;c.checked=sel.includes(op);
+    d.appendChild(c);d.appendChild(document.createTextNode(lbl?lbl(op):op));oo.appendChild(d);});
+  const upd=()=>{const ch=[...oo.querySelectorAll('input:checked')].map(i=>i.value);
+    tr.querySelector('span').textContent=ch.length===0||ch.length===ops.length?'Todos':ch.length<=2?ch.map(v=>lbl?lbl(v):v).join(', '):ch.length+' sel.';};
+  upd();tr.onclick=e=>{e.stopPropagation();dd.classList.toggle('open');};
+  document.addEventListener('click',()=>dd.classList.remove('open'));
+  oo.querySelectorAll('input').forEach(i=>i.onchange=upd);
+}
+function getMS(id){const w=document.getElementById(id);if(!w)return[];return[...w.querySelectorAll('input:checked')].map(i=>i.value);}
+function selAll(id){const w=document.getElementById(id);const all=w.querySelectorAll('input');const ok=[...all].every(c=>c.checked);all.forEach(c=>c.checked=!ok);}
+
+function aplicar(){
+  filtroAños=getMS('ms-años').map(Number);
+  filtroMeses=getMS('ms-meses').map(Number);
+  kpis=compute(allRows);
+  renderKPIs(kpis);buildResumenCharts(kpis);
+  buildProspCharts(kpis);buildRefCharts(kpis);
+  renderCartera();renderVentas();
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+function renderPersonal(){
+  if(!kpis)return;
+  const vend=kpis.vendidosData;
+  const añoAct=new Date().getFullYear();
+
+  // KPIs personales
+  const bolAño=vend.filter(r=>{const d=pd(r.f_escritura);return d&&d.getFullYear()===añoAct;}).reduce((s,r)=>s+(r.tbol_total||0),0);
+  const nOps=vend.length;
+  const mejorAño=Math.max(...[...new Set(vend.map(r=>{const d=pd(r.f_escritura);return d?d.getFullYear():null;}).filter(Boolean))].map(año=>
+    vend.filter(r=>{const d=pd(r.f_escritura);return d&&d.getFullYear()===año;}).reduce((s,r)=>s+(r.tbol_total||0),0)));
+
+  document.getElementById('kpi-personal').innerHTML=`
+    <div class="kpi hl"><div class="kpi-label">Bolsillo ${añoAct}</div><div class="kpi-value green">USD ${fmt(bolAño)}</div></div>
+    <div class="kpi"><div class="kpi-label">Operaciones totales</div><div class="kpi-value">${nOps}</div></div>
+    <div class="kpi"><div class="kpi-label">Mejor año</div><div class="kpi-value">USD ${fmt(mejorAño)}</div></div>
+    <div class="kpi"><div class="kpi-label">Promedio por op.</div><div class="kpi-value">USD ${fmt(nOps?vend.reduce((s,r)=>s+(r.tbol_total||0),0)/nOps:0)}</div></div>`;
+
+  // Bolsillo mes a mes + acumulado
+  const meses=[...new Set(vend.map(r=>{const d=pd(r.f_escritura);return d?mkey(d):null;}).filter(Boolean))].sort();
+  let acumBol=0;
+  const bolMes=meses.map(m=>{const v=vend.filter(r=>{const d=pd(r.f_escritura);return d&&mkey(d)===m;}).reduce((s,r)=>s+(r.tbol_total||0),0);acumBol+=v;return{mes:m,v,acum:acumBol};});
+  destroyChart('bolMes');
+  const ctxBM=document.getElementById('chart-bol-mes');
+  if(ctxBM)charts.bolMes=new Chart(ctxBM,{type:'bar',data:{
+    labels:bolMes.map(x=>{const[y,mo]=x.mes.split('-');return MES[+mo-1].slice(0,3)+' '+y.slice(2);}),
+    datasets:[
+      {label:'Bolsillo',data:bolMes.map(x=>x.v),backgroundColor:G[2],borderRadius:3,yAxisID:'y'},
+      {label:'Acumulado',data:bolMes.map(x=>x.acum),type:'line',borderColor:G[0],backgroundColor:'rgba(45,106,79,0.1)',fill:true,tension:0.3,pointRadius:2,yAxisID:'y1'},
+    ]
+  },options:{responsive:true,maintainAspectRatio:true,
+    plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:10}}}},
+    scales:{x:{grid:{display:false},ticks:{font:{size:9}}},y:{grid:{color:'#21262d'},position:'left'},y1:{grid:{display:false},position:'right'}}}});
+
+  renderPersonalComp();
+
+  // Origen: prospección propia vs no
+  const bolProsp=vend.filter(r=>r.prospectador===TUTE).reduce((s,r)=>s+(r.tbol_prosp||0),0);
+  const bolCapt=vend.filter(r=>r.captador===TUTE).reduce((s,r)=>s+(r.tbol_capt||0),0);
+  const bolVenta=vend.filter(r=>r.vendedor===TUTE).reduce((s,r)=>s+(r.tbol_vend||0),0);
+  destroyChart('persOrigen');
+  const ctxO=document.getElementById('chart-pers-origen');
+  if(ctxO)charts.persOrigen=new Chart(ctxO,{type:'doughnut',data:{
+    labels:['Prospección','Captación','Venta'],
+    datasets:[{data:[bolProsp,bolCapt,bolVenta],backgroundColor:[G[2],B[0],O[0]],borderWidth:0,hoverOffset:6}]
+  },options:{responsive:true,maintainAspectRatio:true,cutout:'60%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
+
+  // Por zona
+  const zonaMap={};
+  vend.forEach(r=>{const z=r.zona||'Sin zona';zonaMap[z]=(zonaMap[z]||0)+(r.tbol_total||0);});
+  const ze=sorted(zonaMap);
+  destroyChart('persZona');
+  const ctxZ=document.getElementById('chart-pers-zona');
+  if(ctxZ)charts.persZona=new Chart(ctxZ,{type:'doughnut',data:{
+    labels:ze.map(e=>e[0]),
+    datasets:[{data:ze.map(e=>e[1]),backgroundColor:[...B,...O,...G],borderWidth:0,hoverOffset:6}]
+  },options:{responsive:true,maintainAspectRatio:true,cutout:'60%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
+
+  // Ticket vs Bolsillo scatter
+  destroyChart('persTicket');
+  const ctxT=document.getElementById('chart-pers-ticket');
+  if(ctxT)charts.persTicket=new Chart(ctxT,{type:'scatter',data:{
+    datasets:[{label:'Ops',data:vend.filter(r=>r.precio_cierre&&r.tbol_total).map(r=>({x:r.precio_cierre,y:r.tbol_total,label:r.dir||r.nombre})),
+      backgroundColor:G[2],pointRadius:6,pointHoverRadius:8}]
+  },options:{responsive:true,maintainAspectRatio:true,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:d=>`${d.raw.label}: ${fU(d.raw.x)} → ${fU(d.raw.y)}`}}},
+    scales:{x:{grid:{color:'#21262d'},title:{display:true,text:'Precio cierre',color:'#7d8590',font:{size:10}}},
+            y:{grid:{color:'#21262d'},title:{display:true,text:'Bolsillo',color:'#7d8590',font:{size:10}}}}}});
+}
+
+function renderPersonalComp(){
+  if(!kpis)return;
+  const vend=kpis.vendidosData;
+  const tipo=document.getElementById('sel-pers-tipo')?.value||'bol';
+  const años=[...new Set(vend.map(r=>{const d=pd(r.f_escritura);return d?d.getFullYear():null;}).filter(Boolean))].sort();
+  const datasets=años.map((año,idx)=>{
+    const data=Array.from({length:12},(_,i)=>i+1).map(mes=>{
+      return vend.filter(r=>{const d=pd(r.f_escritura);return d&&d.getFullYear()===año&&d.getMonth()+1===mes;})
+        .reduce((s,r)=>s+(tipo==='bol'?(r.tbol_total||0):(r.comis_bruta||0)),0);
+    });
+    return{label:String(año),data,backgroundColor:COLORS_AÑO[idx%COLORS_AÑO.length],borderRadius:3};
+  });
+  destroyChart('persComp');
+  const ctx=document.getElementById('chart-pers-comp');
+  if(ctx)charts.persComp=new Chart(ctx,{type:'bar',data:{
+    labels:MES.map(m=>m.slice(0,3)),datasets
+  },options:{responsive:true,maintainAspectRatio:true,
+    plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:10}}}},
+    scales:{x:{grid:{display:false}},y:{grid:{color:'#21262d'}}}}});
+}
+
+async function init(){
+  try{
+    const data=await fetchData();
+    if(!data.length)throw new Error('Sin datos');
+    allRows=data;kpis=compute(allRows);
+    document.getElementById('loading').style.display='none';
+    document.getElementById('app').style.display='block';
+
+    const años=[...new Set(allRows.map(r=>{const d=pd(r.f_escritura)||pd(r.f_reserva)||pd(r.f_contacto);return d?d.getFullYear():null;}).filter(Boolean))].sort();
+    buildMS('ms-años',años,[],String);
+    buildMS('ms-meses',[1,2,3,4,5,6,7,8,9,10,11,12],[],m=>MES[m-1]);
+
+    // Llenar selector de año en embudo
+    const selAño=document.getElementById('sel-año-emb');
+    if(selAño)selAño.innerHTML='<option value="">Todos</option>'+años.map(y=>`<option value="${y}">${y}</option>`).join('');
+
+    // Llenar selector de zona
+    const zonas=[...new Set(allRows.map(r=>r.zona).filter(Boolean))].sort();
+    const sz=document.getElementById('sel-zona');
+    if(sz)sz.innerHTML='<option value="">Todas</option>'+zonas.map(z=>`<option value="${z}">${z}</option>`).join('');
+
+    renderKPIs(kpis);buildResumenCharts(kpis);
+    buildProspCharts(kpis);buildRefCharts(kpis);
+    renderCartera();renderVentas();renderPersonal();
+    document.getElementById('last-update').textContent='Act: '+new Date().toLocaleTimeString('es-AR');
+  }catch(e){
+    document.getElementById('loading').innerHTML=`<div style="color:var(--danger);padding:20px">Error: ${e.message}</div>`;
+  }
+}
+
+init();
+setInterval(()=>fetchData().then(d=>{if(d.length){allRows=d;kpis=compute(d);renderKPIs(kpis);buildResumenCharts(kpis);buildProspCharts(kpis);buildRefCharts(kpis);renderCartera();renderVentas();document.getElementById('last-update').textContent='Act: '+new Date().toLocaleTimeString('es-AR');}}).catch(()=>{}),5*60*1000);
 </script>
 </body>
 </html>
