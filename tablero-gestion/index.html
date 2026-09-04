@@ -160,7 +160,7 @@ tr:last-child td{border-bottom:none;}
       <p class="section-title">Embudo</p>
       <div class="kpi-grid" id="kpi-embudo"></div>
       <div class="charts-grid cg-2b" style="margin-top:4px">
-        <div class="card"><div class="card-title"><span><span class="dot"></span>Estado cartera activa</span></div><canvas id="chart-estado" height="130"></canvas></div>
+        <div class="card"><div class="card-title"><span><span class="dot"></span>Estado cartera activa</span></div><canvas id="chart-estado" height="100"></canvas></div>
         <div class="card"><div class="card-title"><span><span class="dot"></span>Bolsillo acumulado</span></div><canvas id="chart-bol-acum" height="130"></canvas></div>
       </div>
     </div>
@@ -227,7 +227,7 @@ tr:last-child td{border-bottom:none;}
             <span><span class="dot"></span>Crédito (vendidos + reservados)</span>
             <select id="sel-credito-año" class="card-select" onchange="renderCredito(kpis)"><option value="">Todos</option></select>
           </div>
-          <canvas id="chart-credito" height="120"></canvas>
+          <canvas id="chart-credito" height="90"></canvas>
         </div>
       </div>
     </div>
@@ -373,7 +373,7 @@ tr:last-child td{border-bottom:none;}
             <div id="pers-años-checks" style="display:flex;gap:6px;flex-wrap:wrap"></div>
           </div>
         </div>
-        <canvas id="chart-pers-comp" height="150"></canvas>
+        <canvas id="chart-pers-comp" height="110"></canvas>
       </div>
 
       <!-- Origen del bolsillo -->
@@ -393,7 +393,7 @@ tr:last-child td{border-bottom:none;}
             </select>
           </div>
         </div>
-        <canvas id="chart-pers-origen" height="150"></canvas>
+        <canvas id="chart-pers-origen" height="110"></canvas>
       </div>
 
       <!-- Por zona y barrio -->
@@ -1193,7 +1193,8 @@ function renderPersonalComp(){
   if(ctx)charts.persComp=new Chart(ctx,{type:'bar',data:{
     labels:MES.map(m=>m.slice(0,3)),datasets
   },options:{responsive:true,maintainAspectRatio:true,
-    plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:10}}}},
+    plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:10}}},
+      tooltip:{callbacks:{label:function(d){return d.dataset.label+': USD '+fmt(d.parsed.y);}}}},
     scales:{x:{grid:{display:false}},y:{grid:{color:'#21262d'}}}}});
 }
 
@@ -1225,7 +1226,26 @@ function renderPersonalOrigen(){
   var datasets=[{label:lbl1,backgroundColor:G[2],borderRadius:4,data:dat1},{label:lbl2,backgroundColor:B[0],borderRadius:4,data:dat2},{label:lbl3,backgroundColor:O[0],borderRadius:4,data:dat3}];
   destroyChart('persOrigen');
   const ctx=document.getElementById('chart-pers-origen');
-  if(ctx)charts.persOrigen=new Chart(ctx,{type:'bar',data:{labels:anos2.map(String),datasets},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:10}}}},scales:{x:{grid:{display:false}},y:{grid:{color:'#21262d'}}}}});
+  // calcular también ops para tooltip (siempre, independiente del selector USD/Ops)
+  var opsD={};
+  ['Prospeccion','Captacion','Venta'].forEach(function(lbl,li){
+    anos2.forEach(function(a){
+      var key=lbl+'-'+a;
+      var filtFn=li===0?function(r){return getAnioEsc(r)===a&&r.prospectador===TUTE;}:li===1?function(r){return getAnioEsc(r)===a&&r.captador===TUTE;}:function(r){return getAnioEsc(r)===a&&r.vendedor===TUTE;};
+      opsD[key]=vend.filter(filtFn).length;
+      var mFn=li===0?function(r){return r.tbol_prosp||0;}:li===1?function(r){return r.tbol_capt||0;}:function(r){return r.tbol_vend||0;};
+      if(!opsD[lbl+'-'+a+'-usd'])opsD[lbl+'-'+a+'-usd']=vend.filter(filtFn).reduce(function(s,r){return s+mFn(r);},0);
+    });
+  });
+  if(ctx)charts.persOrigen=new Chart(ctx,{type:'bar',data:{labels:anos2.map(String),datasets},options:{responsive:true,maintainAspectRatio:true,
+    plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:10}}},
+      tooltip:{callbacks:{label:function(d){
+        var key=d.dataset.label+'-'+d.label;
+        var usd=opsD[key+'-usd']||0;
+        var ops=opsD[key]||0;
+        return[d.dataset.label+': USD '+fmt(usd),'Ops: '+ops];
+      },title:function(items){return items[0]?items[0].label+' (año)':'';}}}},
+    scales:{x:{grid:{display:false}},y:{grid:{color:'#21262d'}}}}});
 }
 
 function renderPersonalOrigen2(){} // reemplazada por barras
@@ -1243,10 +1263,14 @@ function renderPersonalZona(){
   const ze=sorted(zonaMap);
   destroyChart('persZona');
   const ctx=document.getElementById('chart-pers-zona');
+  // también calcular ops por zona para tooltip
+  const zonaOps={};
+  vend.forEach(r=>{const z=r.zona||'Sin zona';zonaOps[z]=(zonaOps[z]||0)+1;});
   if(ctx)charts.persZona=new Chart(ctx,{type:'bar',data:{
     labels:ze.map(e=>e[0]),
     datasets:[{label:'Bolsillo',data:ze.map(e=>e[1]),backgroundColor:G[2],borderRadius:4}]
-  },options:{responsive:true,maintainAspectRatio:true,indexAxis:'y',plugins:{legend:{display:false}},
+  },options:{responsive:true,maintainAspectRatio:true,indexAxis:'y',
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:d=>{const z=d.label;return['USD '+fmt(d.parsed.x),'Ops: '+(zonaOps[z]||0)];},title:()=>''}}},
     scales:{x:{grid:{color:'#21262d'}},y:{grid:{display:false},ticks:{font:{size:10}}}}}});
 }
 
