@@ -140,7 +140,7 @@ tr:last-child td{border-bottom:none;}
 
     <!-- FILTROS GLOBALES -->
     <div class="filters-bar">
-      <div class="filter-group"><div class="filter-label">Año</div>
+      <div class="filter-group"><div class="filter-label">Año (KPIs numéricos)</div>
         <div class="multi-select" id="ms-años"><div class="ms-trigger"><span>Todos</span>▾</div>
         <div class="ms-dropdown"><div class="ms-all" onclick="selAll('ms-años')">Todos/Ninguno</div><div class="opts"></div></div></div></div>
       <div class="filter-group"><div class="filter-label">Mes</div>
@@ -160,8 +160,8 @@ tr:last-child td{border-bottom:none;}
       <p class="section-title">Embudo</p>
       <div class="kpi-grid" id="kpi-embudo"></div>
       <div class="charts-grid cg-2b" style="margin-top:4px">
-        <div class="card"><div class="card-title"><span><span class="dot"></span>Estado cartera activa</span></div><canvas id="chart-estado" height="220"></canvas></div>
-        <div class="card"><div class="card-title"><span><span class="dot"></span>Bolsillo acumulado</span></div><canvas id="chart-bol-acum" height="220"></canvas></div>
+        <div class="card"><div class="card-title"><span><span class="dot"></span>Estado cartera activa</span></div><canvas id="chart-estado" height="130"></canvas></div>
+        <div class="card"><div class="card-title"><span><span class="dot"></span>Bolsillo acumulado</span></div><canvas id="chart-bol-acum" height="130"></canvas></div>
       </div>
     </div>
 
@@ -192,8 +192,11 @@ tr:last-child td{border-bottom:none;}
           <canvas id="chart-emb-año" height="200"></canvas>
         </div>
         <div class="card">
-          <div class="card-title"><span><span class="dot"></span>Comparativa año a año</span>
-            <div style="display:flex;gap:6px;flex-wrap:wrap" id="btn-comp-wrap">
+          <div class="card-title">
+            <span><span class="dot"></span>Comparativa año a año</span>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+              <div id="prosp-comp-años-checks" style="display:flex;gap:6px;flex-wrap:wrap"></div>
+              <div style="width:1px;height:20px;background:var(--border)"></div>
               <button onclick="setMetricComp('cont')" id="btn-c-cont" style="background:var(--blue);border:none;border-radius:5px;padding:4px 10px;color:white;font-size:11px;cursor:pointer;">Contactos</button>
               <button onclick="setMetricComp('tas')" id="btn-c-tas" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Tasaciones</button>
               <button onclick="setMetricComp('capt')" id="btn-c-capt" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 10px;color:var(--muted);font-size:11px;cursor:pointer;">Captaciones</button>
@@ -219,7 +222,13 @@ tr:last-child td{border-bottom:none;}
             <select id="sel-zona" class="card-select" onchange="renderBarrio()"><option value="">Todas</option></select>
           </div><canvas id="chart-barrio" height="220"></canvas>
         </div>
-        <div class="card"><div class="card-title"><span class="dot"></span>Crédito (vendidos + reservados)</div><canvas id="chart-credito" height="160"></canvas></div>
+        <div class="card">
+          <div class="card-title">
+            <span><span class="dot"></span>Crédito (vendidos + reservados)</span>
+            <select id="sel-credito-año" class="card-select" onchange="renderCredito(kpis)"><option value="">Todos</option></select>
+          </div>
+          <canvas id="chart-credito" height="120"></canvas>
+        </div>
       </div>
     </div>
 
@@ -364,49 +373,60 @@ tr:last-child td{border-bottom:none;}
             <div id="pers-años-checks" style="display:flex;gap:6px;flex-wrap:wrap"></div>
           </div>
         </div>
-        <canvas id="chart-pers-comp" height="180"></canvas>
+        <canvas id="chart-pers-comp" height="150"></canvas>
       </div>
 
       <!-- Origen del bolsillo -->
-      <div class="charts-grid cg-2b" style="margin-bottom:14px">
-        <div class="card">
-          <div class="card-title">
-            <span><span class="dot"></span>Origen del bolsillo (rol)</span>
-            <div style="display:flex;gap:6px;flex-wrap:wrap">
-              <select id="sel-origen-año" class="card-select" onchange="renderPersonalOrigen()"><option value="">Todos</option></select>
-              <select id="sel-origen-prosp" class="card-select" onchange="renderPersonalOrigen()">
-                <option value="">Todos</option>
-                <option value="propia">Prospección propia</option>
-                <option value="otro">Prospección de otro</option>
-              </select>
-            </div>
-          </div>
-          <canvas id="chart-pers-origen" height="200"></canvas>
-        </div>
-        <div class="card">
-          <div class="card-title"><span><span class="dot"></span>Prospección propia vs de otro</span>
-            <div style="display:flex;gap:6px;flex-wrap:wrap">
-              <select id="sel-origen2-año" class="card-select" onchange="renderPersonalOrigen2()"><option value="">Todos</option></select>
-            </div>
-          </div>
-          <canvas id="chart-pers-origen2" height="200"></canvas>
-        </div>
-      </div>
-
-      <!-- Por zona -->
       <div class="card" style="margin-bottom:14px">
         <div class="card-title">
-          <span><span class="dot"></span>Bolsillo por zona</span>
-          <div style="display:flex;gap:6px;flex-wrap:wrap">
-            <select id="sel-zona-pers-año" class="card-select" onchange="renderPersonalZona()"><option value="">Todos</option></select>
-            <select id="sel-zona-pers-prosp" class="card-select" onchange="renderPersonalZona()">
+          <span><span class="dot"></span>Origen del bolsillo por año</span>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+            <div id="pers-origen-años-checks" style="display:flex;gap:6px;flex-wrap:wrap"></div>
+            <div style="width:1px;height:18px;background:var(--border)"></div>
+            <button onclick="setOrigenMetric('monto')" id="btn-or-monto" style="background:var(--blue);border:none;border-radius:5px;padding:3px 9px;color:white;font-size:11px;cursor:pointer;">USD</button>
+            <button onclick="setOrigenMetric('ops')" id="btn-or-ops" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:3px 9px;color:var(--muted);font-size:11px;cursor:pointer;">Ops</button>
+            <div style="width:1px;height:18px;background:var(--border)"></div>
+            <select id="sel-origen-prosp" class="card-select" onchange="renderPersonalOrigen()">
               <option value="">Todos</option>
-              <option value="propia">Prospección propia</option>
-              <option value="otro">Prospección de otro</option>
+              <option value="propia">Prosp. propia</option>
+              <option value="otro">Prosp. de otro</option>
             </select>
           </div>
         </div>
-        <canvas id="chart-pers-zona" height="160"></canvas>
+        <canvas id="chart-pers-origen" height="150"></canvas>
+      </div>
+
+      <!-- Por zona y barrio -->
+      <div class="charts-grid cg-2b" style="margin-bottom:14px">
+        <div class="card">
+          <div class="card-title">
+            <span><span class="dot"></span>Bolsillo por zona</span>
+            <div style="display:flex;gap:6px;flex-wrap:wrap">
+              <select id="sel-zona-pers-año" class="card-select" onchange="renderPersonalZona()"><option value="">Todos</option></select>
+              <select id="sel-zona-pers-prosp" class="card-select" onchange="renderPersonalZona()">
+                <option value="">Todos</option>
+                <option value="propia">Prosp. propia</option>
+                <option value="otro">Prosp. de otro</option>
+              </select>
+            </div>
+          </div>
+          <canvas id="chart-pers-zona" height="150"></canvas>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span><span class="dot"></span>Bolsillo por barrio (top 10)</span>
+            <div style="display:flex;gap:6px;flex-wrap:wrap">
+              <select id="sel-barrio-pers-año" class="card-select" onchange="renderPersonalBarrio()"><option value="">Todos</option></select>
+              <select id="sel-barrio-pers-zona" class="card-select" onchange="renderPersonalBarrio()"><option value="">Todas zonas</option></select>
+              <select id="sel-barrio-pers-prosp" class="card-select" onchange="renderPersonalBarrio()">
+                <option value="">Todos</option>
+                <option value="propia">Prosp. propia</option>
+                <option value="otro">Prosp. de otro</option>
+              </select>
+            </div>
+          </div>
+          <canvas id="chart-pers-barrio" height="150"></canvas>
+        </div>
       </div>
     </div>
 
@@ -446,6 +466,9 @@ let allRows=[],filtroAños=[],filtroMeses=[];
 let sortCV='',sdV=1,sortCC='',sdC=1,busqV='',busqC='';
 let charts={},kpis=null,simState={};
 let filtroProsp='total',metricaEmb='all',metricaComp='cont';
+let prospCompAños=[];   // años seleccionados en comparativa prospección
+let persOrigenAños=[];  // años seleccionados en origen bolsillo
+let origenMetric='monto'; // 'monto' o 'ops'
 
 async function fetchData(){
   const r=await fetch(CSV);if(!r.ok)throw new Error('CSV no accesible');
@@ -677,6 +700,21 @@ function buildResumenCharts(k){
 
 // ── CHARTS PROSPECCIÓN ─────────────────────────────────────────────────────
 function buildProspCharts(k){
+  // Inicializar años para comparativa si vacíos
+  if(prospCompAños.length===0){
+    const años=[...new Set(allRows.map(r=>{const d=pd(r.f_contacto);return d?d.getFullYear():null;}).filter(Boolean))].sort();
+    prospCompAños=[...años];
+  }
+  // Llenar checks de años en comparativa
+  const checksEl=document.getElementById('prosp-comp-años-checks');
+  if(checksEl){
+    const años=[...new Set(allRows.map(r=>{const d=pd(r.f_contacto);return d?d.getFullYear():null;}).filter(Boolean))].sort();
+    checksEl.innerHTML=años.map(a=>`<label style="display:flex;align-items:center;gap:3px;font-size:11px;color:var(--muted);cursor:pointer"><input type="checkbox" ${prospCompAños.includes(a)?'checked':''} value="${a}" onchange="toggleProspCompAño(${a})" style="accent-color:var(--accent)">${a}</label>`).join('');
+  }
+  // Llenar selector crédito año
+  const años2=[...new Set(allRows.map(r=>{const d=pd(r.f_escritura)||pd(r.f_reserva);return d?d.getFullYear():null;}).filter(Boolean))].sort();
+  const selCred=document.getElementById('sel-credito-año');
+  if(selCred){selCred.innerHTML='<option value="">Todos</option>'+años2.map(a=>`<option value="${a}">${a}</option>`).join('');}
   renderEmbudoProsp();
   renderEmbudoAño();
   renderCompAño();
@@ -822,7 +860,7 @@ function renderP2(){
   destroyChart('p2');
   const e=sorted(by);
   const ctx=document.getElementById('chart-p2');
-  if(ctx)charts.p2=new Chart(ctx,{type:'doughnut',data:{labels:e.map(x=>x[0]),datasets:[{data:e.map(x=>x[1]),backgroundColor:O,borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'65%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
+  if(ctx)charts.p2=new Chart(ctx,{type:'doughnut',data:{labels:e.map(x=>x[0]),datasets:[{data:e.map(x=>x[1]),backgroundColor:['#388bfd','#52B788','#f85149','#d29922','#a855f7','#e879f9','#67e8f9','#fbbf24','#34d399'],borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'65%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}},tooltip:{callbacks:{label:ctx=>{const total=ctx.dataset.data.reduce((a,b)=>a+b,0);const pct=Math.round(ctx.parsed/total*100);return`${ctx.label}: ${ctx.parsed} (${pct}%)`;}}}}}});
 }
 
 function renderBarrio(){
@@ -837,10 +875,24 @@ function renderBarrio(){
 }
 
 function renderCredito(k){
+  if(!k)return;
   destroyChart('credito');
-  const ce=sorted(k.credMap);
+  const año=document.getElementById('sel-credito-año')?.value||'';
+  // Recalcular credMap con filtro de año
+  const VEND=['Vendido','Busqueda GANADA'];
+  let rows=[...allRows.filter(r=>VEND.includes(r.estado)||r.estado==='Reservado')];
+  if(año)rows=rows.filter(r=>{const d=pd(r.f_escritura)||pd(r.f_reserva);return d&&d.getFullYear()==año;});
+  const credMap={};
+  rows.forEach(r=>{const c=r.credito&&r.credito!=='No'&&r.credito!==''?r.credito:'Sin crédito';credMap[c]=(credMap[c]||0)+1;});
+  const ce=sorted(credMap);
+  const PALETA_DIST=['#388bfd','#52B788','#f85149','#d29922','#a855f7','#e879f9'];
   const ctx=document.getElementById('chart-credito');
-  if(ctx)charts.credito=new Chart(ctx,{type:'doughnut',data:{labels:ce.map(e=>e[0]),datasets:[{data:ce.map(e=>e[1]),backgroundColor:MX,borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,cutout:'60%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
+  if(ctx)charts.credito=new Chart(ctx,{type:'doughnut',data:{
+    labels:ce.map(e=>e[0]),
+    datasets:[{data:ce.map(e=>e[1]),backgroundColor:PALETA_DIST,borderWidth:0,hoverOffset:6}]
+  },options:{responsive:true,maintainAspectRatio:true,cutout:'60%',
+    plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}},
+      tooltip:{callbacks:{label:ctx=>{const total=ctx.dataset.data.reduce((a,b)=>a+b,0);const pct=Math.round(ctx.parsed/total*100);return`${ctx.label}: ${ctx.parsed} (${pct}%)`;}}}}}});
 }
 
 function buildRefCharts(k){
@@ -1042,6 +1094,7 @@ function renderPersonal(){
 
   // Inicializar checks de años si están vacíos
   if(persAñosSeleccionados.length===0) persAñosSeleccionados=[...años];
+  if(origenAñosSeleccionados.length===0) origenAñosSeleccionados=[...años];
 
   // KPIs personales
   const bolAño=vend.filter(r=>{const d=pd(r.f_escritura);return d&&d.getFullYear()===añoAct;}).reduce((s,r)=>s+(r.tbol_total||0),0);
@@ -1056,24 +1109,10 @@ function renderPersonal(){
     <div class="kpi"><div class="kpi-label">Promedio por op.</div><div class="kpi-value">USD ${fmt(nOps?bolTotal/nOps:0)}</div></div>
     <div class="kpi"><div class="kpi-label">Bolsillo total histórico</div><div class="kpi-value">USD ${fmt(bolTotal)}</div></div>`;
 
-  // Bolsillo mes a mes año actual — los 12 meses
-  destroyChart('bolMes');
-  const ctxBM=document.getElementById('chart-bol-mes');
-  if(ctxBM){
-    let acum=0;
-    const labels=MES.map(m=>m.slice(0,3));
-    const barData=Array.from({length:12},(_,i)=>{
-      const mes=i+1;
-      return vend.filter(r=>{const d=pd(r.f_escritura);return d&&d.getFullYear()===añoAct&&d.getMonth()+1===mes;}).reduce((s,r)=>s+(r.tbol_total||0),0);
-    });
-    const lineData=barData.map(v=>{acum+=v;return acum;});
-    charts.bolMes=new Chart(ctxBM,{type:'bar',data:{labels,datasets:[
-      {label:'Bolsillo',data:barData,backgroundColor:G[2],borderRadius:3,yAxisID:'y'},
-      {label:'Acumulado',data:lineData,type:'line',borderColor:G[0],backgroundColor:'rgba(45,106,79,0.08)',fill:true,tension:0.3,pointRadius:2,yAxisID:'y1'},
-    ]},options:{responsive:true,maintainAspectRatio:true,
-      plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:10}}}},
-      scales:{x:{grid:{display:false}},y:{grid:{color:'#21262d'},position:'left'},y1:{grid:{display:false},position:'right'}}}});
-  }
+  // Llenar selector de año bolsillo mes a mes
+  const selBolMes=document.getElementById('sel-bol-mes-año');
+  if(selBolMes){selBolMes.innerHTML='<option value="">Año actual</option>'+años.map(a=>`<option value="${a}">${a}</option>`).join('');}
+  renderBolsilloMes();
 
   // Render checks de años para comparativa
   const checksEl=document.getElementById('pers-años-checks');
@@ -1085,17 +1124,26 @@ function renderPersonal(){
       </label>`).join('');
   }
 
-  // Llenar selects de año en gráficos de origen y zona
+  // Llenar selects de año y zona en gráficos
   const añoOpts='<option value="">Todos</option>'+años.map(a=>`<option value="${a}">${a}</option>`).join('');
-  ['sel-origen-año','sel-origen2-año','sel-zona-pers-año'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el){const cur=el.value;el.innerHTML=añoOpts;el.value=cur;}
+  ['sel-zona-pers-año','sel-barrio-pers-año'].forEach(id=>{
+    const el=document.getElementById(id);if(el){const cur=el.value;el.innerHTML=añoOpts;el.value=cur;}
   });
+  // Zona para barrio
+  const zonas=[...new Set(kpis.vendidosData.map(r=>r.zona).filter(Boolean))].sort();
+  const selBZ=document.getElementById('sel-barrio-pers-zona');
+  if(selBZ){const cur=selBZ.value;selBZ.innerHTML='<option value="">Todas zonas</option>'+zonas.map(z=>`<option value="${z}">${z}</option>`).join('');selBZ.value=cur;}
 
   renderPersonalComp();
   renderPersonalOrigen();
-  renderPersonalOrigen2();
   renderPersonalZona();
+  renderPersonalBarrio();
+}
+
+function toggleProspCompAño(año){
+  if(prospCompAños.includes(año)) prospCompAños=prospCompAños.filter(a=>a!==año);
+  else prospCompAños.push(año);
+  renderCompAño();
 }
 
 function togglePersAño(año){
@@ -1104,11 +1152,35 @@ function togglePersAño(año){
   renderPersonalComp();
 }
 
+function renderBolsilloMes(){
+  if(!kpis)return;
+  const vend=kpis.vendidosData;
+  const añoSel=document.getElementById('sel-bol-mes-año')?.value;
+  const año=añoSel?parseInt(añoSel):new Date().getFullYear();
+  destroyChart('bolMes');
+  const ctxBM=document.getElementById('chart-bol-mes');
+  if(!ctxBM)return;
+  let acum=0;
+  const barData=Array.from({length:12},(_,i)=>{
+    const mes=i+1;
+    return vend.filter(r=>{const d=pd(r.f_escritura);return d&&d.getFullYear()===año&&d.getMonth()+1===mes;}).reduce((s,r)=>s+(r.tbol_total||0),0);
+  });
+  const lineData=barData.map(v=>{acum+=v;return acum;});
+  charts.bolMes=new Chart(ctxBM,{type:'bar',data:{labels:MES.map(m=>m.slice(0,3)),datasets:[
+    {label:'Bolsillo',data:barData,backgroundColor:G[2],borderRadius:3,yAxisID:'y'},
+    {label:'Acumulado',data:lineData,type:'line',borderColor:G[0],backgroundColor:'rgba(45,106,79,0.08)',fill:true,tension:0.3,pointRadius:2,yAxisID:'y1'},
+  ]},options:{responsive:true,maintainAspectRatio:true,
+    plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:10}}}},
+    scales:{x:{grid:{display:false}},y:{grid:{color:'#21262d'},position:'left'},y1:{grid:{display:false},position:'right'}}}});
+}
+
 function renderPersonalComp(){
   if(!kpis)return;
   const vend=kpis.vendidosData;
   const tipo=document.getElementById('sel-pers-tipo')?.value||'bol';
-  const años=persAñosSeleccionados.sort();
+  // Usar años seleccionados en el gráfico, independiente del filtro global
+  const todosAñosVend=[...new Set(kpis.vendidosData.map(r=>{const d=pd(r.f_escritura);return d?d.getFullYear():null;}).filter(Boolean))].sort();
+  const años=persAñosSeleccionados.length>0?persAñosSeleccionados.filter(a=>todosAñosVend.includes(a)):todosAñosVend;
   const datasets=años.map((año,idx)=>{
     const data=Array.from({length:12},(_,i)=>i+1).map(mes=>{
       return vend.filter(r=>{const d=pd(r.f_escritura);return d&&d.getFullYear()===año&&d.getMonth()+1===mes;})
@@ -1125,39 +1197,38 @@ function renderPersonalComp(){
     scales:{x:{grid:{display:false}},y:{grid:{color:'#21262d'}}}}});
 }
 
-function renderPersonalOrigen(){
-  if(!kpis)return;
-  const año=document.getElementById('sel-origen-año')?.value||'';
-  const filtroP=document.getElementById('sel-origen-prosp')?.value||'';
-  let vend=kpis.vendidosData;
-  if(año)vend=vend.filter(r=>{const d=pd(r.f_escritura);return d&&d.getFullYear()==año;});
-  if(filtroP==='propia')vend=vend.filter(r=>r.prospectador===TUTE);
-  if(filtroP==='otro')vend=vend.filter(r=>r.prospectador!==TUTE);
-  const bolProsp=vend.filter(r=>r.prospectador===TUTE).reduce((s,r)=>s+(r.tbol_prosp||0),0);
-  const bolCapt=vend.filter(r=>r.captador===TUTE).reduce((s,r)=>s+(r.tbol_capt||0),0);
-  const bolVenta=vend.filter(r=>r.vendedor===TUTE).reduce((s,r)=>s+(r.tbol_vend||0),0);
-  destroyChart('persOrigen');
-  const ctx=document.getElementById('chart-pers-origen');
-  if(ctx)charts.persOrigen=new Chart(ctx,{type:'doughnut',data:{
-    labels:['Prospección','Captación','Venta'],
-    datasets:[{data:[bolProsp,bolCapt,bolVenta],backgroundColor:[G[2],B[0],O[0]],borderWidth:0,hoverOffset:6}]
-  },options:{responsive:true,maintainAspectRatio:true,cutout:'60%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
+let origenAñosSeleccionados=[];
+function setOrigenMetric(m){
+  origenMetric=m;
+  ['monto','ops'].forEach(x=>{
+    const btn=document.getElementById('btn-or-'+x);
+    if(btn){btn.style.background=x===m?'var(--blue)':'var(--surface2)';btn.style.border=x===m?'none':'1px solid var(--border)';btn.style.color=x===m?'white':'var(--muted)';}
+  });
+  renderPersonalOrigen();
 }
 
-function renderPersonalOrigen2(){
+function renderPersonalOrigen(){
   if(!kpis)return;
-  const año=document.getElementById('sel-origen2-año')?.value||'';
+  const filtroP=document.getElementById('sel-origen-prosp')?.value||'';
   let vend=kpis.vendidosData;
-  if(año)vend=vend.filter(r=>{const d=pd(r.f_escritura);return d&&d.getFullYear()==año;});
-  const bolPropia=vend.filter(r=>r.prospectador===TUTE).reduce((s,r)=>s+(r.tbol_total||0),0);
-  const bolOtro=vend.filter(r=>r.prospectador!==TUTE).reduce((s,r)=>s+(r.tbol_total||0),0);
-  destroyChart('persOrigen2');
-  const ctx=document.getElementById('chart-pers-origen2');
-  if(ctx)charts.persOrigen2=new Chart(ctx,{type:'doughnut',data:{
-    labels:['Prospección propia','Prospección de otro'],
-    datasets:[{data:[bolPropia,bolOtro],backgroundColor:[G[2],B[0]],borderWidth:0,hoverOffset:6}]
-  },options:{responsive:true,maintainAspectRatio:true,cutout:'60%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}});
+  if(filtroP==='propia')vend=vend.filter(r=>r.prospectador===TUTE);
+  if(filtroP==='otro')vend=vend.filter(r=>r.prospectador!==TUTE);
+  const años=origenAñosSeleccionados.length>0
+    ?origenAñosSeleccionados
+    :[...new Set(vend.map(r=>{const d=pd(r.f_escritura);return d?d.getFullYear():null;}).filter(Boolean))].sort();
+  const isMonto=origenMetric!=='ops';
+  function getAnioEsc(r){var d=pd(r.f_escritura);return d?d.getFullYear():null;}
+  var lbl1='Prospeccion'; var lbl2='Captacion'; var lbl3='Venta';
+  var anos2=origenAñosSeleccionados.length>0?origenAñosSeleccionados:[...new Set(vend.map(function(r){var d=pd(r.f_escritura);return d?d.getFullYear():null;}).filter(Boolean))].sort();var dat1=anos2.map(function(a){return isMonto?vend.filter(function(r){return getAnioEsc(r)===a&&r.prospectador===TUTE;}).reduce(function(s,r){return s+(r.tbol_prosp||0);},0):vend.filter(function(r){return getAnioEsc(r)===a&&r.prospectador===TUTE;}).length;});
+  var dat2=anos2.map(function(a){return isMonto?vend.filter(function(r){return getAnioEsc(r)===a&&r.captador===TUTE;}).reduce(function(s,r){return s+(r.tbol_capt||0);},0):vend.filter(function(r){return getAnioEsc(r)===a&&r.captador===TUTE;}).length;});
+  var dat3=anos2.map(function(a){return isMonto?vend.filter(function(r){return getAnioEsc(r)===a&&r.vendedor===TUTE;}).reduce(function(s,r){return s+(r.tbol_vend||0);},0):vend.filter(function(r){return getAnioEsc(r)===a&&r.vendedor===TUTE;}).length;});
+  var datasets=[{label:lbl1,backgroundColor:G[2],borderRadius:4,data:dat1},{label:lbl2,backgroundColor:B[0],borderRadius:4,data:dat2},{label:lbl3,backgroundColor:O[0],borderRadius:4,data:dat3}];
+  destroyChart('persOrigen');
+  const ctx=document.getElementById('chart-pers-origen');
+  if(ctx)charts.persOrigen=new Chart(ctx,{type:'bar',data:{labels:anos2.map(String),datasets},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:10}}}},scales:{x:{grid:{display:false}},y:{grid:{color:'#21262d'}}}}});
 }
+
+function renderPersonalOrigen2(){} // reemplazada por barras
 
 function renderPersonalZona(){
   if(!kpis)return;
